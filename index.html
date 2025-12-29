@@ -20,8 +20,6 @@
 
     <link rel="stylesheet" href="styles.css">
 
-    <!-- i18next for internationalization -->
-    <script src="https://unpkg.com/i18next@23.7.6/i18next.min.js"></script>
 </head>
 <body>
 <div class="background-decoration" aria-hidden="true"></div>
@@ -541,7 +539,7 @@
 <!-- Skip Link for Accessibility -->
 <a href="#quiz-settings" class="skip-link">Skip to quiz settings</a>
 
-<script src="app.js"></script>
+<script type="module" src="/src/main.js"></script>
 <script>
     // Register Service Worker
     if ('serviceWorker' in navigator) {

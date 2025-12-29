@@ -3,20 +3,34 @@
  * Enables offline functionality and caching
  */
 
-const CACHE_NAME = 'euro-capitals-quiz-v6';
+const CACHE_NAME = 'euro-capitals-quiz-v7';
+// Note: In production, run `npm run build` and update these paths to the bundled output
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
     './styles.css',
-    './app.js',
     './countries.json',
     './cities.json',
     './locales/en.json',
     './locales/es.json',
     './locales/fr.json',
+    './locales/de.json',
+    './locales/it.json',
+    './locales/pt.json',
+    './locales/pl.json',
+    './locales/nl.json',
+    './locales/ro.json',
+    './locales/sv.json',
     './locales/fun-facts-en.json',
     './locales/fun-facts-es.json',
     './locales/fun-facts-fr.json',
+    './locales/fun-facts-de.json',
+    './locales/fun-facts-it.json',
+    './locales/fun-facts-pt.json',
+    './locales/fun-facts-pl.json',
+    './locales/fun-facts-nl.json',
+    './locales/fun-facts-ro.json',
+    './locales/fun-facts-sv.json',
     './manifest.json'
 ];
 
