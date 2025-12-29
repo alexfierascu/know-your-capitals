@@ -1,6 +1,6 @@
 # European Capitals Quiz
 
-A trivia game testing your knowledge of European capital cities. Built as a Progressive Web App (PWA) with offline support.
+A trivia game testing your knowledge of European capital cities. Built as a Progressive Web App (PWA) with offline support and multi-language support.
 
 ## Features
 
@@ -30,30 +30,45 @@ A trivia game testing your knowledge of European capital cities. Built as a Prog
 - Export/Import progress as JSON backup
 - Share results as text or downloadable image
 
+### Internationalization
+- 10 supported languages: English, Spanish, French, German, Italian, Portuguese, Polish, Dutch, Romanian, Swedish
+- Localized fun facts for each language
+- Auto-detects browser language
+
 ### Technical
 - Progressive Web App (installable)
 - Offline support via Service Worker
-- No dependencies - pure HTML, CSS, JavaScript
+- Built with Vite
+- Modular ES6 JavaScript architecture
 - Responsive design
 
 ## Getting Started
 
-### Run Locally
+### Prerequisites
 
-The app requires a local server due to ES modules and Service Worker:
+- Node.js 18+
+- npm
+
+### Installation
 
 ```bash
-# Using Python
-python3 -m http.server 8080
-
-# Using Node.js
-npx serve .
-
-# Using PHP
-php -S localhost:8080
+npm install
 ```
 
-Then open http://localhost:8080 in your browser.
+### Development
+
+```bash
+npm run dev
+```
+
+Then open http://localhost:5173 in your browser.
+
+### Production Build
+
+```bash
+npm run build
+npm run preview
+```
 
 ### Install as PWA
 
@@ -66,16 +81,47 @@ Then open http://localhost:8080 in your browser.
 ```
 european-capitals/
 ├── index.html          # Main HTML structure
-├── styles.css          # All styles (~2000 lines)
-├── app.js              # Application logic (~2300 lines)
+├── styles.css          # All styles
 ├── sw.js               # Service Worker for offline support
 ├── manifest.json       # PWA manifest
+├── vite.config.js      # Vite configuration
+├── package.json        # Dependencies and scripts
 ├── countries.json      # Country and region data
 ├── cities.json         # Cities for answer options
-├── fun-facts.json      # Fun facts about capitals
-└── icons/              # PWA icons
-    ├── icon-192.png
-    └── icon-512.png
+├── src/                # Application source code
+│   ├── main.js         # Entry point
+│   ├── quiz.js         # Core quiz logic
+│   ├── stats.js        # Statistics tracking
+│   ├── state.js        # Application state
+│   ├── elements.js     # DOM element references
+│   ├── i18n.js         # Internationalization setup
+│   ├── storage.js      # LocalStorage management
+│   ├── theme.js        # Dark/Light theme toggle
+│   ├── achievements.js # Achievement system
+│   ├── hints.js        # Hint logic
+│   ├── share.js        # Results sharing
+│   ├── timer.js        # Game timer
+│   ├── confetti.js     # Confetti animations
+│   ├── leaderboard.js  # Local leaderboard
+│   ├── review.js       # Quiz review
+│   ├── progress.js     # Progress tracking
+│   ├── map.js          # Interactive map
+│   ├── options.js      # Game options
+│   ├── constants.js    # Static constants
+│   └── utils.js        # Utility functions
+├── locales/            # Translation files
+│   ├── en.json         # English
+│   ├── es.json         # Spanish
+│   ├── fr.json         # French
+│   ├── de.json         # German
+│   ├── it.json         # Italian
+│   ├── pt.json         # Portuguese
+│   ├── pl.json         # Polish
+│   ├── nl.json         # Dutch
+│   ├── ro.json         # Romanian
+│   ├── sv.json         # Swedish
+│   └── fun-facts-*.json # Localized fun facts
+└── icons/              # PWA icons (72px - 512px)
 ```
 
 ## Data Files
