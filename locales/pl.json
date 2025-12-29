@@ -1,0 +1,195 @@
+{
+  "loading": {
+    "text": "Ładowanie quizu..."
+  },
+  "app": {
+    "title": "Stolice Europy",
+    "subtitle": "Sprawdź swoją wiedzę o stolicach Europy",
+    "footer": "Odkrywaj Europę, jedna stolica na raz"
+  },
+  "start": {
+    "questions": "Pytania",
+    "optionsEach": "Opcji każde",
+    "questionsAvailable": "dostępnych pytań"
+  },
+  "settings": {
+    "yourName": "Twoje imię:",
+    "enterName": "Wpisz swoje imię",
+    "gameMode": "Tryb gry:",
+    "classic": "Klasyczny",
+    "classicDesc": "Stałe pytania, timer na pytanie",
+    "speedRun": "Wyścig z czasem",
+    "speedRunDesc": "60 sekund, odpowiedz na ile możesz",
+    "difficulty": "Trudność:",
+    "timer": "Timer:",
+    "region": "Region:",
+    "numQuestions": "Liczba pytań:"
+  },
+  "difficulty": {
+    "easy": "Łatwy",
+    "medium": "Średni",
+    "hard": "Trudny",
+    "easyHint": "Wszystkie opcje to miasta z tego samego kraju",
+    "mediumHint": "Miasta z tego samego kraju + jedno zagraniczne miasto",
+    "hardHint": "Wszystkie opcje to stolice różnych krajów"
+  },
+  "timer": {
+    "none": "Bez timera",
+    "10sec": "10 sekund",
+    "15sec": "15 sekund",
+    "20sec": "20 sekund",
+    "30sec": "30 sekund"
+  },
+  "regions": {
+    "all": "Cała Europa",
+    "western": "Europa Zachodnia",
+    "northern": "Europa Północna",
+    "southern": "Europa Południowa",
+    "eastern": "Europa Wschodnia",
+    "baltic": "Państwa Bałtyckie",
+    "balkans": "Bałkany"
+  },
+  "buttons": {
+    "beginQuiz": "Rozpocznij Quiz",
+    "nextQuestion": "Następne Pytanie",
+    "seeResults": "Zobacz Wyniki",
+    "playAgain": "Zagraj Ponownie",
+    "reviewAnswers": "Przejrzyj Odpowiedzi",
+    "share": "Udostępnij",
+    "shareImage": "Udostępnij Obrazek"
+  },
+  "quiz": {
+    "score": "Wynik",
+    "countryInfo": "Info o Kraju",
+    "questionPrefix": "Jaka jest stolica",
+    "timeUp": "Czas minął! Prawidłowa odpowiedź to"
+  },
+  "hints": {
+    "firstLetter": "Pierwsza Litera",
+    "eliminateOne": "Wyeliminuj Jedną",
+    "startsWith": "Wskazówka: Stolica zaczyna się na"
+  },
+  "results": {
+    "complete": "Quiz Ukończony!",
+    "correct": "Poprawne",
+    "incorrect": "Błędne",
+    "speedDemon": "Demon Prędkości, {{name}}!",
+    "speedDemonMsg": "Niesamowite! {{count}} pytań w 60 sekund z {{percent}}% dokładnością!",
+    "lightningFast": "Błyskawiczny, {{name}}!",
+    "lightningFastMsg": "Świetna prędkość! {{count}} pytań odpowiedzianych w zaledwie 60 sekund!",
+    "quickThinker": "Szybki Myśliciel, {{name}}!",
+    "quickThinkerMsg": "Dobre tempo! Odpowiedziałeś na {{count}} pytań w limicie czasu.",
+    "keepPracticing": "Ćwicz Dalej, {{name}}!",
+    "keepPracticingMsg": "{{count}} pytań odpowiedzianych. Spróbuj ponownie pobić swój rekord!",
+    "perfectScore": "Perfekcyjny Wynik, {{name}}!",
+    "perfectScoreMsg": "Niesamowite! Jesteś prawdziwym ekspertem geografii {{region}}!",
+    "excellent": "Doskonale, {{name}}!",
+    "excellentMsg": "Naprawdę znasz stolice {{region}}!",
+    "wellDone": "Dobra Robota, {{name}}!",
+    "wellDoneMsg": "Dobra wiedza o {{region}}, ale jest jeszcze wiele do odkrycia!",
+    "notBad": "Nieźle, {{name}}!",
+    "notBadMsg": "Jesteś na dobrej drodze do opanowania stolic {{region}}!",
+    "keepLearning": "Ucz się Dalej, {{name}}!",
+    "keepLearningMsg": "{{region}} ma tyle do odkrycia. Spróbuj ponownie!",
+    "noAnswer": "Brak odpowiedzi (czas minął)"
+  },
+  "toast": {
+    "copied": "Wyniki skopiowane do schowka!",
+    "imageDownloaded": "Obrazek pobrany!"
+  },
+  "modal": {
+    "leaderboard": "Ranking",
+    "achievements": "Osiągnięcia",
+    "progress": "Postęp"
+  },
+  "stats": {
+    "thisWeek": "Ten Tydzień",
+    "lifetimeStats": "Statystyki Całkowite",
+    "quizzesPlayed": "Rozegrane Quizy",
+    "bestStreak": "Najlepsza Seria",
+    "avgTime": "Śr. Czas/Pytanie",
+    "accuracy": "Dokładność",
+    "topScores": "Najlepsze Wyniki",
+    "noScores": "Brak wyników. Zagraj w quiz, aby pojawić się w rankingu!"
+  },
+  "achievements": {
+    "unlocked": "Osiągnięcie Odblokowane!",
+    "unlockedPlural": "Osiągnięcia Odblokowane!",
+    "unlockedLabel": "odblokowanych",
+    "howToUnlock": "Jak odblokować osiągnięcia:",
+    "howToUnlockDesc": "Ukończ quizy i osiągnij kamienie milowe jak perfekcyjne wyniki, serie odpowiedzi lub opanowanie krajów.",
+    "masteringCountry": "Opanowanie kraju:",
+    "masteringCountryDesc": "Odpowiedz na pytania o nim 3+ razy z 80%+ dokładnością.",
+    "firstSteps": "Pierwsze Kroki",
+    "firstStepsDesc": "Ukończ swój pierwszy quiz",
+    "perfect": "Perfekcyjnie!",
+    "perfectDesc": "Uzyskaj 100% w dowolnym quizie",
+    "perfectionist": "Perfekcjonista",
+    "perfectionistDesc": "Uzyskaj 5 perfekcyjnych wyników",
+    "onFire": "W Ogniu",
+    "onFireDesc": "5 poprawnych odpowiedzi z rzędu",
+    "unstoppable": "Nie Do Zatrzymania",
+    "unstoppableDesc": "10 poprawnych odpowiedzi z rzędu",
+    "dedicated": "Oddany",
+    "dedicatedDesc": "Ukończ 10 quizów",
+    "quizMaster": "Mistrz Quizu",
+    "quizMasterDesc": "Ukończ 50 quizów",
+    "gettingThere": "Coraz Bliżej",
+    "gettingThereDesc": "Opanuj 5 krajów",
+    "geographyBuff": "Miłośnik Geografii",
+    "geographyBuffDesc": "Opanuj 20 krajów",
+    "europeanExpert": "Ekspert Europejski",
+    "europeanExpertDesc": "Opanuj wszystkie 45 krajów",
+    "challengeAccepted": "Wyzwanie Przyjęte",
+    "challengeAcceptedDesc": "Ukończ quiz na poziomie Trudnym",
+    "legendary": "Legendarny",
+    "legendaryDesc": "Uzyskaj 100% na poziomie Trudnym",
+    "speedDemon": "Demon Prędkości",
+    "speedDemonDesc": "Ukończ quiz z 10 pytaniami z timerem w mniej niż 60 sekund",
+    "noHelpNeeded": "Bez Pomocy",
+    "noHelpNeededDesc": "Uzyskaj 100% bez używania wskazówek",
+    "balkanExpert": "Ekspert Bałkański",
+    "balkanExpertDesc": "Opanuj wszystkie kraje bałkańskie",
+    "nordicExplorer": "Odkrywca Północy",
+    "nordicExplorerDesc": "Opanuj wszystkie kraje północnej Europy"
+  },
+  "progress": {
+    "countryMastery": "Opanowanie Krajów",
+    "masteryLevels": "Poziomy Opanowania:",
+    "mastered": "Opanowany",
+    "masteredDesc": "80%+ poprawnie w 3+ próbach",
+    "learning": "W Nauce",
+    "learningDesc": "50-79% poprawnie",
+    "weak": "Słaby",
+    "weakDesc": "Poniżej 50% poprawnie",
+    "notSeen": "Nie Widziany",
+    "notSeenDesc": "Brak prób",
+    "all": "Wszystkie"
+  },
+  "data": {
+    "management": "Zarządzanie Danymi",
+    "export": "Eksportuj Postęp",
+    "import": "Importuj Postęp",
+    "invalidFile": "Nieprawidłowy format pliku kopii zapasowej.",
+    "confirmReplace": "To zastąpi twój obecny postęp. Kontynuować?",
+    "importSuccess": "Postęp zaimportowany pomyślnie!",
+    "importError": "Błąd odczytu pliku kopii zapasowej. Upewnij się, że to prawidłowy plik JSON."
+  },
+  "share": {
+    "title": "Quiz Stolice Europy",
+    "speedRunMode": "Wyścig z Czasem",
+    "classicMode": "Tryb Klasyczny",
+    "speedRunModeLabel": "Tryb Wyścig z Czasem",
+    "60secondChallenge": "Wyzwanie 60 sekund",
+    "60seconds": "60 Sekund",
+    "score": "Wynik",
+    "mode": "Tryb",
+    "difficultyLabel": "Trudność",
+    "regionLabel": "Region",
+    "player": "Gracz",
+    "challenge": "Czy możesz pobić mój wynik?",
+    "speedChallenge": "Czy możesz odpowiedzieć na więcej pytań w 60 sekund?",
+    "scoreMessage": "Uzyskałem {{score}}/{{total}} ({{percent}}%) w Quizie Stolice Europy!",
+    "results": "Wyniki"
+  }
+}

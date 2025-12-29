@@ -1,0 +1,195 @@
+{
+  "loading": {
+    "text": "Caricamento quiz..."
+  },
+  "app": {
+    "title": "Capitali Europee",
+    "subtitle": "Metti alla prova le tue conoscenze sulle capitali europee",
+    "footer": "Esplora l'Europa, una capitale alla volta"
+  },
+  "start": {
+    "questions": "Domande",
+    "optionsEach": "Opzioni ciascuna",
+    "questionsAvailable": "domande disponibili"
+  },
+  "settings": {
+    "yourName": "Il tuo nome:",
+    "enterName": "Inserisci il tuo nome",
+    "gameMode": "Modalità di gioco:",
+    "classic": "Classica",
+    "classicDesc": "Domande fisse, timer per domanda",
+    "speedRun": "Corsa veloce",
+    "speedRunDesc": "60 secondi, rispondi a quante più puoi",
+    "difficulty": "Difficoltà:",
+    "timer": "Timer:",
+    "region": "Regione:",
+    "numQuestions": "Numero di domande:"
+  },
+  "difficulty": {
+    "easy": "Facile",
+    "medium": "Medio",
+    "hard": "Difficile",
+    "easyHint": "Tutte le opzioni sono città dello stesso paese",
+    "mediumHint": "Città dello stesso paese + una città straniera",
+    "hardHint": "Tutte le opzioni sono capitali di paesi diversi"
+  },
+  "timer": {
+    "none": "Nessun timer",
+    "10sec": "10 secondi",
+    "15sec": "15 secondi",
+    "20sec": "20 secondi",
+    "30sec": "30 secondi"
+  },
+  "regions": {
+    "all": "Tutta l'Europa",
+    "western": "Europa occidentale",
+    "northern": "Europa settentrionale",
+    "southern": "Europa meridionale",
+    "eastern": "Europa orientale",
+    "baltic": "Stati baltici",
+    "balkans": "Balcani"
+  },
+  "buttons": {
+    "beginQuiz": "Inizia Quiz",
+    "nextQuestion": "Prossima Domanda",
+    "seeResults": "Vedi Risultati",
+    "playAgain": "Gioca Ancora",
+    "reviewAnswers": "Rivedi Risposte",
+    "share": "Condividi",
+    "shareImage": "Condividi Immagine"
+  },
+  "quiz": {
+    "score": "Punteggio",
+    "countryInfo": "Info Paese",
+    "questionPrefix": "Qual è la capitale di",
+    "timeUp": "Tempo scaduto! La risposta corretta era"
+  },
+  "hints": {
+    "firstLetter": "Prima Lettera",
+    "eliminateOne": "Elimina Una",
+    "startsWith": "Suggerimento: La capitale inizia con"
+  },
+  "results": {
+    "complete": "Quiz Completato!",
+    "correct": "Corrette",
+    "incorrect": "Errate",
+    "speedDemon": "Demone della Velocità, {{name}}!",
+    "speedDemonMsg": "Incredibile! {{count}} domande in 60 secondi con {{percent}}% di precisione!",
+    "lightningFast": "Veloce come un Fulmine, {{name}}!",
+    "lightningFastMsg": "Grande velocità! {{count}} domande risposte in soli 60 secondi!",
+    "quickThinker": "Pensatore Veloce, {{name}}!",
+    "quickThinkerMsg": "Buon ritmo! Hai risposto a {{count}} domande nel tempo limite.",
+    "keepPracticing": "Continua a Praticare, {{name}}!",
+    "keepPracticingMsg": "{{count}} domande risposte. Riprova per battere il tuo record!",
+    "perfectScore": "Punteggio Perfetto, {{name}}!",
+    "perfectScoreMsg": "Incredibile! Sei un vero esperto di geografia di {{region}}!",
+    "excellent": "Eccellente, {{name}}!",
+    "excellentMsg": "Conosci davvero le capitali di {{region}}!",
+    "wellDone": "Ben Fatto, {{name}}!",
+    "wellDoneMsg": "Buona conoscenza di {{region}}, ma c'è ancora molto da esplorare!",
+    "notBad": "Non Male, {{name}}!",
+    "notBadMsg": "Sei sulla buona strada per padroneggiare le capitali di {{region}}!",
+    "keepLearning": "Continua ad Imparare, {{name}}!",
+    "keepLearningMsg": "{{region}} ha tanto da scoprire. Riprova!",
+    "noAnswer": "Nessuna risposta (tempo scaduto)"
+  },
+  "toast": {
+    "copied": "Risultati copiati negli appunti!",
+    "imageDownloaded": "Immagine scaricata!"
+  },
+  "modal": {
+    "leaderboard": "Classifica",
+    "achievements": "Obiettivi",
+    "progress": "Progressi"
+  },
+  "stats": {
+    "thisWeek": "Questa Settimana",
+    "lifetimeStats": "Statistiche Totali",
+    "quizzesPlayed": "Quiz Giocati",
+    "bestStreak": "Miglior Serie",
+    "avgTime": "Tempo Medio/Domanda",
+    "accuracy": "Precisione",
+    "topScores": "Migliori Punteggi",
+    "noScores": "Nessun punteggio ancora. Gioca un quiz per entrare in classifica!"
+  },
+  "achievements": {
+    "unlocked": "Obiettivo Sbloccato!",
+    "unlockedPlural": "Obiettivi Sbloccati!",
+    "unlockedLabel": "sbloccati",
+    "howToUnlock": "Come sbloccare obiettivi:",
+    "howToUnlockDesc": "Completa quiz e raggiungi traguardi come punteggi perfetti, serie di risposte o padronanza dei paesi.",
+    "masteringCountry": "Padroneggiare un paese:",
+    "masteringCountryDesc": "Rispondi alle domande su di esso 3+ volte con 80%+ di precisione.",
+    "firstSteps": "Primi Passi",
+    "firstStepsDesc": "Completa il tuo primo quiz",
+    "perfect": "Perfetto!",
+    "perfectDesc": "Ottieni 100% in qualsiasi quiz",
+    "perfectionist": "Perfezionista",
+    "perfectionistDesc": "Ottieni 5 punteggi perfetti",
+    "onFire": "In Fiamme",
+    "onFireDesc": "5 risposte corrette di fila",
+    "unstoppable": "Inarrestabile",
+    "unstoppableDesc": "10 risposte corrette di fila",
+    "dedicated": "Dedicato",
+    "dedicatedDesc": "Completa 10 quiz",
+    "quizMaster": "Maestro del Quiz",
+    "quizMasterDesc": "Completa 50 quiz",
+    "gettingThere": "Ci Stai Arrivando",
+    "gettingThereDesc": "Padroneggia 5 paesi",
+    "geographyBuff": "Appassionato di Geografia",
+    "geographyBuffDesc": "Padroneggia 20 paesi",
+    "europeanExpert": "Esperto Europeo",
+    "europeanExpertDesc": "Padroneggia tutti i 45 paesi",
+    "challengeAccepted": "Sfida Accettata",
+    "challengeAcceptedDesc": "Completa un quiz in difficoltà Difficile",
+    "legendary": "Leggendario",
+    "legendaryDesc": "Ottieni 100% in difficoltà Difficile",
+    "speedDemon": "Demone della Velocità",
+    "speedDemonDesc": "Completa un quiz di 10 domande con timer in meno di 60 secondi",
+    "noHelpNeeded": "Nessun Aiuto Necessario",
+    "noHelpNeededDesc": "Ottieni 100% senza usare suggerimenti",
+    "balkanExpert": "Esperto dei Balcani",
+    "balkanExpertDesc": "Padroneggia tutti i paesi balcanici",
+    "nordicExplorer": "Esploratore Nordico",
+    "nordicExplorerDesc": "Padroneggia tutti i paesi del nord Europa"
+  },
+  "progress": {
+    "countryMastery": "Padronanza dei Paesi",
+    "masteryLevels": "Livelli di Padronanza:",
+    "mastered": "Padroneggiato",
+    "masteredDesc": "80%+ corretto su 3+ tentativi",
+    "learning": "Apprendimento",
+    "learningDesc": "50-79% corretto",
+    "weak": "Debole",
+    "weakDesc": "Sotto il 50% corretto",
+    "notSeen": "Non Visto",
+    "notSeenDesc": "Nessun tentativo ancora",
+    "all": "Tutti"
+  },
+  "data": {
+    "management": "Gestione Dati",
+    "export": "Esporta Progressi",
+    "import": "Importa Progressi",
+    "invalidFile": "Formato file di backup non valido.",
+    "confirmReplace": "Questo sostituirà i tuoi progressi attuali. Continuare?",
+    "importSuccess": "Progressi importati con successo!",
+    "importError": "Errore nella lettura del file di backup. Assicurati che sia un file JSON valido."
+  },
+  "share": {
+    "title": "Quiz Capitali Europee",
+    "speedRunMode": "Corsa Veloce",
+    "classicMode": "Modalità Classica",
+    "speedRunModeLabel": "Modalità Corsa Veloce",
+    "60secondChallenge": "Sfida dei 60 secondi",
+    "60seconds": "60 Secondi",
+    "score": "Punteggio",
+    "mode": "Modalità",
+    "difficultyLabel": "Difficoltà",
+    "regionLabel": "Regione",
+    "player": "Giocatore",
+    "challenge": "Riesci a battere il mio punteggio?",
+    "speedChallenge": "Riesci a rispondere a più domande in 60 secondi?",
+    "scoreMessage": "Ho ottenuto {{score}}/{{total}} ({{percent}}%) nel Quiz Capitali Europee!",
+    "results": "Risultati"
+  }
+}
