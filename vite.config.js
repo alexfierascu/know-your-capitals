@@ -1,7 +1,8 @@
 import { defineConfig } from 'vite';
 
-export default defineConfig({
-  base: '/know-your-capitals/',
+export default defineConfig(({ command, mode }) => ({
+  // Only use base path in production build
+  base: command === 'build' ? '/know-your-capitals/' : '/',
   root: '.',
   publicDir: 'public',
   build: {
@@ -13,4 +14,4 @@ export default defineConfig({
   server: {
     open: true
   }
-});
+}));
