@@ -1,0 +1,227 @@
+{
+  "Paris": [
+    "A Torre Eiffel deveria ser desmontada após 20 anos",
+    "Paris tem apenas uma placa de pare em toda a cidade",
+    "O Louvre é o museu mais visitado do mundo"
+  ],
+  "Berlin": [
+    "Berlim tem mais pontes que Veneza - mais de 1.700",
+    "A cidade é 9 vezes maior que Paris",
+    "O primeiro semáforo de Berlim foi instalado em 1924"
+  ],
+  "Madrid": [
+    "Madrid é a capital mais alta da Europa a 667m acima do nível do mar",
+    "A cidade tem mais bares per capita que qualquer outra capital da UE",
+    "O Parque do Retiro de Madrid era exclusivo da realeza"
+  ],
+  "Rome": [
+    "Roma tem um museu dedicado inteiramente à massa",
+    "A cidade tem mais de 2.000 fontes",
+    "Os gatos em Roma são protegidos por lei"
+  ],
+  "Lisbon": [
+    "Lisboa é mais antiga que Roma por 4 séculos",
+    "A cidade tem a ponte mais longa da Europa (17km)",
+    "O elétrico 28 de Lisboa opera desde 1914"
+  ],
+  "Warsaw": [
+    "A Cidade Velha de Varsóvia foi completamente reconstruída após a Segunda Guerra",
+    "A cidade tem uma sereia como símbolo",
+    "Varsóvia tem a casa mais estreita da Europa com apenas 152cm de largura"
+  ],
+  "Amsterdam": [
+    "Amsterdã tem 165 canais totalizando 100km",
+    "Há mais bicicletas que pessoas na cidade",
+    "A cidade tem mais de 1.500 pontes"
+  ],
+  "Brussels": [
+    "Bruxelas produz mais de 220.000 toneladas de chocolate por ano",
+    "A estátua Manneken Pis tem mais de 1.000 trajes",
+    "Bruxelas tem o maior número de murais de quadrinhos do mundo"
+  ],
+  "Vienna": [
+    "Viena abriga o zoológico mais antigo do mundo (1752)",
+    "A cidade tem mais de 100 museus",
+    "Mozart, Beethoven e Freud viveram em Viena"
+  ],
+  "Bern": [
+    "A Cidade Velha de Berna é Patrimônio Mundial da UNESCO",
+    "Einstein desenvolveu sua Teoria da Relatividade em Berna",
+    "A cidade tem o nome de ursos, seu animal heráldico"
+  ],
+  "Stockholm": [
+    "Estocolmo é construída sobre 14 ilhas",
+    "A cidade sedia a cerimônia do Prêmio Nobel todo ano",
+    "O metrô de Estocolmo é chamado de galeria de arte mais longa do mundo"
+  ],
+  "Oslo": [
+    "Oslo concede o Prêmio Nobel da Paz anualmente",
+    "A cidade é cercada por florestas e fiordes",
+    "O telhado da Ópera de Oslo pode ser caminhado pelos visitantes"
+  ],
+  "Copenhagen": [
+    "Os Jardins de Tivoli de Copenhague inspiraram Walt Disney",
+    "A estátua da Pequena Sereia tem apenas 1,25m de altura",
+    "Copenhague pretende ser neutra em carbono até 2025"
+  ],
+  "Helsinki": [
+    "Helsinque tem mais de 300 ilhas em seu arquipélago",
+    "A cidade sediou as Olimpíadas de Verão de 1952",
+    "O distrito de design de Helsinque abrange 25 ruas"
+  ],
+  "Athens": [
+    "Atenas é uma das cidades mais antigas, com 3.400 anos de história",
+    "A democracia foi inventada em Atenas por volta de 500 a.C.",
+    "O Partenon não tem linhas retas em seu design"
+  ],
+  "Prague": [
+    "O Castelo de Praga é o maior complexo de castelos antigos do mundo",
+    "O Relógio Astronômico funciona desde 1410",
+    "Praga é chamada de 'cidade das cem torres'"
+  ],
+  "Budapest": [
+    "Budapeste era originalmente duas cidades: Buda e Pest",
+    "A cidade tem o maior sistema de cavernas termais do mundo",
+    "O Parlamento da Hungria tem 691 salas"
+  ],
+  "Bucharest": [
+    "O Palácio do Parlamento de Bucareste é o edifício mais pesado do mundo",
+    "A cidade era chamada de 'Pequena Paris'",
+    "Bucareste tem uma das redes de bonde elétrico mais antigas da Europa"
+  ],
+  "Sofia": [
+    "Sófia é uma das cidades mais antigas da Europa, com 7.000 anos",
+    "A cidade fica aos pés da Montanha Vitosha",
+    "Sófia tem fontes de água mineral gratuitas por toda a cidade"
+  ],
+  "Zagreb": [
+    "A cidade alta de Zagreb ainda tem lampiões a gás acesos à mão diariamente",
+    "A cidade tem o funicular mais curto do mundo",
+    "As torres gêmeas da catedral de Zagreb são os edifícios mais altos da Croácia"
+  ],
+  "Ljubljana": [
+    "Liubliana tem um dragão como símbolo e mascote",
+    "A cidade foi Capital Verde Europeia em 2016",
+    "O centro da cidade sem carros de Liubliana é um dos maiores da Europa"
+  ],
+  "Bratislava": [
+    "Bratislava é a única capital que faz fronteira com dois países",
+    "A Cidade Velha tem passagens subterrâneas escondidas",
+    "Bratislava fica a apenas 60km de Viena"
+  ],
+  "Dublin": [
+    "O Phoenix Park de Dublin é duas vezes o tamanho do Central Park",
+    "A cervejaria Guinness tem um contrato de 9.000 anos",
+    "Dublin abriga o pub mais antigo da Europa (900 d.C.)"
+  ],
+  "Belgrade": [
+    "A fortaleza de Belgrado foi destruída e reconstruída 40 vezes",
+    "A cidade fica na confluência dos rios Danúbio e Sava",
+    "Belgrado tem uma das maiores igrejas ortodoxas do mundo"
+  ],
+  "Kyiv": [
+    "O sistema de metrô de Kiev tem algumas das estações mais profundas do mundo",
+    "A cidade tem mais de 1.000 anos de história registrada",
+    "O Monumento Mãe Pátria de Kiev é mais alto que a Estátua da Liberdade"
+  ],
+  "Tallinn": [
+    "A Cidade Velha de Tallinn é uma das cidades medievais mais bem preservadas da Europa",
+    "A cidade tem transporte público gratuito para residentes",
+    "O Skype foi inventado em Tallinn"
+  ],
+  "Riga": [
+    "Riga tem a maior coleção de edifícios Art Nouveau da Europa",
+    "A tradição da árvore de Natal da cidade começou em 1510",
+    "O Mercado Central de Riga está instalado em antigos hangares de Zeppelin"
+  ],
+  "Vilnius": [
+    "Vilnius se declarou uma república independente (Užupis)",
+    "A cidade tem uma das maiores Cidades Velhas da Europa",
+    "A Universidade de Vilnius é uma das mais antigas da Europa Oriental (1579)"
+  ],
+  "Tirana": [
+    "Os edifícios coloridos de Tirana foram pintados para alegrar a cidade",
+    "A cidade tem uma pirâmide que era um museu para Enver Hoxha",
+    "Tirana se transformou de cidade comunista cinza em capital vibrante"
+  ],
+  "Skopje": [
+    "Skopje foi 80% destruída por um terremoto em 1963",
+    "Madre Teresa nasceu em Skopje",
+    "A cidade tem mais estátuas per capita que a maioria das capitais"
+  ],
+  "Podgorica": [
+    "Podgorica tem mais de 250 dias de sol por ano",
+    "A cidade era conhecida como Titograd de 1946 a 1992",
+    "Podgorica fica no encontro de cinco rios"
+  ],
+  "Sarajevo": [
+    "Sarajevo sediou as Olimpíadas de Inverno de 1984",
+    "O assassinato do Arquiduque Franz Ferdinand iniciou a Primeira Guerra aqui",
+    "Sarajevo tem um túnel usado para sobreviver a um cerco de 4 anos"
+  ],
+  "Chișinău": [
+    "Chișinău é conhecida por sua arquitetura da era soviética",
+    "As adegas da cidade estão entre as maiores do mundo",
+    "Chișinău foi quase completamente destruída na Segunda Guerra"
+  ],
+  "Minsk": [
+    "Minsk foi reconstruída do zero após a Segunda Guerra",
+    "A cidade tem uma das avenidas principais mais longas da Europa",
+    "A biblioteca de Minsk tem formato de um diamante gigante"
+  ],
+  "Reykjavík": [
+    "Reykjavík é a capital mais ao norte do mundo",
+    "A cidade é aquecida inteiramente por energia geotérmica",
+    "Reykjavík significa 'Baía Fumegante' em islandês"
+  ],
+  "Luxembourg City": [
+    "A Cidade de Luxemburgo tem restos de fortalezas da UNESCO",
+    "A cidade tem mais estrelas Michelin per capita que qualquer outra",
+    "Luxemburgo é uma das três capitais oficiais da UE"
+  ],
+  "Valletta": [
+    "Valletta é a menor capital da UE por população",
+    "Toda a cidade é Patrimônio Mundial da UNESCO",
+    "Valletta foi construída pelos Cavaleiros de São João nos anos 1500"
+  ],
+  "Nicosia": [
+    "Nicósia é a última capital dividida do mundo",
+    "A cidade é habitada continuamente há 4.500 anos",
+    "Nicósia ainda tem antigas muralhas venezianas ao redor da cidade velha"
+  ],
+  "Monaco": [
+    "Mônaco é o segundo menor país do mundo",
+    "O Grande Prêmio de Mônaco corre pelas ruas da cidade",
+    "Mônaco tem mais milionários per capita que qualquer país"
+  ],
+  "Andorra la Vella": [
+    "Andorra la Vella é a capital mais alta da Europa a 1.023m",
+    "A cidade não tem aeroporto nem estação de trem",
+    "Andorra não está em guerra há mais de 1.000 anos"
+  ],
+  "London": [
+    "Londres tem mais de 170 museus, muitos gratuitos",
+    "Big Ben é na verdade o nome do sino, não da torre",
+    "O metrô de Londres é o sistema de metrô mais antigo do mundo"
+  ],
+  "Moscow": [
+    "As estações de metrô de Moscou são como palácios subterrâneos",
+    "A Praça Vermelha é nomeada por 'bonito', não pela cor",
+    "Moscou tem mais bilionários que qualquer cidade europeia"
+  ],
+  "Vaduz": [
+    "O Castelo de Vaduz é a casa do único príncipe reinante da Europa",
+    "Liechtenstein não tem aeroporto nem exército",
+    "Vaduz é uma das menores capitais do mundo"
+  ],
+  "San Marino": [
+    "San Marino afirma ser a república mais antiga do mundo",
+    "Todo o país é Patrimônio Mundial da UNESCO",
+    "San Marino tem mais carros que pessoas"
+  ],
+  "Pristina": [
+    "Pristina tem uma das populações mais jovens da Europa",
+    "A cidade tem uma estátua de Bill Clinton",
+    "O monumento Newborn de Pristina muda de design a cada dia da independência"
+  ]
+}
