@@ -1,8 +1,150 @@
 /**
  * European Capitals Quiz
  * A trivia game testing knowledge of European capital cities
- * Features: Timer, Hints, Question Review, Theme Toggle, Confetti, Share, Map Preview
+ * Features: Timer, Hints, Question Review, Theme Toggle, Confetti, Share, Map Preview, i18n
  */
+
+// ========================================
+// Internationalization (i18n)
+// ========================================
+const SUPPORTED_LANGUAGES = ['en', 'es', 'fr'];
+const DEFAULT_LANGUAGE = 'en';
+
+let translations = {};
+
+async function initI18n() {
+    const savedLang = localStorage.getItem('quiz-language');
+    const browserLang = navigator.language.split('-')[0];
+    const initialLang = savedLang || (SUPPORTED_LANGUAGES.includes(browserLang) ? browserLang : DEFAULT_LANGUAGE);
+
+    // Load translations for all supported languages
+    await Promise.all(SUPPORTED_LANGUAGES.map(async (lang) => {
+        try {
+            const response = await fetch(`locales/${lang}.json`);
+            translations[lang] = await response.json();
+        } catch (e) {
+            console.error(`Failed to load translations for ${lang}:`, e);
+            translations[lang] = {};
+        }
+    }));
+
+    // Initialize i18next
+    await i18next.init({
+        lng: initialLang,
+        fallbackLng: DEFAULT_LANGUAGE,
+        resources: Object.fromEntries(
+            SUPPORTED_LANGUAGES.map(lang => [lang, { translation: translations[lang] }])
+        ),
+        interpolation: {
+            escapeValue: false
+        }
+    });
+
+    // Update UI
+    updateLanguageUI(initialLang);
+    translatePage();
+}
+
+function t(key, options = {}) {
+    return i18next.t(key, options);
+}
+
+function translatePage() {
+    // Translate elements with data-i18n attribute
+    document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+
+        // Handle attribute translations like [placeholder]
+        if (key.startsWith('[')) {
+            const match = key.match(/\[(\w+)\](.+)/);
+            if (match) {
+                const attr = match[1];
+                const translationKey = match[2];
+                element.setAttribute(attr, t(translationKey));
+            }
+        } else {
+            element.textContent = t(key);
+        }
+    });
+
+    // Update difficulty hint based on current selection
+    if (elements.difficultySelect) {
+        updateDifficultyHint();
+    }
+
+    // Update HTML lang attribute
+    document.documentElement.lang = i18next.language;
+}
+
+function changeLanguage(lang) {
+    if (!SUPPORTED_LANGUAGES.includes(lang)) return;
+
+    i18next.changeLanguage(lang).then(() => {
+        localStorage.setItem('quiz-language', lang);
+        updateLanguageUI(lang);
+        translatePage();
+
+        // Reload fun facts for the new language
+        loadFunFacts();
+
+        // Update region options with translated names
+        populateRegionSelect();
+    });
+}
+
+function updateLanguageUI(lang) {
+    const langFlag = document.getElementById('current-lang-flag');
+    if (langFlag) {
+        langFlag.textContent = lang.toUpperCase();
+    }
+
+    // Update active state in dropdown
+    document.querySelectorAll('.language-option').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+}
+
+function setupLanguageSelector() {
+    const toggle = document.getElementById('language-toggle');
+    const dropdown = document.getElementById('language-dropdown');
+
+    if (!toggle || !dropdown) return;
+
+    toggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdown.hidden = !dropdown.hidden;
+    });
+
+    document.querySelectorAll('.language-option').forEach(btn => {
+        btn.addEventListener('click', () => {
+            changeLanguage(btn.dataset.lang);
+            dropdown.hidden = true;
+        });
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', () => {
+        dropdown.hidden = true;
+    });
+}
+
+async function loadFunFacts() {
+    const lang = i18next.language;
+    const fileName = `locales/fun-facts-${lang}.json`;
+
+    try {
+        const response = await fetch(fileName);
+        if (response.ok) {
+            state.funFacts = await response.json();
+        } else {
+            // Fall back to English
+            const fallback = await fetch('locales/fun-facts-en.json');
+            state.funFacts = await fallback.json();
+        }
+    } catch (e) {
+        console.error('Failed to load fun facts:', e);
+    }
+}
 
 // ========================================
 // State Management
@@ -167,12 +309,12 @@ const elements = {
 };
 
 // ========================================
-// Difficulty Hints
+// Difficulty Hints (translation keys)
 // ========================================
-const difficultyHints = {
-    easy: 'All options are cities from the same country',
-    medium: 'Cities from same country + one foreign city',
-    hard: 'All options are capitals from different countries'
+const difficultyHintKeys = {
+    easy: 'difficulty.easyHint',
+    medium: 'difficulty.mediumHint',
+    hard: 'difficulty.hardHint'
 };
 
 // ========================================
@@ -181,113 +323,113 @@ const difficultyHints = {
 const ACHIEVEMENTS = {
     firstQuiz: {
         id: 'firstQuiz',
-        name: 'First Steps',
-        description: 'Complete your first quiz',
+        nameKey: 'achievements.firstSteps',
+        descKey: 'achievements.firstStepsDesc',
         icon: '🎯',
         check: (stats) => stats.totalQuizzes >= 1
     },
     perfectScore: {
         id: 'perfectScore',
-        name: 'Perfect!',
-        description: 'Get 100% on any quiz',
+        nameKey: 'achievements.perfect',
+        descKey: 'achievements.perfectDesc',
         icon: '⭐',
         check: (stats) => stats.perfectScores >= 1
     },
     fivePerfect: {
         id: 'fivePerfect',
-        name: 'Perfectionist',
-        description: 'Get 5 perfect scores',
+        nameKey: 'achievements.perfectionist',
+        descKey: 'achievements.perfectionistDesc',
         icon: '🌟',
         check: (stats) => stats.perfectScores >= 5
     },
     streak5: {
         id: 'streak5',
-        name: 'On Fire',
-        description: 'Get 5 correct answers in a row',
+        nameKey: 'achievements.onFire',
+        descKey: 'achievements.onFireDesc',
         icon: '🔥',
         check: (stats) => stats.maxStreak >= 5
     },
     streak10: {
         id: 'streak10',
-        name: 'Unstoppable',
-        description: 'Get 10 correct answers in a row',
+        nameKey: 'achievements.unstoppable',
+        descKey: 'achievements.unstoppableDesc',
         icon: '💥',
         check: (stats) => stats.maxStreak >= 10
     },
     tenQuizzes: {
         id: 'tenQuizzes',
-        name: 'Dedicated',
-        description: 'Complete 10 quizzes',
+        nameKey: 'achievements.dedicated',
+        descKey: 'achievements.dedicatedDesc',
         icon: '📚',
         check: (stats) => stats.totalQuizzes >= 10
     },
     fiftyQuizzes: {
         id: 'fiftyQuizzes',
-        name: 'Quiz Master',
-        description: 'Complete 50 quizzes',
+        nameKey: 'achievements.quizMaster',
+        descKey: 'achievements.quizMasterDesc',
         icon: '🎓',
         check: (stats) => stats.totalQuizzes >= 50
     },
     masterFive: {
         id: 'masterFive',
-        name: 'Getting There',
-        description: 'Master 5 countries',
+        nameKey: 'achievements.gettingThere',
+        descKey: 'achievements.gettingThereDesc',
         icon: '🗺️',
         check: (stats) => stats.masteredCountries >= 5
     },
     masterTwenty: {
         id: 'masterTwenty',
-        name: 'Geography Buff',
-        description: 'Master 20 countries',
+        nameKey: 'achievements.geographyBuff',
+        descKey: 'achievements.geographyBuffDesc',
         icon: '🌍',
         check: (stats) => stats.masteredCountries >= 20
     },
     masterAll: {
         id: 'masterAll',
-        name: 'European Expert',
-        description: 'Master all 45 countries',
+        nameKey: 'achievements.europeanExpert',
+        descKey: 'achievements.europeanExpertDesc',
         icon: '👑',
         check: (stats) => stats.masteredCountries >= 45
     },
     hardMode: {
         id: 'hardMode',
-        name: 'Challenge Accepted',
-        description: 'Complete a quiz on Hard difficulty',
+        nameKey: 'achievements.challengeAccepted',
+        descKey: 'achievements.challengeAcceptedDesc',
         icon: '💪',
         check: (stats) => stats.hardQuizzes >= 1
     },
     hardPerfect: {
         id: 'hardPerfect',
-        name: 'Legendary',
-        description: 'Get 100% on Hard difficulty',
+        nameKey: 'achievements.legendary',
+        descKey: 'achievements.legendaryDesc',
         icon: '🏆',
         check: (stats) => stats.hardPerfectScores >= 1
     },
     speedDemon: {
         id: 'speedDemon',
-        name: 'Speed Demon',
-        description: 'Complete a 10-question quiz with timer in under 60 seconds total',
+        nameKey: 'achievements.speedDemon',
+        descKey: 'achievements.speedDemonDesc',
         icon: '⚡',
         check: (stats) => stats.speedRuns >= 1
     },
     noHints: {
         id: 'noHints',
-        name: 'No Help Needed',
-        description: 'Get 100% without using any hints',
+        nameKey: 'achievements.noHelpNeeded',
+        descKey: 'achievements.noHelpNeededDesc',
         icon: '🧠',
         check: (stats) => stats.perfectNoHints >= 1
     },
     balkanExpert: {
         id: 'balkanExpert',
-        name: 'Balkan Expert',
-        description: 'Master all Balkan countries',
+        nameKey: 'achievements.balkanExpert',
+        descKey: 'achievements.balkanExpertDesc',
         icon: '🏔️',
         check: (stats) => stats.balkansMastered >= 8
     },
     nordicExpert: {
         id: 'nordicExpert',
-        name: 'Nordic Explorer',
-        description: 'Master all Northern European countries',
+        nameKey: 'achievements.nordicExplorer',
+        descKey: 'achievements.nordicExplorerDesc',
         icon: '❄️',
         check: (stats) => stats.nordicMastered >= 5
     }
@@ -356,12 +498,12 @@ function importProgress(file) {
 
             // Validate the data structure
             if (!data.progress && !data.leaderboard && !data.achievements && !data.stats) {
-                alert('Invalid backup file format.');
+                alert(t('data.invalidFile'));
                 return;
             }
 
             // Confirm before overwriting
-            if (!confirm('This will replace your current progress. Continue?')) {
+            if (!confirm(t('data.confirmReplace'))) {
                 return;
             }
 
@@ -388,9 +530,9 @@ function importProgress(file) {
             renderAchievements();
             renderProgress();
 
-            alert('Progress imported successfully!');
+            alert(t('data.importSuccess'));
         } catch (err) {
-            alert('Error reading backup file. Make sure it\'s a valid JSON file.');
+            alert(t('data.importError'));
             console.error('Import error:', err);
         }
     };
@@ -502,7 +644,8 @@ function getOptionLetter(index) {
  */
 function updateDifficultyHint() {
     const difficulty = elements.difficultySelect.value;
-    elements.difficultyHint.textContent = difficultyHints[difficulty];
+    const hintKey = difficultyHintKeys[difficulty];
+    elements.difficultyHint.textContent = t(hintKey);
 }
 
 /**
@@ -653,7 +796,7 @@ function timeUp() {
     elements.nextBtn.disabled = false;
 
     // Announce for screen readers
-    announceToScreenReader('Time is up! The correct answer was ' + state.currentOptions[state.currentCorrectIndex]);
+    announceToScreenReader(t('quiz.timeUp') + ' ' + state.currentOptions[state.currentCorrectIndex]);
 }
 
 // ========================================
@@ -743,7 +886,7 @@ function useLetterHint() {
 
     const hintElement = document.createElement('p');
     hintElement.className = 'question-hint';
-    hintElement.textContent = `Hint: The capital starts with "${firstLetter}"`;
+    hintElement.textContent = `${t('hints.startsWith')} "${firstLetter}"`;
     hintElement.setAttribute('role', 'alert');
 
     const existingHint = document.querySelector('.question-hint');
@@ -942,7 +1085,7 @@ function recordAnswer(selectedOption) {
     const correctAnswer = country.capital;
 
     state.answeredQuestions.push({
-        question: `What is the capital of ${country.name}?`,
+        question: `${t('quiz.questionPrefix')} ${country.name}?`,
         userAnswer: selectedOption,
         correctAnswer: correctAnswer,
         isCorrect: selectedOption === correctAnswer
@@ -958,7 +1101,7 @@ function renderReview() {
 
         let answerHtml;
         if (item.userAnswer === null) {
-            answerHtml = `<span class="wrong">No answer (time up)</span> → <span class="correct">${item.correctAnswer}</span>`;
+            answerHtml = `<span class="wrong">${t('results.noAnswer')}</span> → <span class="correct">${item.correctAnswer}</span>`;
         } else if (item.isCorrect) {
             answerHtml = `<span class="correct">${item.correctAnswer}</span>`;
         } else {
@@ -995,29 +1138,29 @@ function shareResults() {
     const percentage = questionsAnswered > 0
         ? Math.round((state.score / questionsAnswered) * 100)
         : 0;
-    const difficultyText = state.difficulty.charAt(0).toUpperCase() + state.difficulty.slice(1);
+    const difficultyText = t(`difficulty.${state.difficulty}`);
 
     let shareText;
     if (state.gameMode === 'speedrun') {
-        shareText = `🌍 European Capitals Quiz - ⚡ Speed Run\n\n` +
-            `📊 Score: ${state.score}/${questionsAnswered} (${percentage}%)\n` +
-            `⏱️ Mode: 60-second challenge\n` +
-            `🎯 Difficulty: ${difficultyText}\n` +
-            `👤 Player: ${state.playerName}\n\n` +
-            `Can you answer more questions in 60 seconds? 🏆`;
+        shareText = `🌍 ${t('share.title')} - ⚡ ${t('share.speedRunMode')}\n\n` +
+            `📊 ${t('share.score')}: ${state.score}/${questionsAnswered} (${percentage}%)\n` +
+            `⏱️ ${t('share.mode')}: ${t('share.60secondChallenge')}\n` +
+            `🎯 ${t('share.difficultyLabel')}: ${difficultyText}\n` +
+            `👤 ${t('share.player')}: ${state.playerName}\n\n` +
+            `${t('share.speedChallenge')} 🏆`;
     } else {
         const regionName = getRegionName(state.selectedRegion);
-        shareText = `🌍 European Capitals Quiz\n\n` +
-            `📊 Score: ${state.score}/${questionsAnswered} (${percentage}%)\n` +
-            `🎯 Difficulty: ${difficultyText}\n` +
-            `🗺️ Region: ${regionName}\n` +
-            `👤 Player: ${state.playerName}\n\n` +
-            `Can you beat my score? 🏆`;
+        shareText = `🌍 ${t('share.title')}\n\n` +
+            `📊 ${t('share.score')}: ${state.score}/${questionsAnswered} (${percentage}%)\n` +
+            `🎯 ${t('share.difficultyLabel')}: ${difficultyText}\n` +
+            `🗺️ ${t('share.regionLabel')}: ${regionName}\n` +
+            `👤 ${t('share.player')}: ${state.playerName}\n\n` +
+            `${t('share.challenge')} 🏆`;
     }
 
     if (navigator.share) {
         navigator.share({
-            title: 'European Capitals Quiz',
+            title: t('share.title'),
             text: shareText
         }).catch(() => {
             copyToClipboard(shareText);
@@ -1086,12 +1229,14 @@ function shareResultsAsImage() {
     ctx.fillStyle = accentColor;
     ctx.font = 'bold 28px "Playfair Display", Georgia, serif';
     ctx.textAlign = 'center';
-    ctx.fillText('European Capitals Quiz', canvas.width / 2, 75);
+    ctx.fillText(t('share.title'), canvas.width / 2, 75);
 
     // Mode badge
     ctx.fillStyle = mutedColor;
     ctx.font = '14px "Source Sans 3", sans-serif';
-    const modeText = state.gameMode === 'speedrun' ? '⚡ Speed Run Mode' : '🎯 Classic Mode';
+    const modeText = state.gameMode === 'speedrun'
+        ? `⚡ ${t('share.speedRunModeLabel')}`
+        : `🎯 ${t('share.classicMode')}`;
     ctx.fillText(modeText, canvas.width / 2, 100);
 
     // Score circle
@@ -1127,10 +1272,10 @@ function shareResultsAsImage() {
     ctx.fillStyle = textColor;
     ctx.font = '16px "Source Sans 3", sans-serif';
 
-    const difficultyText = state.difficulty.charAt(0).toUpperCase() + state.difficulty.slice(1);
+    const difficultyText = t(`difficulty.${state.difficulty}`);
 
     if (state.gameMode === 'speedrun') {
-        ctx.fillText(`⏱️ 60 Seconds  •  🎯 ${difficultyText}  •  🔥 Best Streak: ${state.maxStreak}`, centerX, statsY);
+        ctx.fillText(`⏱️ ${t('share.60seconds')}  •  🎯 ${difficultyText}  •  🔥 ${t('stats.bestStreak')}: ${state.maxStreak}`, centerX, statsY);
     } else {
         const regionName = getRegionName(state.selectedRegion);
         ctx.fillText(`🗺️ ${regionName}  •  🎯 ${difficultyText}`, centerX, statsY);
@@ -1139,12 +1284,12 @@ function shareResultsAsImage() {
     // Player name
     ctx.fillStyle = mutedColor;
     ctx.font = '18px "Source Sans 3", sans-serif';
-    ctx.fillText(`Player: ${state.playerName}`, centerX, 330);
+    ctx.fillText(`${t('share.player')}: ${state.playerName}`, centerX, 330);
 
     // Footer
     ctx.fillStyle = mutedColor;
     ctx.font = '12px "Source Sans 3", sans-serif';
-    ctx.fillText('Can you beat my score? 🏆', centerX, 365);
+    ctx.fillText(`${t('share.challenge')} 🏆`, centerX, 365);
 
     // Convert to image and download/share
     canvas.toBlob((blob) => {
@@ -1152,8 +1297,8 @@ function shareResultsAsImage() {
             // Share on mobile
             const file = new File([blob], 'quiz-results.png', { type: 'image/png' });
             navigator.share({
-                title: 'European Capitals Quiz Results',
-                text: `I scored ${state.score}/${questionsAnswered} (${percentage}%) on the European Capitals Quiz!`,
+                title: `${t('share.title')} - ${t('share.results')}`,
+                text: t('share.scoreMessage', { score: state.score, total: questionsAnswered, percent: percentage }),
                 files: [file]
             }).catch(() => {
                 downloadImage(blob);
@@ -1174,11 +1319,11 @@ function downloadImage(blob) {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    showToast('Image downloaded!');
+    showToast(t('toast.imageDownloaded'));
 }
 
-function showToast(message = 'Results copied to clipboard!') {
-    elements.shareToast.textContent = message;
+function showToast(message = null) {
+    elements.shareToast.textContent = message || t('toast.copied');
     elements.shareToast.hidden = false;
     elements.shareToast.classList.add('visible');
 
@@ -1360,35 +1505,31 @@ async function loadCities() {
     }
 }
 
-async function loadFunFacts() {
-    try {
-        const response = await fetch('fun-facts.json');
-        if (!response.ok) throw new Error('Failed to load fun facts');
-        return await response.json();
-    } catch (error) {
-        console.error('Error loading fun facts:', error);
-        return {};
-    }
-}
-
 async function initApp() {
     // Initialize theme
     initTheme();
+
+    // Initialize i18n (load translations first)
+    await initI18n();
+
+    // Setup language selector
+    setupLanguageSelector();
 
     // Load stored data
     loadAllStoredData();
 
     // Load data
-    const [countriesData, citiesData, funFactsData] = await Promise.all([
+    const [countriesData, citiesData] = await Promise.all([
         loadCountries(),
-        loadCities(),
-        loadFunFacts()
+        loadCities()
     ]);
 
     state.countries = countriesData.countries;
     state.regions = countriesData.regions;
     state.cities = citiesData;
-    state.funFacts = funFactsData;
+
+    // Load fun facts for current language
+    await loadFunFacts();
 
     // Update UI
     elements.totalQuestionCount.textContent = state.countries.length;
@@ -1404,14 +1545,36 @@ async function initApp() {
 }
 
 function populateRegionSelector() {
+    populateRegionSelect();
+}
+
+function populateRegionSelect() {
+    if (!elements.regionSelect) return;
+
+    const currentValue = elements.regionSelect.value || 'all';
     elements.regionSelect.innerHTML = '';
+
+    // Region ID to translation key mapping
+    const regionKeys = {
+        'all': 'regions.all',
+        'western': 'regions.western',
+        'northern': 'regions.northern',
+        'southern': 'regions.southern',
+        'eastern': 'regions.eastern',
+        'baltic': 'regions.baltic',
+        'balkans': 'regions.balkans'
+    };
 
     state.regions.forEach(region => {
         const option = document.createElement('option');
         option.value = region.id;
-        option.textContent = region.name;
+        const translationKey = regionKeys[region.id];
+        option.textContent = translationKey ? t(translationKey) : region.name;
         elements.regionSelect.appendChild(option);
     });
+
+    // Restore previous selection
+    elements.regionSelect.value = currentValue;
 }
 
 function updateFilteredCountries() {
@@ -1468,8 +1631,22 @@ function updateQuestionCountOptions(availableCount) {
 }
 
 function getRegionName(regionId) {
+    const regionKeys = {
+        'all': 'regions.all',
+        'western': 'regions.western',
+        'northern': 'regions.northern',
+        'southern': 'regions.southern',
+        'eastern': 'regions.eastern',
+        'baltic': 'regions.baltic',
+        'balkans': 'regions.balkans',
+        'speedrun': 'settings.speedRun'
+    };
+    const translationKey = regionKeys[regionId];
+    if (translationKey) {
+        return t(translationKey);
+    }
     const region = state.regions.find(r => r.id === regionId);
-    return region ? region.name : 'All of Europe';
+    return region ? region.name : t('regions.all');
 }
 
 // ========================================
@@ -1645,7 +1822,7 @@ function loadQuestion() {
     const countryCode = getCountryCode(country.name);
     elements.questionFlag.src = `https://flagcdn.com/w80/${countryCode}.png`;
     elements.questionFlag.alt = `Flag of ${country.name}`;
-    elements.questionText.textContent = `What is the capital of ${country.name}?`;
+    elements.questionText.textContent = `${t('quiz.questionPrefix')} ${country.name}?`;
 
     // Generate options
     const options = generateOptions(country, state.difficulty);
@@ -1844,38 +2021,38 @@ function showResults() {
     if (state.gameMode === 'speedrun') {
         // Speed run specific messaging
         if (questionsAnswered >= 20) {
-            title = `Speed Demon, ${name}!`;
-            message = `Incredible! ${questionsAnswered} questions in 60 seconds with ${percentage}% accuracy!`;
+            title = t('results.speedDemon', { name });
+            message = t('results.speedDemonMsg', { count: questionsAnswered, percent: percentage });
             launchConfetti();
         } else if (questionsAnswered >= 15) {
-            title = `Lightning Fast, ${name}!`;
-            message = `Great speed! ${questionsAnswered} questions answered in just 60 seconds!`;
+            title = t('results.lightningFast', { name });
+            message = t('results.lightningFastMsg', { count: questionsAnswered });
         } else if (questionsAnswered >= 10) {
-            title = `Quick Thinker, ${name}!`;
-            message = `Good pace! You answered ${questionsAnswered} questions in the time limit.`;
+            title = t('results.quickThinker', { name });
+            message = t('results.quickThinkerMsg', { count: questionsAnswered });
         } else {
-            title = `Keep Practicing, ${name}!`;
-            message = `${questionsAnswered} questions answered. Try again to beat your record!`;
+            title = t('results.keepPracticing', { name });
+            message = t('results.keepPracticingMsg', { count: questionsAnswered });
         }
     } else {
         // Classic mode messaging
         const regionName = getRegionName(state.selectedRegion);
         if (percentage === 100) {
-            title = `Perfect Score, ${name}!`;
-            message = `Incredible! You're a true ${regionName} geography expert!`;
+            title = t('results.perfectScore', { name });
+            message = t('results.perfectScoreMsg', { region: regionName });
             launchConfetti();
         } else if (percentage >= 80) {
-            title = `Excellent, ${name}!`;
-            message = `You really know your ${regionName} capitals!`;
+            title = t('results.excellent', { name });
+            message = t('results.excellentMsg', { region: regionName });
         } else if (percentage >= 60) {
-            title = `Well Done, ${name}!`;
-            message = `Good knowledge of ${regionName}, but there's room to explore more!`;
+            title = t('results.wellDone', { name });
+            message = t('results.wellDoneMsg', { region: regionName });
         } else if (percentage >= 40) {
-            title = `Not Bad, ${name}!`;
-            message = `You're on your way to mastering ${regionName} capitals!`;
+            title = t('results.notBad', { name });
+            message = t('results.notBadMsg', { region: regionName });
         } else {
-            title = `Keep Learning, ${name}!`;
-            message = `${regionName} has so much to discover. Try again!`;
+            title = t('results.keepLearning', { name });
+            message = t('results.keepLearningMsg', { region: regionName });
         }
     }
 
@@ -2082,12 +2259,12 @@ function checkAchievements(providedStats = null) {
 function showAchievementToast(achievements) {
     // Create achievement list HTML
     const achievementsList = achievements.map(a =>
-        `<span class="achievement-toast-item">${a.icon} ${a.name}</span>`
+        `<span class="achievement-toast-item">${a.icon} ${t(a.nameKey)}</span>`
     ).join('');
 
     const title = achievements.length === 1
-        ? 'Achievement Unlocked!'
-        : `${achievements.length} Achievements Unlocked!`;
+        ? t('achievements.unlocked')
+        : `${achievements.length} ${t('achievements.unlockedPlural')}`;
 
     elements.achievementToast.innerHTML = `
         <span class="achievement-toast-icon">🏆</span>
@@ -2146,7 +2323,7 @@ function saveToLeaderboard(name, score, total, difficulty, region) {
 // ========================================
 
 function setupModalListeners() {
-    // Close modal on overlay click
+    // Close modal on the overlay click
     const overlay = elements.statsModal.querySelector('.modal-overlay');
     overlay.addEventListener('click', closeStatsModal);
 
@@ -2168,7 +2345,7 @@ function setupModalListeners() {
         });
     });
 
-    // Close on Escape key
+    // Close on an Escape key
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && !elements.statsModal.hidden) {
             closeStatsModal();
@@ -2383,8 +2560,8 @@ function renderAchievements() {
         badge.className = `achievement-badge ${isUnlocked ? 'unlocked' : 'locked'}`;
         badge.innerHTML = `
             <span class="achievement-icon">${achievement.icon}</span>
-            <span class="achievement-name">${achievement.name}</span>
-            <span class="achievement-desc">${achievement.description}</span>
+            <span class="achievement-name">${t(achievement.nameKey)}</span>
+            <span class="achievement-desc">${t(achievement.descKey)}</span>
         `;
         grid.appendChild(badge);
     });

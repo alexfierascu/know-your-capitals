@@ -3,7 +3,7 @@
  * Enables offline functionality and caching
  */
 
-const CACHE_NAME = 'euro-capitals-quiz-v4';
+const CACHE_NAME = 'euro-capitals-quiz-v6';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
@@ -11,7 +11,12 @@ const ASSETS_TO_CACHE = [
     './app.js',
     './countries.json',
     './cities.json',
-    './fun-facts.json',
+    './locales/en.json',
+    './locales/es.json',
+    './locales/fr.json',
+    './locales/fun-facts-en.json',
+    './locales/fun-facts-es.json',
+    './locales/fun-facts-fr.json',
     './manifest.json'
 ];
 

@@ -1,0 +1,195 @@
+{
+  "loading": {
+    "text": "Loading quiz..."
+  },
+  "app": {
+    "title": "European Capitals",
+    "subtitle": "Test your knowledge of Europe's capital cities",
+    "footer": "Explore Europe, one capital at a time"
+  },
+  "start": {
+    "questions": "Questions",
+    "optionsEach": "Options each",
+    "questionsAvailable": "questions available"
+  },
+  "settings": {
+    "yourName": "Your name:",
+    "enterName": "Enter your name",
+    "gameMode": "Game Mode:",
+    "classic": "Classic",
+    "classicDesc": "Fixed questions, per-question timer",
+    "speedRun": "Speed Run",
+    "speedRunDesc": "60 seconds, answer as many as you can",
+    "difficulty": "Difficulty:",
+    "timer": "Timer:",
+    "region": "Region:",
+    "numQuestions": "Number of questions:"
+  },
+  "difficulty": {
+    "easy": "Easy",
+    "medium": "Medium",
+    "hard": "Hard",
+    "easyHint": "All options are cities from the same country",
+    "mediumHint": "Cities from same country + one foreign city",
+    "hardHint": "All options are capitals from different countries"
+  },
+  "timer": {
+    "none": "No timer",
+    "10sec": "10 seconds",
+    "15sec": "15 seconds",
+    "20sec": "20 seconds",
+    "30sec": "30 seconds"
+  },
+  "regions": {
+    "all": "All of Europe",
+    "western": "Western Europe",
+    "northern": "Northern Europe",
+    "southern": "Southern Europe",
+    "eastern": "Eastern Europe",
+    "baltic": "Baltic States",
+    "balkans": "Balkans"
+  },
+  "buttons": {
+    "beginQuiz": "Begin Quiz",
+    "nextQuestion": "Next Question",
+    "seeResults": "See Results",
+    "playAgain": "Play Again",
+    "reviewAnswers": "Review Answers",
+    "share": "Share",
+    "shareImage": "Share Image"
+  },
+  "quiz": {
+    "score": "Score",
+    "countryInfo": "Country Info",
+    "questionPrefix": "What is the capital of",
+    "timeUp": "Time is up! The correct answer was"
+  },
+  "hints": {
+    "firstLetter": "First Letter",
+    "eliminateOne": "Eliminate One",
+    "startsWith": "Hint: The capital starts with"
+  },
+  "results": {
+    "complete": "Quiz Complete!",
+    "correct": "Correct",
+    "incorrect": "Incorrect",
+    "speedDemon": "Speed Demon, {{name}}!",
+    "speedDemonMsg": "Incredible! {{count}} questions in 60 seconds with {{percent}}% accuracy!",
+    "lightningFast": "Lightning Fast, {{name}}!",
+    "lightningFastMsg": "Great speed! {{count}} questions answered in just 60 seconds!",
+    "quickThinker": "Quick Thinker, {{name}}!",
+    "quickThinkerMsg": "Good pace! You answered {{count}} questions in the time limit.",
+    "keepPracticing": "Keep Practicing, {{name}}!",
+    "keepPracticingMsg": "{{count}} questions answered. Try again to beat your record!",
+    "perfectScore": "Perfect Score, {{name}}!",
+    "perfectScoreMsg": "Incredible! You're a true {{region}} geography expert!",
+    "excellent": "Excellent, {{name}}!",
+    "excellentMsg": "You really know your {{region}} capitals!",
+    "wellDone": "Well Done, {{name}}!",
+    "wellDoneMsg": "Good knowledge of {{region}}, but there's room to explore more!",
+    "notBad": "Not Bad, {{name}}!",
+    "notBadMsg": "You're on your way to mastering {{region}} capitals!",
+    "keepLearning": "Keep Learning, {{name}}!",
+    "keepLearningMsg": "{{region}} has so much to discover. Try again!",
+    "noAnswer": "No answer (time up)"
+  },
+  "toast": {
+    "copied": "Results copied to clipboard!",
+    "imageDownloaded": "Image downloaded!"
+  },
+  "modal": {
+    "leaderboard": "Leaderboard",
+    "achievements": "Achievements",
+    "progress": "Progress"
+  },
+  "stats": {
+    "thisWeek": "This Week",
+    "lifetimeStats": "Lifetime Stats",
+    "quizzesPlayed": "Quizzes Played",
+    "bestStreak": "Best Streak",
+    "avgTime": "Avg Time/Question",
+    "accuracy": "Accuracy",
+    "topScores": "Top Scores",
+    "noScores": "No scores yet. Play a quiz to get on the leaderboard!"
+  },
+  "achievements": {
+    "unlocked": "Achievement Unlocked!",
+    "unlockedPlural": "Achievements Unlocked!",
+    "unlockedLabel": "unlocked",
+    "howToUnlock": "How to unlock achievements:",
+    "howToUnlockDesc": "Complete quizzes and hit milestones like perfect scores, answer streaks, or mastering countries.",
+    "masteringCountry": "Mastering a country:",
+    "masteringCountryDesc": "Answer questions about it 3+ times with 80%+ accuracy.",
+    "firstSteps": "First Steps",
+    "firstStepsDesc": "Complete your first quiz",
+    "perfect": "Perfect!",
+    "perfectDesc": "Get 100% on any quiz",
+    "perfectionist": "Perfectionist",
+    "perfectionistDesc": "Get 5 perfect scores",
+    "onFire": "On Fire",
+    "onFireDesc": "Get 5 correct answers in a row",
+    "unstoppable": "Unstoppable",
+    "unstoppableDesc": "Get 10 correct answers in a row",
+    "dedicated": "Dedicated",
+    "dedicatedDesc": "Complete 10 quizzes",
+    "quizMaster": "Quiz Master",
+    "quizMasterDesc": "Complete 50 quizzes",
+    "gettingThere": "Getting There",
+    "gettingThereDesc": "Master 5 countries",
+    "geographyBuff": "Geography Buff",
+    "geographyBuffDesc": "Master 20 countries",
+    "europeanExpert": "European Expert",
+    "europeanExpertDesc": "Master all 45 countries",
+    "challengeAccepted": "Challenge Accepted",
+    "challengeAcceptedDesc": "Complete a quiz on Hard difficulty",
+    "legendary": "Legendary",
+    "legendaryDesc": "Get 100% on Hard difficulty",
+    "speedDemon": "Speed Demon",
+    "speedDemonDesc": "Complete a 10-question quiz with timer in under 60 seconds total",
+    "noHelpNeeded": "No Help Needed",
+    "noHelpNeededDesc": "Get 100% without using any hints",
+    "balkanExpert": "Balkan Expert",
+    "balkanExpertDesc": "Master all Balkan countries",
+    "nordicExplorer": "Nordic Explorer",
+    "nordicExplorerDesc": "Master all Northern European countries"
+  },
+  "progress": {
+    "countryMastery": "Country Mastery",
+    "masteryLevels": "Mastery Levels:",
+    "mastered": "Mastered",
+    "masteredDesc": "80%+ correct over 3+ attempts",
+    "learning": "Learning",
+    "learningDesc": "50-79% correct",
+    "weak": "Weak",
+    "weakDesc": "Below 50% correct",
+    "notSeen": "Not Seen",
+    "notSeenDesc": "No attempts yet",
+    "all": "All"
+  },
+  "data": {
+    "management": "Data Management",
+    "export": "Export Progress",
+    "import": "Import Progress",
+    "invalidFile": "Invalid backup file format.",
+    "confirmReplace": "This will replace your current progress. Continue?",
+    "importSuccess": "Progress imported successfully!",
+    "importError": "Error reading backup file. Make sure it's a valid JSON file."
+  },
+  "share": {
+    "title": "European Capitals Quiz",
+    "speedRunMode": "Speed Run",
+    "classicMode": "Classic Mode",
+    "speedRunModeLabel": "Speed Run Mode",
+    "60secondChallenge": "60-second challenge",
+    "60seconds": "60 Seconds",
+    "score": "Score",
+    "mode": "Mode",
+    "difficultyLabel": "Difficulty",
+    "regionLabel": "Region",
+    "player": "Player",
+    "challenge": "Can you beat my score?",
+    "speedChallenge": "Can you answer more questions in 60 seconds?",
+    "scoreMessage": "I scored {{score}}/{{total}} ({{percent}}%) on the European Capitals Quiz!",
+    "results": "Results"
+  }
+}

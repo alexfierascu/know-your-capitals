@@ -19,6 +19,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="styles.css">
+
+    <!-- i18next for internationalization -->
+    <script src="https://unpkg.com/i18next@23.7.6/i18next.min.js"></script>
 </head>
 <body>
 <div class="background-decoration" aria-hidden="true"></div>
@@ -27,20 +30,47 @@
 <div id="loading-screen" class="loading-screen" role="status" aria-live="polite">
     <div class="loader">
         <div class="loader-spinner"></div>
-        <p>Loading quiz...</p>
+        <p data-i18n="loading.text">Loading quiz...</p>
     </div>
 </div>
 
-<!-- Theme Toggle -->
-<button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light theme" title="Toggle theme">
-    <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-        <circle cx="12" cy="12" r="5"/>
-        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
-    </svg>
-    <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-    </svg>
-</button>
+<!-- Top Controls -->
+<div class="top-controls">
+    <!-- Language Selector -->
+    <div class="language-selector">
+        <button id="language-toggle" class="language-toggle" aria-label="Change language" title="Change language">
+            <span id="current-lang-flag">EN</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M6 9l6 6 6-6"/>
+            </svg>
+        </button>
+        <div id="language-dropdown" class="language-dropdown" hidden>
+            <button class="language-option" data-lang="en">
+                <span class="lang-code">EN</span>
+                <span class="lang-name">English</span>
+            </button>
+            <button class="language-option" data-lang="es">
+                <span class="lang-code">ES</span>
+                <span class="lang-name">Español</span>
+            </button>
+            <button class="language-option" data-lang="fr">
+                <span class="lang-code">FR</span>
+                <span class="lang-name">Français</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Theme Toggle -->
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light theme" title="Toggle theme">
+        <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="12" cy="12" r="5"/>
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        </svg>
+        <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+    </button>
+</div>
 
 <!-- Confetti Canvas -->
 <canvas id="confetti-canvas" aria-hidden="true"></canvas>
@@ -53,82 +83,82 @@
             <div class="logo" aria-hidden="true">
                 <span class="compass">◈</span>
             </div>
-            <h1 id="start-title">European Capitals</h1>
-            <p class="subtitle">Test your knowledge of Europe's capital cities</p>
+            <h1 id="start-title" data-i18n="app.title">European Capitals</h1>
+            <p class="subtitle" data-i18n="app.subtitle">Test your knowledge of Europe's capital cities</p>
 
             <div class="stats-preview" aria-label="Quiz statistics">
                 <div class="stat">
                     <span class="stat-number" id="total-question-count">0</span>
-                    <span class="stat-label">Questions</span>
+                    <span class="stat-label" data-i18n="start.questions">Questions</span>
                 </div>
                 <div class="stat">
                     <span class="stat-number">4</span>
-                    <span class="stat-label">Options each</span>
+                    <span class="stat-label" data-i18n="start.optionsEach">Options each</span>
                 </div>
             </div>
 
             <form id="quiz-settings" class="settings" aria-label="Quiz settings">
                 <div class="setting-group">
-                    <label for="player-name">Your name:</label>
-                    <input type="text" id="player-name" placeholder="Enter your name" maxlength="30" autocomplete="name">
+                    <label for="player-name" data-i18n="settings.yourName">Your name:</label>
+                    <input type="text" id="player-name" data-i18n="[placeholder]settings.enterName" placeholder="Enter your name" maxlength="30" autocomplete="name">
                 </div>
                 <div class="setting-group game-mode-group">
-                    <label>Game Mode:</label>
+                    <label data-i18n="settings.gameMode">Game Mode:</label>
                     <div class="game-mode-options">
                         <label class="game-mode-option">
                             <input type="radio" name="game-mode" value="classic" checked>
                             <span class="game-mode-label">
-                                <span class="game-mode-name">Classic</span>
-                                <span class="game-mode-desc">Fixed questions, per-question timer</span>
+                                <span class="game-mode-name" data-i18n="settings.classic">Classic</span>
+                                <span class="game-mode-desc" data-i18n="settings.classicDesc">Fixed questions, per-question timer</span>
                             </span>
                         </label>
                         <label class="game-mode-option">
                             <input type="radio" name="game-mode" value="speedrun">
                             <span class="game-mode-label">
-                                <span class="game-mode-name">Speed Run</span>
-                                <span class="game-mode-desc">60 seconds, answer as many as you can</span>
+                                <span class="game-mode-name" data-i18n="settings.speedRun">Speed Run</span>
+                                <span class="game-mode-desc" data-i18n="settings.speedRunDesc">60 seconds, answer as many as you can</span>
                             </span>
                         </label>
                     </div>
                 </div>
                 <div class="setting-group">
-                    <label for="difficulty-select">Difficulty:</label>
+                    <label for="difficulty-select" data-i18n="settings.difficulty">Difficulty:</label>
                     <select id="difficulty-select" aria-describedby="difficulty-hint">
-                        <option value="easy">Easy</option>
-                        <option value="medium" selected>Medium</option>
-                        <option value="hard">Hard</option>
+                        <option value="easy" data-i18n="difficulty.easy">Easy</option>
+                        <option value="medium" selected data-i18n="difficulty.medium">Medium</option>
+                        <option value="hard" data-i18n="difficulty.hard">Hard</option>
                     </select>
-                    <p class="difficulty-hint" id="difficulty-hint">Cities from same country + one foreign city</p>
+                    <p class="difficulty-hint" id="difficulty-hint" data-i18n="difficulty.mediumHint">Cities from the same country and one foreign city</p>
                 </div>
                 <div class="setting-group">
-                    <label for="timer-select">Timer:</label>
+                    <label for="timer-select" data-i18n="settings.timer">Timer:</label>
                     <select id="timer-select">
-                        <option value="0">No timer</option>
-                        <option value="10">10 seconds</option>
-                        <option value="15" selected>15 seconds</option>
-                        <option value="20">20 seconds</option>
-                        <option value="30">30 seconds</option>
+                        <option value="0" data-i18n="timer.none">No timer</option>
+                        <option value="10" data-i18n="timer.10sec">10 seconds</option>
+                        <option value="15" selected data-i18n="timer.15sec">15 seconds</option>
+                        <option value="20" data-i18n="timer.20sec">20 seconds</option>
+                        <option value="30" data-i18n="timer.30sec">30 seconds</option>
                     </select>
                 </div>
                 <div class="setting-group">
-                    <label for="region-select">Region:</label>
+                    <label for="region-select" data-i18n="settings.region">Region:</label>
                     <select id="region-select">
                         <!-- Options populated dynamically from JSON -->
                     </select>
                 </div>
                 <div class="setting-group">
-                    <label for="question-count">Number of questions:</label>
+                    <label for="question-count" data-i18n="settings.numQuestions">Number of questions:</label>
                     <select id="question-count">
                         <!-- Options populated dynamically based on available questions -->
                     </select>
                 </div>
                 <p class="available-count">
-                    <span id="available-questions">45</span> questions available
+                    <span id="available-questions">45</span> <span data-i18n="start.questionsAvailable">questions available</span>
                 </p>
             </form>
 
             <button id="start-btn" class="btn btn-primary" type="button">
-                <span>Begin Quiz</span>
+                <span data-i18n="buttons.beginQuiz">Begin Quiz</span>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <path d="M5 12h14M12 5l7 7-7 7"/>
                 </svg>
@@ -154,7 +184,7 @@
                     <span id="streak-count">0</span>
                 </div>
                 <div class="score-display" aria-label="Current score">
-                    <span class="score-label">Score</span>
+                    <span class="score-label" data-i18n="quiz.score">Score</span>
                     <span id="current-score">0</span>
                 </div>
             </header>
@@ -187,7 +217,7 @@
                         <path d="M2 17l10 5 10-5"/>
                         <path d="M2 12l10 5 10-5"/>
                     </svg>
-                    <span>First Letter</span>
+                    <span data-i18n="hints.firstLetter">First Letter</span>
                     <span class="hint-count" id="hint-letter-count">2</span>
                 </button>
                 <button id="hint-eliminate" class="btn-hint" aria-label="Eliminate one wrong answer">
@@ -195,7 +225,7 @@
                         <circle cx="12" cy="12" r="10"/>
                         <path d="M15 9l-6 6M9 9l6 6"/>
                     </svg>
-                    <span>Eliminate One</span>
+                    <span data-i18n="hints.eliminateOne">Eliminate One</span>
                     <span class="hint-count" id="hint-eliminate-count">2</span>
                 </button>
             </div>
@@ -207,7 +237,7 @@
             <!-- Map Preview -->
             <div id="map-container" class="map-container" aria-label="Country information">
                 <div class="map-wrapper">
-                    <p class="map-title">📍 Country Info</p>
+                    <p class="map-title" data-i18n="quiz.countryInfo">📍 Country Info</p>
                     <div class="map-content">
                         <div class="map-flag-section">
                             <img id="map-image" src="" alt="" class="map-image">
@@ -227,7 +257,7 @@
             </div>
 
             <button id="next-btn" class="btn btn-primary" disabled>
-                <span>Next Question</span>
+                <span data-i18n="buttons.nextQuestion">Next Question</span>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <path d="M5 12h14M12 5l7 7-7 7"/>
                 </svg>
@@ -244,7 +274,7 @@
                 <span class="trophy">★</span>
             </div>
 
-            <h1 id="results-title">Quiz Complete!</h1>
+            <h1 id="results-title" data-i18n="results.complete">Quiz Complete!</h1>
             <p id="results-message" class="results-message"></p>
 
             <div class="final-score" aria-label="Final score">
@@ -260,12 +290,12 @@
                 <div class="breakdown-item correct">
                     <span class="breakdown-icon" aria-hidden="true">✓</span>
                     <span id="correct-count">0</span>
-                    <span class="breakdown-label">Correct</span>
+                    <span class="breakdown-label" data-i18n="results.correct">Correct</span>
                 </div>
                 <div class="breakdown-item incorrect">
                     <span class="breakdown-icon" aria-hidden="true">✗</span>
                     <span id="incorrect-count">0</span>
-                    <span class="breakdown-label">Incorrect</span>
+                    <span class="breakdown-label" data-i18n="results.incorrect">Incorrect</span>
                 </div>
             </div>
 
@@ -278,7 +308,7 @@
                     <path d="M16 17H8"/>
                     <path d="M10 9H8"/>
                 </svg>
-                <span>Review Answers</span>
+                <span data-i18n="buttons.reviewAnswers">Review Answers</span>
             </button>
 
             <!-- Question Review Section -->
@@ -297,7 +327,7 @@
                         <path d="M8.59 13.51l6.83 3.98"/>
                         <path d="M15.41 6.51l-6.82 3.98"/>
                     </svg>
-                    <span>Share</span>
+                    <span data-i18n="buttons.share">Share</span>
                 </button>
                 <button id="share-image-btn" class="btn btn-secondary" aria-label="Share results as image">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -305,14 +335,14 @@
                         <circle cx="8.5" cy="8.5" r="1.5"/>
                         <polyline points="21 15 16 10 5 21"/>
                     </svg>
-                    <span>Share Image</span>
+                    <span data-i18n="buttons.shareImage">Share Image</span>
                 </button>
                 <button id="restart-btn" class="btn btn-primary">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                         <path d="M1 4v6h6M23 20v-6h-6"/>
                         <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>
                     </svg>
-                    <span>Play Again</span>
+                    <span data-i18n="buttons.playAgain">Play Again</span>
                 </button>
             </div>
         </div>
@@ -320,7 +350,7 @@
 </main>
 
 <!-- Share Toast -->
-<div id="share-toast" class="toast" role="alert" aria-live="polite" hidden>
+<div id="share-toast" class="toast" role="alert" aria-live="polite" hidden data-i18n="toast.copied">
     Results copied to clipboard!
 </div>
 
@@ -328,7 +358,7 @@
 <div id="achievement-toast" class="toast achievement-toast" role="alert" aria-live="polite">
     <span class="achievement-toast-icon">🏆</span>
     <div class="achievement-toast-content">
-        <span class="achievement-toast-title">Achievement Unlocked!</span>
+        <span class="achievement-toast-title" data-i18n="achievements.unlocked">Achievement Unlocked!</span>
         <span id="achievement-toast-name" class="achievement-toast-name"></span>
     </div>
 </div>
@@ -341,59 +371,59 @@
 
         <!-- Modal Tabs -->
         <div class="modal-tabs" role="tablist">
-            <button class="modal-tab active" data-tab="leaderboard" role="tab" aria-selected="true">🏆 Leaderboard</button>
-            <button class="modal-tab" data-tab="achievements" role="tab" aria-selected="false">🎖️ Achievements</button>
-            <button class="modal-tab" data-tab="progress" role="tab" aria-selected="false">📊 Progress</button>
+            <button class="modal-tab active" data-tab="leaderboard" role="tab" aria-selected="true">🏆 <span data-i18n="modal.leaderboard">Leaderboard</span></button>
+            <button class="modal-tab" data-tab="achievements" role="tab" aria-selected="false">🎖️ <span data-i18n="modal.achievements">Achievements</span></button>
+            <button class="modal-tab" data-tab="progress" role="tab" aria-selected="false">📊 <span data-i18n="modal.progress">Progress</span></button>
         </div>
 
         <!-- Leaderboard Tab -->
         <div id="tab-leaderboard" class="modal-tab-content active" role="tabpanel">
-            <h2>This Week</h2>
+            <h2 data-i18n="stats.thisWeek">This Week</h2>
             <div id="weekly-summary" class="weekly-summary">
                 <!-- Weekly summary will be rendered here -->
             </div>
-            <h2>Lifetime Stats</h2>
+            <h2 data-i18n="stats.lifetimeStats">Lifetime Stats</h2>
             <div class="lifetime-stats">
                 <div class="lifetime-stat">
                     <span class="lifetime-stat-value" id="stat-total-quizzes">0</span>
-                    <span class="lifetime-stat-label">Quizzes Played</span>
+                    <span class="lifetime-stat-label" data-i18n="stats.quizzesPlayed">Quizzes Played</span>
                 </div>
                 <div class="lifetime-stat">
                     <span class="lifetime-stat-value" id="stat-best-streak">0</span>
-                    <span class="lifetime-stat-label">Best Streak</span>
+                    <span class="lifetime-stat-label" data-i18n="stats.bestStreak">Best Streak</span>
                 </div>
                 <div class="lifetime-stat">
                     <span class="lifetime-stat-value" id="stat-avg-time">-</span>
-                    <span class="lifetime-stat-label">Avg Time/Question</span>
+                    <span class="lifetime-stat-label" data-i18n="stats.avgTime">Avg Time/Question</span>
                 </div>
                 <div class="lifetime-stat">
                     <span class="lifetime-stat-value" id="stat-accuracy">-</span>
-                    <span class="lifetime-stat-label">Accuracy</span>
+                    <span class="lifetime-stat-label" data-i18n="stats.accuracy">Accuracy</span>
                 </div>
             </div>
-            <h2>Top Scores</h2>
+            <h2 data-i18n="stats.topScores">Top Scores</h2>
             <div id="leaderboard-list" class="leaderboard-list">
                 <!-- Leaderboard entries will be inserted here -->
             </div>
-            <p id="leaderboard-empty" class="empty-state" hidden>No scores yet. Play a quiz to get on the leaderboard!</p>
+            <p id="leaderboard-empty" class="empty-state" hidden data-i18n="stats.noScores">No scores yet. Play a quiz to get on the leaderboard!</p>
         </div>
 
         <!-- Achievements Tab -->
         <div id="tab-achievements" class="modal-tab-content" role="tabpanel" hidden>
             <h2 class="tab-header-with-info">
-                Achievements
+                <span data-i18n="modal.achievements">Achievements</span>
                 <span class="info-tooltip">
                     <button class="info-icon" aria-label="Achievement rules info">?</button>
                     <span class="info-tooltip-content">
-                        <strong>How to unlock achievements:</strong><br><br>
-                        Complete quizzes and hit milestones like perfect scores, answer streaks, or mastering countries.<br><br>
-                        <strong>Mastering a country:</strong><br>
-                        Answer questions about it 3+ times with 80%+ accuracy.
+                        <strong data-i18n="achievements.howToUnlock">How to unlock achievements:</strong><br><br>
+                        <span data-i18n="achievements.howToUnlockDesc">Complete quizzes and hit milestones like perfect scores, answer streaks, or mastering countries.</span><br><br>
+                        <strong data-i18n="achievements.masteringCountry">Mastering a country:</strong><br>
+                        <span data-i18n="achievements.masteringCountryDesc">Answer questions about it 3+ times with 80%+ accuracy.</span>
                     </span>
                 </span>
             </h2>
             <div class="achievements-summary">
-                <span id="achievements-unlocked">0</span> / <span id="achievements-total">0</span> unlocked
+                <span id="achievements-unlocked">0</span> / <span id="achievements-total">0</span> <span data-i18n="achievements.unlockedLabel">unlocked</span>
             </div>
             <div id="achievements-grid" class="achievements-grid">
                 <!-- Achievement badges will be inserted here -->
@@ -403,44 +433,44 @@
         <!-- Progress Tab -->
         <div id="tab-progress" class="modal-tab-content" role="tabpanel" hidden>
             <h2 class="tab-header-with-info">
-                Country Mastery
+                <span data-i18n="progress.countryMastery">Country Mastery</span>
                 <span class="info-tooltip">
                     <button class="info-icon" aria-label="Mastery rules info">?</button>
                     <span class="info-tooltip-content">
-                        <strong>Mastery Levels:</strong><br><br>
-                        <strong>Mastered:</strong> 80%+ correct over 3+ attempts<br>
-                        <strong>Learning:</strong> 50-79% correct<br>
-                        <strong>Weak:</strong> Below 50% correct<br>
-                        <strong>Not Seen:</strong> No attempts yet
+                        <strong data-i18n="progress.masteryLevels">Mastery Levels:</strong><br><br>
+                        <strong data-i18n="progress.mastered">Mastered:</strong> <span data-i18n="progress.masteredDesc">80%+ correct over 3+ attempts</span><br>
+                        <strong data-i18n="progress.learning">Learning:</strong> <span data-i18n="progress.learningDesc">50–79% correct</span><br>
+                        <strong data-i18n="progress.weak">Weak:</strong> <span data-i18n="progress.weakDesc">Below 50% correct</span><br>
+                        <strong data-i18n="progress.notSeen">Not Seen:</strong> <span data-i18n="progress.notSeenDesc">No attempts yet</span>
                     </span>
                 </span>
             </h2>
             <div class="progress-summary">
                 <div class="progress-stat">
                     <span id="progress-mastered" class="progress-stat-value">0</span>
-                    <span class="progress-stat-label">Mastered</span>
+                    <span class="progress-stat-label" data-i18n="progress.mastered">Mastered</span>
                 </div>
                 <div class="progress-stat">
                     <span id="progress-learning" class="progress-stat-value">0</span>
-                    <span class="progress-stat-label">Learning</span>
+                    <span class="progress-stat-label" data-i18n="progress.learning">Learning</span>
                 </div>
                 <div class="progress-stat">
                     <span id="progress-new" class="progress-stat-value">0</span>
-                    <span class="progress-stat-label">Not Seen</span>
+                    <span class="progress-stat-label" data-i18n="progress.notSeen">Not Seen</span>
                 </div>
             </div>
             <div class="progress-filter">
-                <button class="progress-filter-btn active" data-filter="all">All</button>
-                <button class="progress-filter-btn" data-filter="mastered">Mastered</button>
-                <button class="progress-filter-btn" data-filter="learning">Learning</button>
-                <button class="progress-filter-btn" data-filter="weak">Weak</button>
+                <button class="progress-filter-btn active" data-filter="all" data-i18n="progress.all">All</button>
+                <button class="progress-filter-btn" data-filter="mastered" data-i18n="progress.mastered">Mastered</button>
+                <button class="progress-filter-btn" data-filter="learning" data-i18n="progress.learning">Learning</button>
+                <button class="progress-filter-btn" data-filter="weak" data-i18n="progress.weak">Weak</button>
             </div>
             <div id="progress-list" class="progress-list">
                 <!-- Progress items will be inserted here -->
             </div>
 
             <div class="data-management">
-                <h3>Data Management</h3>
+                <h3 data-i18n="data.management">Data Management</h3>
                 <div class="data-management-buttons">
                     <button id="export-data-btn" class="btn btn-secondary btn-small">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -448,7 +478,7 @@
                             <polyline points="7 10 12 15 17 10"/>
                             <line x1="12" y1="15" x2="12" y2="3"/>
                         </svg>
-                        Export Progress
+                        <span data-i18n="data.export">Export Progress</span>
                     </button>
                     <label class="btn btn-secondary btn-small import-btn">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -456,7 +486,7 @@
                             <polyline points="17 8 12 3 7 8"/>
                             <line x1="12" y1="3" x2="12" y2="15"/>
                         </svg>
-                        Import Progress
+                        <span data-i18n="data.import">Import Progress</span>
                         <input type="file" id="import-data-input" accept=".json" hidden>
                     </label>
                 </div>
@@ -465,7 +495,7 @@
     </div>
 </div>
 
-<!-- Stats Button (visible on start screen) -->
+<!-- Stats Button (visible on the start screen) -->
 <button id="stats-btn" class="stats-btn" aria-label="View stats, achievements and leaderboard" title="Stats & Achievements">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
         <path d="M12 20V10"/>
@@ -475,7 +505,7 @@
 </button>
 
 <footer class="footer">
-    <p>Explore Europe, one capital at a time</p>
+    <p data-i18n="app.footer">Explore Europe, one capital at a time</p>
 </footer>
 
 <!-- Skip Link for Accessibility -->
