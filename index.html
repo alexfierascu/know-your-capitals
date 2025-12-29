@@ -34,6 +34,30 @@
 
 <!-- Top Controls -->
 <div class="top-controls">
+    <!-- User Profile -->
+    <div id="user-profile" class="user-profile" hidden>
+        <button id="user-menu-toggle" class="user-menu-toggle" aria-label="User menu">
+            <img id="user-avatar" class="user-avatar" src="" alt="" />
+            <span id="user-name" class="user-name">Guest</span>
+            <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"/>
+            </svg>
+        </button>
+        <div id="user-dropdown" class="user-dropdown" hidden>
+            <div class="user-dropdown-header">
+                <span id="user-dropdown-email" class="user-dropdown-email"></span>
+            </div>
+            <button id="logout-btn" class="user-dropdown-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                    <polyline points="16 17 21 12 16 7"/>
+                    <line x1="21" y1="12" x2="9" y2="12"/>
+                </svg>
+                <span data-i18n="auth.signOut">Sign Out</span>
+            </button>
+        </div>
+    </div>
+
     <!-- Language Selector -->
     <div class="language-selector">
         <button id="language-toggle" class="language-toggle" aria-label="Change language" title="Change language">
@@ -104,8 +128,157 @@
 <canvas id="confetti-canvas" aria-hidden="true"></canvas>
 
 <main class="container" role="main">
+    <!-- Login Screen -->
+    <section id="login-screen" class="screen active" aria-labelledby="login-title">
+        <div class="card">
+            <div class="card-decoration" aria-hidden="true"></div>
+            <div class="logo" aria-hidden="true">
+                <span class="compass">◈</span>
+            </div>
+            <h1 id="login-title" data-i18n="app.title">European Capitals</h1>
+            <p class="subtitle" data-i18n="auth.welcome">Sign in to track your progress</p>
+
+            <!-- Login Form -->
+            <div id="auth-form-container" class="auth-form-container">
+                <!-- Sign In Form -->
+                <form id="signin-form" class="auth-form">
+                    <div class="form-group">
+                        <label for="signin-email" data-i18n="auth.email">Email</label>
+                        <input type="email" id="signin-email" required autocomplete="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="signin-password" data-i18n="auth.password">Password</label>
+                        <div class="password-input-wrapper">
+                            <input type="password" id="signin-password" required autocomplete="current-password">
+                            <button type="button" class="password-toggle" aria-label="Show password" data-visible="false">
+                                <!-- Eye open: password is hidden, click to show -->
+                                <svg class="eye-show" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                    <circle cx="12" cy="12" r="3"/>
+                                </svg>
+                                <!-- Eye with slash: password is visible, click to hide -->
+                                <svg class="eye-hide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                    <circle cx="12" cy="12" r="3"/>
+                                    <line x1="1" y1="1" x2="23" y2="23" stroke-width="2.5"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <p id="signin-error" class="auth-error" hidden></p>
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <span data-i18n="auth.signIn">Sign In</span>
+                    </button>
+                    <button type="button" id="forgot-password-btn" class="btn-link forgot-password-link" data-i18n="auth.forgotPassword">Forgot password?</button>
+                </form>
+
+                <!-- Forgot Password Form -->
+                <form id="forgot-password-form" class="auth-form" hidden>
+                    <p class="auth-form-desc" data-i18n="auth.forgotPasswordDesc">Enter your email and we'll send you a link to reset your password.</p>
+                    <div class="form-group">
+                        <label for="reset-email" data-i18n="auth.email">Email</label>
+                        <input type="email" id="reset-email" required autocomplete="email">
+                    </div>
+                    <p id="reset-error" class="auth-error" hidden></p>
+                    <p id="reset-success" class="auth-success" hidden data-i18n="auth.resetEmailSent">Password reset email sent! Check your inbox.</p>
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <span data-i18n="auth.sendResetLink">Send Reset Link</span>
+                    </button>
+                    <button type="button" id="back-to-signin-btn" class="btn-link" data-i18n="auth.backToSignIn">Back to sign in</button>
+                </form>
+
+                <!-- Sign Up Form (hidden by default) -->
+                <form id="signup-form" class="auth-form" hidden>
+                    <div class="form-group">
+                        <label for="signup-name" data-i18n="auth.displayName">Display Name</label>
+                        <input type="text" id="signup-name" required autocomplete="name" maxlength="30">
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-email" data-i18n="auth.email">Email</label>
+                        <input type="email" id="signup-email" required autocomplete="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-password" data-i18n="auth.password">Password</label>
+                        <div class="password-input-wrapper">
+                            <input type="password" id="signup-password" required autocomplete="new-password" minlength="6">
+                            <button type="button" class="password-toggle" aria-label="Show password" data-visible="false">
+                                <!-- Eye open: password is hidden, click to show -->
+                                <svg class="eye-show" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                    <circle cx="12" cy="12" r="3"/>
+                                </svg>
+                                <!-- Eye with slash: password is visible, click to hide -->
+                                <svg class="eye-hide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                    <circle cx="12" cy="12" r="3"/>
+                                    <line x1="1" y1="1" x2="23" y2="23" stroke-width="2.5"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <p id="signup-error" class="auth-error" hidden></p>
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <span data-i18n="auth.createAccount">Create Account</span>
+                    </button>
+                </form>
+
+                <!-- Toggle between Sign In / Sign Up -->
+                <p class="auth-toggle">
+                    <span id="auth-toggle-text" data-i18n="auth.noAccount">Don't have an account?</span>
+                    <button type="button" id="auth-toggle-btn" class="btn-link" data-i18n="auth.signUp">Sign Up</button>
+                </p>
+
+                <div class="auth-divider">
+                    <span data-i18n="auth.or">or</span>
+                </div>
+
+                <!-- Social & Guest Login -->
+                <div class="auth-alternatives">
+                    <button id="google-signin-btn" class="btn btn-google">
+                        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                        </svg>
+                        <span data-i18n="auth.continueWithGoogle">Continue with Google</span>
+                    </button>
+                    <button id="guest-signin-btn" class="btn btn-secondary btn-full">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                        <span data-i18n="auth.playAsGuest">Play as Guest</span>
+                    </button>
+                </div>
+
+                <!-- Verification Pending -->
+                <div id="verification-pending" class="verification-pending" hidden>
+                    <div class="verification-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="auth.verifyEmailTitle">Check your email</h3>
+                    <p data-i18n="auth.verifyEmailMessage">We've sent a verification link to your email. Please verify your email to continue.</p>
+                    <p id="verification-email" class="verification-email"></p>
+                    <div class="verification-actions">
+                        <button id="resend-verification-btn" class="btn btn-secondary">
+                            <span data-i18n="auth.resendEmail">Resend Email</span>
+                        </button>
+                        <button id="check-verification-btn" class="btn btn-primary">
+                            <span data-i18n="auth.iVerified">I've Verified</span>
+                        </button>
+                    </div>
+                    <button id="back-to-login-btn" class="btn-link" data-i18n="auth.backToLogin">Back to login</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Start Screen -->
-    <section id="start-screen" class="screen active" aria-labelledby="start-title">
+    <section id="start-screen" class="screen" aria-labelledby="start-title">
         <div class="card">
             <div class="card-decoration" aria-hidden="true"></div>
             <div class="logo" aria-hidden="true">
@@ -523,6 +696,46 @@
     </div>
 </div>
 
+<!-- Data Migration Modal -->
+<div id="migration-modal" class="modal" hidden>
+    <div class="modal-overlay"></div>
+    <div class="modal-content migration-modal-content">
+        <div class="migration-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+        </div>
+        <h2 data-i18n="migration.title">Data Found</h2>
+        <p data-i18n="migration.message">We found existing progress data. What would you like to do?</p>
+
+        <div class="migration-options">
+            <button id="migration-cloud" class="migration-option">
+                <div class="migration-option-icon">☁️</div>
+                <div class="migration-option-text">
+                    <strong data-i18n="migration.useCloud">Use Cloud Data</strong>
+                    <span data-i18n="migration.useCloudDesc">Keep your synced progress, discard local data</span>
+                </div>
+            </button>
+            <button id="migration-local" class="migration-option">
+                <div class="migration-option-icon">💾</div>
+                <div class="migration-option-text">
+                    <strong data-i18n="migration.useLocal">Use Local Data</strong>
+                    <span data-i18n="migration.useLocalDesc">Keep this device's progress, replace cloud data</span>
+                </div>
+            </button>
+            <button id="migration-merge" class="migration-option recommended">
+                <div class="migration-option-icon">🔄</div>
+                <div class="migration-option-text">
+                    <strong data-i18n="migration.merge">Merge Both</strong>
+                    <span data-i18n="migration.mergeDesc">Combine local and cloud progress (Recommended)</span>
+                </div>
+            </button>
+        </div>
+    </div>
+</div>
+
 <!-- Stats Button (visible on the start screen) -->
 <button id="stats-btn" class="stats-btn" aria-label="View stats, achievements and leaderboard" title="Stats & Achievements">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -541,8 +754,8 @@
 
 <script type="module" src="/src/main.js"></script>
 <script>
-    // Register Service Worker
-    if ('serviceWorker' in navigator) {
+    // Register Service Worker (only in production, not dev server)
+    if ('serviceWorker' in navigator && !location.port) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('sw.js')
                 .then(reg => console.log('Service Worker registered'))

@@ -191,5 +191,40 @@
     "speedChallenge": "Can you answer more questions in 60 seconds?",
     "scoreMessage": "I scored {{score}}/{{total}} ({{percent}}%) on the European Capitals Quiz!",
     "results": "Results"
+  },
+  "auth": {
+    "welcome": "Sign in to track your progress",
+    "email": "Email",
+    "password": "Password",
+    "displayName": "Display Name",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signOut": "Sign Out",
+    "createAccount": "Create Account",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "or": "or",
+    "continueWithGoogle": "Continue with Google",
+    "playAsGuest": "Play as Guest",
+    "verifyEmailTitle": "Check your email",
+    "verifyEmailMessage": "We've sent a verification link to your email. Please verify your email to continue.",
+    "resendEmail": "Resend Email",
+    "iVerified": "I've Verified",
+    "backToLogin": "Back to login",
+    "forgotPassword": "Forgot password?",
+    "forgotPasswordDesc": "Enter your email and we'll send you a link to reset your password.",
+    "sendResetLink": "Send Reset Link",
+    "resetEmailSent": "Password reset email sent! Check your inbox.",
+    "backToSignIn": "Back to sign in"
+  },
+  "migration": {
+    "title": "Data Found",
+    "message": "We found existing progress data. What would you like to do?",
+    "useCloud": "Use Cloud Data",
+    "useCloudDesc": "Keep your synced progress, discard local data",
+    "useLocal": "Use Local Data",
+    "useLocalDesc": "Keep this device's progress, replace cloud data",
+    "merge": "Merge Both",
+    "mergeDesc": "Combine local and cloud progress (Recommended)"
   }
 }

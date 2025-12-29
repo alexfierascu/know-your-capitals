@@ -22,6 +22,9 @@ import { useLetterHint, useEliminateHint } from './hints.js';
 import { toggleReview } from './review.js';
 import { shareResults, shareResultsAsImage } from './share.js';
 import { openStatsModal, setupModalListeners } from './stats.js';
+import { initAuth } from './auth.js';
+import { initAuthElements, setupAuthUI } from './authUI.js';
+import { initDataSync, markInitialized } from './dataSync.js';
 
 async function loadCountries() {
     try {
@@ -119,6 +122,9 @@ async function initApp() {
     // Initialize DOM elements
     initElements();
 
+    // Initialize auth elements
+    initAuthElements();
+
     // Initialize theme
     initTheme();
 
@@ -160,6 +166,18 @@ async function initApp() {
 
     // Setup modal listeners
     setupModalListeners();
+
+    // Setup auth UI
+    setupAuthUI();
+
+    // Initialize data sync
+    initDataSync();
+
+    // Initialize auth (this will trigger auth state change and show appropriate screen)
+    await initAuth();
+
+    // Mark data sync as initialized (after auth is ready)
+    markInitialized();
 
     // Hide loading screen
     hideLoadingScreen();

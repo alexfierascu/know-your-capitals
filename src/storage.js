@@ -5,6 +5,7 @@
 import { STORAGE_KEYS } from './constants.js';
 import { state } from './state.js';
 import { t } from './i18n.js';
+import { debouncedSave } from './dataSync.js';
 
 export function loadFromStorage(key, defaultValue = {}) {
     try {
@@ -16,9 +17,13 @@ export function loadFromStorage(key, defaultValue = {}) {
     }
 }
 
-export function saveToStorage(key, data) {
+export function saveToStorage(key, data, syncToCloud = true) {
     try {
         localStorage.setItem(key, JSON.stringify(data));
+        // Trigger cloud sync for user data keys
+        if (syncToCloud && Object.values(STORAGE_KEYS).includes(key)) {
+            debouncedSave();
+        }
     } catch (e) {
         console.error('Error saving to storage:', e);
     }
