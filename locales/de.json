@@ -1,0 +1,195 @@
+{
+  "loading": {
+    "text": "Quiz wird geladen..."
+  },
+  "app": {
+    "title": "Europäische Hauptstädte",
+    "subtitle": "Teste dein Wissen über Europas Hauptstädte",
+    "footer": "Entdecke Europa, eine Hauptstadt nach der anderen"
+  },
+  "start": {
+    "questions": "Fragen",
+    "optionsEach": "Optionen je",
+    "questionsAvailable": "Fragen verfügbar"
+  },
+  "settings": {
+    "yourName": "Dein Name:",
+    "enterName": "Gib deinen Namen ein",
+    "gameMode": "Spielmodus:",
+    "classic": "Klassisch",
+    "classicDesc": "Feste Fragen, Timer pro Frage",
+    "speedRun": "Schnelldurchlauf",
+    "speedRunDesc": "60 Sekunden, beantworte so viele wie möglich",
+    "difficulty": "Schwierigkeit:",
+    "timer": "Timer:",
+    "region": "Region:",
+    "numQuestions": "Anzahl der Fragen:"
+  },
+  "difficulty": {
+    "easy": "Leicht",
+    "medium": "Mittel",
+    "hard": "Schwer",
+    "easyHint": "Alle Optionen sind Städte aus demselben Land",
+    "mediumHint": "Städte aus demselben Land + eine ausländische Stadt",
+    "hardHint": "Alle Optionen sind Hauptstädte verschiedener Länder"
+  },
+  "timer": {
+    "none": "Kein Timer",
+    "10sec": "10 Sekunden",
+    "15sec": "15 Sekunden",
+    "20sec": "20 Sekunden",
+    "30sec": "30 Sekunden"
+  },
+  "regions": {
+    "all": "Ganz Europa",
+    "western": "Westeuropa",
+    "northern": "Nordeuropa",
+    "southern": "Südeuropa",
+    "eastern": "Osteuropa",
+    "baltic": "Baltische Staaten",
+    "balkans": "Balkan"
+  },
+  "buttons": {
+    "beginQuiz": "Quiz starten",
+    "nextQuestion": "Nächste Frage",
+    "seeResults": "Ergebnisse anzeigen",
+    "playAgain": "Nochmal spielen",
+    "reviewAnswers": "Antworten überprüfen",
+    "share": "Teilen",
+    "shareImage": "Bild teilen"
+  },
+  "quiz": {
+    "score": "Punkte",
+    "countryInfo": "Länderinfo",
+    "questionPrefix": "Was ist die Hauptstadt von",
+    "timeUp": "Zeit abgelaufen! Die richtige Antwort war"
+  },
+  "hints": {
+    "firstLetter": "Erster Buchstabe",
+    "eliminateOne": "Eine eliminieren",
+    "startsWith": "Hinweis: Die Hauptstadt beginnt mit"
+  },
+  "results": {
+    "complete": "Quiz abgeschlossen!",
+    "correct": "Richtig",
+    "incorrect": "Falsch",
+    "speedDemon": "Geschwindigkeitsdämon, {{name}}!",
+    "speedDemonMsg": "Unglaublich! {{count}} Fragen in 60 Sekunden mit {{percent}}% Genauigkeit!",
+    "lightningFast": "Blitzschnell, {{name}}!",
+    "lightningFastMsg": "Tolle Geschwindigkeit! {{count}} Fragen in nur 60 Sekunden beantwortet!",
+    "quickThinker": "Schnelldenker, {{name}}!",
+    "quickThinkerMsg": "Gutes Tempo! Du hast {{count}} Fragen im Zeitlimit beantwortet.",
+    "keepPracticing": "Weiter üben, {{name}}!",
+    "keepPracticingMsg": "{{count}} Fragen beantwortet. Versuche es erneut, um deinen Rekord zu brechen!",
+    "perfectScore": "Perfekte Punktzahl, {{name}}!",
+    "perfectScoreMsg": "Unglaublich! Du bist ein echter {{region}} Geografie-Experte!",
+    "excellent": "Ausgezeichnet, {{name}}!",
+    "excellentMsg": "Du kennst wirklich die Hauptstädte von {{region}}!",
+    "wellDone": "Gut gemacht, {{name}}!",
+    "wellDoneMsg": "Gute Kenntnisse über {{region}}, aber es gibt noch mehr zu entdecken!",
+    "notBad": "Nicht schlecht, {{name}}!",
+    "notBadMsg": "Du bist auf dem Weg, die Hauptstädte von {{region}} zu meistern!",
+    "keepLearning": "Weiter lernen, {{name}}!",
+    "keepLearningMsg": "{{region}} hat so viel zu entdecken. Versuch es nochmal!",
+    "noAnswer": "Keine Antwort (Zeit abgelaufen)"
+  },
+  "toast": {
+    "copied": "Ergebnisse in Zwischenablage kopiert!",
+    "imageDownloaded": "Bild heruntergeladen!"
+  },
+  "modal": {
+    "leaderboard": "Bestenliste",
+    "achievements": "Erfolge",
+    "progress": "Fortschritt"
+  },
+  "stats": {
+    "thisWeek": "Diese Woche",
+    "lifetimeStats": "Gesamtstatistik",
+    "quizzesPlayed": "Gespielte Quiz",
+    "bestStreak": "Beste Serie",
+    "avgTime": "Durchschn. Zeit/Frage",
+    "accuracy": "Genauigkeit",
+    "topScores": "Bestpunktzahlen",
+    "noScores": "Noch keine Punkte. Spiele ein Quiz, um in die Bestenliste zu kommen!"
+  },
+  "achievements": {
+    "unlocked": "Erfolg freigeschaltet!",
+    "unlockedPlural": "Erfolge freigeschaltet!",
+    "unlockedLabel": "freigeschaltet",
+    "howToUnlock": "Wie man Erfolge freischaltet:",
+    "howToUnlockDesc": "Schließe Quiz ab und erreiche Meilensteine wie perfekte Punktzahlen, Antwortserien oder das Meistern von Ländern.",
+    "masteringCountry": "Ein Land meistern:",
+    "masteringCountryDesc": "Beantworte Fragen darüber 3+ mal mit 80%+ Genauigkeit.",
+    "firstSteps": "Erste Schritte",
+    "firstStepsDesc": "Schließe dein erstes Quiz ab",
+    "perfect": "Perfekt!",
+    "perfectDesc": "Erreiche 100% bei einem Quiz",
+    "perfectionist": "Perfektionist",
+    "perfectionistDesc": "Erreiche 5 perfekte Punktzahlen",
+    "onFire": "In Flammen",
+    "onFireDesc": "5 richtige Antworten hintereinander",
+    "unstoppable": "Unaufhaltbar",
+    "unstoppableDesc": "10 richtige Antworten hintereinander",
+    "dedicated": "Engagiert",
+    "dedicatedDesc": "Schließe 10 Quiz ab",
+    "quizMaster": "Quiz-Meister",
+    "quizMasterDesc": "Schließe 50 Quiz ab",
+    "gettingThere": "Auf dem Weg",
+    "gettingThereDesc": "Meistere 5 Länder",
+    "geographyBuff": "Geografie-Enthusiast",
+    "geographyBuffDesc": "Meistere 20 Länder",
+    "europeanExpert": "Europa-Experte",
+    "europeanExpertDesc": "Meistere alle 45 Länder",
+    "challengeAccepted": "Herausforderung angenommen",
+    "challengeAcceptedDesc": "Schließe ein Quiz auf Schwer ab",
+    "legendary": "Legendär",
+    "legendaryDesc": "Erreiche 100% auf Schwer",
+    "speedDemon": "Geschwindigkeitsdämon",
+    "speedDemonDesc": "Schließe ein 10-Fragen-Quiz mit Timer in unter 60 Sekunden ab",
+    "noHelpNeeded": "Keine Hilfe nötig",
+    "noHelpNeededDesc": "Erreiche 100% ohne Hinweise",
+    "balkanExpert": "Balkan-Experte",
+    "balkanExpertDesc": "Meistere alle Balkanländer",
+    "nordicExplorer": "Nordischer Entdecker",
+    "nordicExplorerDesc": "Meistere alle nordeuropäischen Länder"
+  },
+  "progress": {
+    "countryMastery": "Länderbeherrschung",
+    "masteryLevels": "Beherrschungsstufen:",
+    "mastered": "Gemeistert",
+    "masteredDesc": "80%+ richtig über 3+ Versuche",
+    "learning": "Lernend",
+    "learningDesc": "50-79% richtig",
+    "weak": "Schwach",
+    "weakDesc": "Unter 50% richtig",
+    "notSeen": "Nicht gesehen",
+    "notSeenDesc": "Noch keine Versuche",
+    "all": "Alle"
+  },
+  "data": {
+    "management": "Datenverwaltung",
+    "export": "Fortschritt exportieren",
+    "import": "Fortschritt importieren",
+    "invalidFile": "Ungültiges Backup-Dateiformat.",
+    "confirmReplace": "Dies ersetzt deinen aktuellen Fortschritt. Fortfahren?",
+    "importSuccess": "Fortschritt erfolgreich importiert!",
+    "importError": "Fehler beim Lesen der Backup-Datei. Stelle sicher, dass es eine gültige JSON-Datei ist."
+  },
+  "share": {
+    "title": "Europäische Hauptstädte Quiz",
+    "speedRunMode": "Schnelldurchlauf",
+    "classicMode": "Klassischer Modus",
+    "speedRunModeLabel": "Schnelldurchlauf-Modus",
+    "60secondChallenge": "60-Sekunden-Herausforderung",
+    "60seconds": "60 Sekunden",
+    "score": "Punkte",
+    "mode": "Modus",
+    "difficultyLabel": "Schwierigkeit",
+    "regionLabel": "Region",
+    "player": "Spieler",
+    "challenge": "Kannst du meine Punktzahl schlagen?",
+    "speedChallenge": "Kannst du mehr Fragen in 60 Sekunden beantworten?",
+    "scoreMessage": "Ich habe {{score}}/{{total}} ({{percent}}%) beim Europäische Hauptstädte Quiz erreicht!",
+    "results": "Ergebnisse"
+  }
+}

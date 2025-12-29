@@ -1,0 +1,195 @@
+{
+  "loading": {
+    "text": "Quiz laden..."
+  },
+  "app": {
+    "title": "Europese Hoofdsteden",
+    "subtitle": "Test je kennis van Europese hoofdsteden",
+    "footer": "Ontdek Europa, één hoofdstad per keer"
+  },
+  "start": {
+    "questions": "Vragen",
+    "optionsEach": "Opties elk",
+    "questionsAvailable": "vragen beschikbaar"
+  },
+  "settings": {
+    "yourName": "Je naam:",
+    "enterName": "Voer je naam in",
+    "gameMode": "Spelmodus:",
+    "classic": "Klassiek",
+    "classicDesc": "Vaste vragen, timer per vraag",
+    "speedRun": "Snelheidsronde",
+    "speedRunDesc": "60 seconden, beantwoord zoveel mogelijk",
+    "difficulty": "Moeilijkheid:",
+    "timer": "Timer:",
+    "region": "Regio:",
+    "numQuestions": "Aantal vragen:"
+  },
+  "difficulty": {
+    "easy": "Makkelijk",
+    "medium": "Gemiddeld",
+    "hard": "Moeilijk",
+    "easyHint": "Alle opties zijn steden uit hetzelfde land",
+    "mediumHint": "Steden uit hetzelfde land + één buitenlandse stad",
+    "hardHint": "Alle opties zijn hoofdsteden van verschillende landen"
+  },
+  "timer": {
+    "none": "Geen timer",
+    "10sec": "10 seconden",
+    "15sec": "15 seconden",
+    "20sec": "20 seconden",
+    "30sec": "30 seconden"
+  },
+  "regions": {
+    "all": "Heel Europa",
+    "western": "West-Europa",
+    "northern": "Noord-Europa",
+    "southern": "Zuid-Europa",
+    "eastern": "Oost-Europa",
+    "baltic": "Baltische Staten",
+    "balkans": "Balkan"
+  },
+  "buttons": {
+    "beginQuiz": "Start Quiz",
+    "nextQuestion": "Volgende Vraag",
+    "seeResults": "Bekijk Resultaten",
+    "playAgain": "Opnieuw Spelen",
+    "reviewAnswers": "Antwoorden Bekijken",
+    "share": "Delen",
+    "shareImage": "Afbeelding Delen"
+  },
+  "quiz": {
+    "score": "Score",
+    "countryInfo": "Land Info",
+    "questionPrefix": "Wat is de hoofdstad van",
+    "timeUp": "Tijd is om! Het juiste antwoord was"
+  },
+  "hints": {
+    "firstLetter": "Eerste Letter",
+    "eliminateOne": "Elimineer Eén",
+    "startsWith": "Hint: De hoofdstad begint met"
+  },
+  "results": {
+    "complete": "Quiz Voltooid!",
+    "correct": "Correct",
+    "incorrect": "Incorrect",
+    "speedDemon": "Snelheidsduivel, {{name}}!",
+    "speedDemonMsg": "Ongelooflijk! {{count}} vragen in 60 seconden met {{percent}}% nauwkeurigheid!",
+    "lightningFast": "Bliksemsnel, {{name}}!",
+    "lightningFastMsg": "Geweldige snelheid! {{count}} vragen beantwoord in slechts 60 seconden!",
+    "quickThinker": "Snelle Denker, {{name}}!",
+    "quickThinkerMsg": "Goed tempo! Je beantwoordde {{count}} vragen binnen de tijdslimiet.",
+    "keepPracticing": "Blijf Oefenen, {{name}}!",
+    "keepPracticingMsg": "{{count}} vragen beantwoord. Probeer opnieuw om je record te verbreken!",
+    "perfectScore": "Perfecte Score, {{name}}!",
+    "perfectScoreMsg": "Ongelooflijk! Je bent een echte {{region}} geografie-expert!",
+    "excellent": "Uitstekend, {{name}}!",
+    "excellentMsg": "Je kent echt de hoofdsteden van {{region}}!",
+    "wellDone": "Goed Gedaan, {{name}}!",
+    "wellDoneMsg": "Goede kennis van {{region}}, maar er valt nog meer te ontdekken!",
+    "notBad": "Niet Slecht, {{name}}!",
+    "notBadMsg": "Je bent op weg om de hoofdsteden van {{region}} te beheersen!",
+    "keepLearning": "Blijf Leren, {{name}}!",
+    "keepLearningMsg": "{{region}} heeft zoveel te ontdekken. Probeer opnieuw!",
+    "noAnswer": "Geen antwoord (tijd om)"
+  },
+  "toast": {
+    "copied": "Resultaten gekopieerd naar klembord!",
+    "imageDownloaded": "Afbeelding gedownload!"
+  },
+  "modal": {
+    "leaderboard": "Ranglijst",
+    "achievements": "Prestaties",
+    "progress": "Voortgang"
+  },
+  "stats": {
+    "thisWeek": "Deze Week",
+    "lifetimeStats": "Totale Statistieken",
+    "quizzesPlayed": "Quizzen Gespeeld",
+    "bestStreak": "Beste Reeks",
+    "avgTime": "Gem. Tijd/Vraag",
+    "accuracy": "Nauwkeurigheid",
+    "topScores": "Topscores",
+    "noScores": "Nog geen scores. Speel een quiz om op de ranglijst te komen!"
+  },
+  "achievements": {
+    "unlocked": "Prestatie Ontgrendeld!",
+    "unlockedPlural": "Prestaties Ontgrendeld!",
+    "unlockedLabel": "ontgrendeld",
+    "howToUnlock": "Hoe prestaties ontgrendelen:",
+    "howToUnlockDesc": "Voltooi quizzen en bereik mijlpalen zoals perfecte scores, antwoordreeksen of het beheersen van landen.",
+    "masteringCountry": "Een land beheersen:",
+    "masteringCountryDesc": "Beantwoord vragen erover 3+ keer met 80%+ nauwkeurigheid.",
+    "firstSteps": "Eerste Stappen",
+    "firstStepsDesc": "Voltooi je eerste quiz",
+    "perfect": "Perfect!",
+    "perfectDesc": "Behaal 100% in een quiz",
+    "perfectionist": "Perfectionist",
+    "perfectionistDesc": "Behaal 5 perfecte scores",
+    "onFire": "In Vuur",
+    "onFireDesc": "5 juiste antwoorden op rij",
+    "unstoppable": "Onstuitbaar",
+    "unstoppableDesc": "10 juiste antwoorden op rij",
+    "dedicated": "Toegewijd",
+    "dedicatedDesc": "Voltooi 10 quizzen",
+    "quizMaster": "Quiz Meester",
+    "quizMasterDesc": "Voltooi 50 quizzen",
+    "gettingThere": "Op Weg",
+    "gettingThereDesc": "Beheers 5 landen",
+    "geographyBuff": "Geografie Liefhebber",
+    "geographyBuffDesc": "Beheers 20 landen",
+    "europeanExpert": "Europese Expert",
+    "europeanExpertDesc": "Beheers alle 45 landen",
+    "challengeAccepted": "Uitdaging Aanvaard",
+    "challengeAcceptedDesc": "Voltooi een quiz op Moeilijk",
+    "legendary": "Legendarisch",
+    "legendaryDesc": "Behaal 100% op Moeilijk",
+    "speedDemon": "Snelheidsduivel",
+    "speedDemonDesc": "Voltooi een 10-vragen quiz met timer in minder dan 60 seconden",
+    "noHelpNeeded": "Geen Hulp Nodig",
+    "noHelpNeededDesc": "Behaal 100% zonder hints te gebruiken",
+    "balkanExpert": "Balkan Expert",
+    "balkanExpertDesc": "Beheers alle Balkanlanden",
+    "nordicExplorer": "Noordse Ontdekker",
+    "nordicExplorerDesc": "Beheers alle Noord-Europese landen"
+  },
+  "progress": {
+    "countryMastery": "Landbeheersing",
+    "masteryLevels": "Beheersingsniveaus:",
+    "mastered": "Beheerst",
+    "masteredDesc": "80%+ correct over 3+ pogingen",
+    "learning": "Lerend",
+    "learningDesc": "50-79% correct",
+    "weak": "Zwak",
+    "weakDesc": "Onder 50% correct",
+    "notSeen": "Niet Gezien",
+    "notSeenDesc": "Nog geen pogingen",
+    "all": "Alle"
+  },
+  "data": {
+    "management": "Gegevensbeheer",
+    "export": "Voortgang Exporteren",
+    "import": "Voortgang Importeren",
+    "invalidFile": "Ongeldig back-upbestandsformaat.",
+    "confirmReplace": "Dit vervangt je huidige voortgang. Doorgaan?",
+    "importSuccess": "Voortgang succesvol geïmporteerd!",
+    "importError": "Fout bij lezen back-upbestand. Zorg dat het een geldig JSON-bestand is."
+  },
+  "share": {
+    "title": "Europese Hoofdsteden Quiz",
+    "speedRunMode": "Snelheidsronde",
+    "classicMode": "Klassieke Modus",
+    "speedRunModeLabel": "Snelheidsronde Modus",
+    "60secondChallenge": "60-seconden uitdaging",
+    "60seconds": "60 Seconden",
+    "score": "Score",
+    "mode": "Modus",
+    "difficultyLabel": "Moeilijkheid",
+    "regionLabel": "Regio",
+    "player": "Speler",
+    "challenge": "Kun je mijn score verslaan?",
+    "speedChallenge": "Kun je meer vragen beantwoorden in 60 seconden?",
+    "scoreMessage": "Ik scoorde {{score}}/{{total}} ({{percent}}%) op de Europese Hoofdsteden Quiz!",
+    "results": "Resultaten"
+  }
+}

@@ -39,15 +39,21 @@
     <!-- Language Selector -->
     <div class="language-selector">
         <button id="language-toggle" class="language-toggle" aria-label="Change language" title="Change language">
-            <span id="current-lang-flag">EN</span>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <path d="M6 9l6 6 6-6"/>
+            <svg class="globe-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M2 12h20"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
             </svg>
+            <span id="current-lang-code" class="current-lang-code">EN</span>
         </button>
         <div id="language-dropdown" class="language-dropdown" hidden>
             <button class="language-option" data-lang="en">
                 <span class="lang-code">EN</span>
                 <span class="lang-name">English</span>
+            </button>
+            <button class="language-option" data-lang="de">
+                <span class="lang-code">DE</span>
+                <span class="lang-name">Deutsch</span>
             </button>
             <button class="language-option" data-lang="es">
                 <span class="lang-code">ES</span>
@@ -56,6 +62,30 @@
             <button class="language-option" data-lang="fr">
                 <span class="lang-code">FR</span>
                 <span class="lang-name">Français</span>
+            </button>
+            <button class="language-option" data-lang="it">
+                <span class="lang-code">IT</span>
+                <span class="lang-name">Italiano</span>
+            </button>
+            <button class="language-option" data-lang="nl">
+                <span class="lang-code">NL</span>
+                <span class="lang-name">Nederlands</span>
+            </button>
+            <button class="language-option" data-lang="pl">
+                <span class="lang-code">PL</span>
+                <span class="lang-name">Polski</span>
+            </button>
+            <button class="language-option" data-lang="pt">
+                <span class="lang-code">PT</span>
+                <span class="lang-name">Português</span>
+            </button>
+            <button class="language-option" data-lang="ro">
+                <span class="lang-code">RO</span>
+                <span class="lang-name">Română</span>
+            </button>
+            <button class="language-option" data-lang="sv">
+                <span class="lang-code">SV</span>
+                <span class="lang-name">Svenska</span>
             </button>
         </div>
     </div>

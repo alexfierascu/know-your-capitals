@@ -7,7 +7,7 @@
 // ========================================
 // Internationalization (i18n)
 // ========================================
-const SUPPORTED_LANGUAGES = ['en', 'es', 'fr'];
+const SUPPORTED_LANGUAGES = ['en', 'es', 'fr', 'de', 'it', 'pt', 'pl', 'nl', 'ro', 'sv'];
 const DEFAULT_LANGUAGE = 'en';
 
 let translations = {};
@@ -93,9 +93,9 @@ function changeLanguage(lang) {
 }
 
 function updateLanguageUI(lang) {
-    const langFlag = document.getElementById('current-lang-flag');
-    if (langFlag) {
-        langFlag.textContent = lang.toUpperCase();
+    const langCode = document.getElementById('current-lang-code');
+    if (langCode) {
+        langCode.textContent = lang.toUpperCase();
     }
 
     // Update active state in dropdown
