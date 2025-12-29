@@ -169,12 +169,99 @@ input:focus-visible {
 }
 
 /* ========================================
-   Theme Toggle
+   Top Controls & Language Selector
 ======================================== */
-.theme-toggle {
+.top-controls {
     position: fixed;
     top: 1.5rem;
     right: 1.5rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    z-index: 100;
+}
+
+.language-selector {
+    position: relative;
+}
+
+.language-toggle {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    transition: var(--transition-fast);
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.language-toggle:hover {
+    background: var(--color-bg-card-light);
+    border-color: var(--color-primary);
+}
+
+.language-toggle svg {
+    width: 10px;
+    height: 10px;
+    opacity: 0.6;
+}
+
+.language-dropdown {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    overflow: hidden;
+    min-width: 140px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.language-option {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: transparent;
+    border: none;
+    color: var(--color-text);
+    cursor: pointer;
+    text-align: left;
+    transition: var(--transition-fast);
+}
+
+.language-option:hover {
+    background: var(--color-bg-card-light);
+}
+
+.language-option.active {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+.lang-code {
+    font-weight: 600;
+    font-size: 0.8rem;
+    width: 24px;
+}
+
+.lang-name {
+    font-size: 0.9rem;
+}
+
+/* ========================================
+   Theme Toggle
+======================================== */
+.theme-toggle {
     width: 44px;
     height: 44px;
     border-radius: 50%;
@@ -186,7 +273,6 @@ input:focus-visible {
     align-items: center;
     justify-content: center;
     transition: var(--transition-fast);
-    z-index: 100;
 }
 
 .theme-toggle:hover {
@@ -484,7 +570,8 @@ h1 {
 }
 
 .game-mode-option {
-    flex: 1;
+    flex: 1 1 0;
+    min-width: 0;
     cursor: pointer;
 }
 
@@ -500,6 +587,7 @@ h1 {
     border: 2px solid var(--color-border);
     border-radius: var(--radius-md);
     transition: var(--transition-fast);
+    height: 100%;
 }
 
 .game-mode-option input:checked + .game-mode-label {
@@ -1331,11 +1419,15 @@ h1 {
 ======================================== */
 .results-actions {
     display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
+    justify-content: center;
 }
 
 .results-actions .btn {
-    flex: 1;
+    flex: 1 1 auto;
+    min-width: 120px;
+    max-width: 100%;
 }
 
 /* ========================================
@@ -1384,7 +1476,7 @@ h1 {
         padding-top: 4rem;
     }
 
-    .theme-toggle {
+    .top-controls {
         top: 1rem;
         right: 1rem;
     }
