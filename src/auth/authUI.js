@@ -836,7 +836,14 @@ async function handleAuthStateChange(user) {
             updateAvatarDisplay(null, guestName); // Show initials fallback
             elements.userGuestBadge.hidden = false; // Show guest badge
             elements.userProfile.hidden = false;
+
+            // Hide options that don't apply to guests
             elements.userDropdown.querySelector('.user-dropdown-header').style.display = 'none';
+            elements.editProfileBtn.style.display = 'none';
+            elements.resetProgressBtn.style.display = 'none';
+            elements.deleteAccountBtn.style.display = 'none';
+            elements.userDropdown.querySelector('.user-dropdown-divider').style.display = 'none';
+
             if (elements.statsBtn) {
                 elements.statsBtn.hidden = false;
             }
@@ -936,8 +943,12 @@ async function updateUserProfile() {
     const avatarUrl = profile?.avatarUrl || userInfo.photoURL;
     updateAvatarDisplay(avatarUrl, displayName);
 
-    // Hide guest badge for regular users
+    // Hide guest badge and show all options for regular users
     elements.userGuestBadge.hidden = true;
+    elements.editProfileBtn.style.display = '';
+    elements.resetProgressBtn.style.display = '';
+    elements.deleteAccountBtn.style.display = '';
+    elements.userDropdown.querySelector('.user-dropdown-divider').style.display = '';
 
     // Update dropdown email
     if (userInfo.email) {
