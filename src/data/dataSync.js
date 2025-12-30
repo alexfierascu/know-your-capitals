@@ -3,7 +3,7 @@
  * Handles syncing user data between localStorage and Firestore
  */
 
-import { onAuthChange, getCurrentUser } from '../auth/auth.js';
+import { onAuthChange, getCurrentUser, isGuest } from '../auth/auth.js';
 import {
     loadUserData,
     saveUserData,
@@ -18,6 +18,9 @@ import {
 } from './userStats.js';
 import { state } from './state.js';
 import { STORAGE_KEYS } from '../utils/constants.js';
+
+// Key for storing guest user ID
+const GUEST_UID_KEY = 'quiz-guest-uid';
 
 // Migration modal and data
 let migrationModal = null;
@@ -52,10 +55,31 @@ export function initDataSync() {
  */
 async function handleAuthChange(user) {
     if (user) {
+        // Check if this is a guest user with a different UID (new session)
+        if (user.isAnonymous) {
+            const storedGuestUid = localStorage.getItem(GUEST_UID_KEY);
+
+            if (storedGuestUid && storedGuestUid !== user.uid) {
+                // Different guest user - clear all local data for fresh start
+                console.log('[DataSync] New guest session detected, clearing local data');
+                clearLocalData();
+                // Reset state
+                state.countryProgress = {};
+                state.leaderboard = [];
+                state.achievements = {};
+            }
+
+            // Store current guest UID
+            localStorage.setItem(GUEST_UID_KEY, user.uid);
+        } else {
+            // Non-guest user - clear guest UID if exists
+            localStorage.removeItem(GUEST_UID_KEY);
+        }
+
         await handleUserLogin();
     } else {
-        // User logged out - keep local data as is
-        // Data will be loaded fresh on next login
+        // User logged out - clear guest UID
+        localStorage.removeItem(GUEST_UID_KEY);
     }
 }
 
@@ -65,6 +89,14 @@ async function handleAuthChange(user) {
 async function handleUserLogin() {
     const user = getCurrentUser();
     if (!user) return;
+
+    // Guest users only use localStorage - no cloud sync
+    if (user.isAnonymous) {
+        console.log('[DataSync] Guest user - using localStorage only');
+        localData = getLocalData();
+        applyData(localData);
+        return;
+    }
 
     try {
         // Load data from both sources
@@ -166,7 +198,10 @@ export async function saveProgress() {
     localStorage.setItem(STORAGE_KEYS.leaderboard, JSON.stringify(state.leaderboard || []));
     localStorage.setItem(STORAGE_KEYS.achievements, JSON.stringify(state.achievements || {}));
 
-    // Then sync to cloud
+    // Guest users only use localStorage - no cloud sync
+    if (user.isAnonymous) return;
+
+    // Then sync to cloud for registered users
     await syncToCloud();
 }
 
