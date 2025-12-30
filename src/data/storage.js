@@ -107,9 +107,20 @@ export function getStats() {
     let masteredCountries = 0;
     let balkansMastered = 0;
     let nordicMastered = 0;
+    let westernMastered = 0;
+    let easternMastered = 0;
+    let balticMastered = 0;
+    let mediterraneanMastered = 0;
+    let microstatesMastered = 0;
 
+    // Regional country lists
     const balkanCountries = ['Croatia', 'Slovenia', 'Serbia', 'Bosnia and Herzegovina', 'North Macedonia', 'Montenegro', 'Albania', 'Kosovo'];
     const nordicCountries = ['Sweden', 'Norway', 'Denmark', 'Finland', 'Iceland'];
+    const westernCountries = ['France', 'Germany', 'Netherlands', 'Belgium', 'Luxembourg', 'Austria', 'Switzerland', 'United Kingdom', 'Ireland', 'Monaco'];
+    const easternCountries = ['Poland', 'Czech Republic', 'Slovakia', 'Hungary', 'Romania', 'Bulgaria', 'Moldova', 'Ukraine', 'Belarus'];
+    const balticCountries = ['Estonia', 'Latvia', 'Lithuania'];
+    const mediterraneanCountries = ['Spain', 'Portugal', 'Italy', 'Greece', 'Malta', 'Cyprus', 'Croatia', 'Slovenia'];
+    const microstates = ['Monaco', 'Andorra', 'Liechtenstein', 'San Marino', 'Malta', 'Luxembourg'];
 
     countries.forEach(country => {
         const p = progress[country];
@@ -118,6 +129,11 @@ export function getStats() {
             masteredCountries++;
             if (balkanCountries.includes(country)) balkansMastered++;
             if (nordicCountries.includes(country)) nordicMastered++;
+            if (westernCountries.includes(country)) westernMastered++;
+            if (easternCountries.includes(country)) easternMastered++;
+            if (balticCountries.includes(country)) balticMastered++;
+            if (mediterraneanCountries.includes(country)) mediterraneanMastered++;
+            if (microstates.includes(country)) microstatesMastered++;
         }
     });
 
@@ -135,7 +151,12 @@ export function getStats() {
         ...storedStats,
         masteredCountries,
         balkansMastered,
-        nordicMastered
+        nordicMastered,
+        westernMastered,
+        easternMastered,
+        balticMastered,
+        mediterraneanMastered,
+        microstatesMastered
     };
 }
 

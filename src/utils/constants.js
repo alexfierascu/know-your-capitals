@@ -123,6 +123,95 @@ export const ACHIEVEMENTS = {
         descKey: 'achievements.nordicExplorerDesc',
         icon: '❄️',
         check: (stats) => stats.nordicMastered >= 5
+    },
+    // Regional achievements
+    westernExpert: {
+        id: 'westernExpert',
+        nameKey: 'achievements.westernExpert',
+        descKey: 'achievements.westernExpertDesc',
+        icon: '🏰',
+        check: (stats) => stats.westernMastered >= 10
+    },
+    easternExpert: {
+        id: 'easternExpert',
+        nameKey: 'achievements.easternExpert',
+        descKey: 'achievements.easternExpertDesc',
+        icon: '🌻',
+        check: (stats) => stats.easternMastered >= 8
+    },
+    balticExpert: {
+        id: 'balticExpert',
+        nameKey: 'achievements.balticExpert',
+        descKey: 'achievements.balticExpertDesc',
+        icon: '🌊',
+        check: (stats) => stats.balticMastered >= 3
+    },
+    mediterraneanExpert: {
+        id: 'mediterraneanExpert',
+        nameKey: 'achievements.mediterraneanExpert',
+        descKey: 'achievements.mediterraneanExpertDesc',
+        icon: '☀️',
+        check: (stats) => stats.mediterraneanMastered >= 8
+    },
+    microstateExpert: {
+        id: 'microstateExpert',
+        nameKey: 'achievements.microstateExpert',
+        descKey: 'achievements.microstateExpertDesc',
+        icon: '💎',
+        check: (stats) => stats.microstatesMastered >= 6
+    },
+    // Higher streaks
+    streak15: {
+        id: 'streak15',
+        nameKey: 'achievements.onARoll',
+        descKey: 'achievements.onARollDesc',
+        icon: '🎯',
+        check: (stats) => stats.maxStreak >= 15
+    },
+    streak20: {
+        id: 'streak20',
+        nameKey: 'achievements.flawless',
+        descKey: 'achievements.flawlessDesc',
+        icon: '💫',
+        check: (stats) => stats.maxStreak >= 20
+    },
+    // More milestones
+    hundredQuizzes: {
+        id: 'hundredQuizzes',
+        nameKey: 'achievements.centurion',
+        descKey: 'achievements.centurionDesc',
+        icon: '🎖️',
+        check: (stats) => stats.totalQuizzes >= 100
+    },
+    tenPerfect: {
+        id: 'tenPerfect',
+        nameKey: 'achievements.goldStandard',
+        descKey: 'achievements.goldStandardDesc',
+        icon: '🥇',
+        check: (stats) => stats.perfectScores >= 10
+    },
+    // Speed run progression
+    speedRunPro: {
+        id: 'speedRunPro',
+        nameKey: 'achievements.speedRunPro',
+        descKey: 'achievements.speedRunProDesc',
+        icon: '🏃',
+        check: (stats) => stats.speedRuns >= 5
+    },
+    speedRunMaster: {
+        id: 'speedRunMaster',
+        nameKey: 'achievements.speedRunMaster',
+        descKey: 'achievements.speedRunMasterDesc',
+        icon: '🚀',
+        check: (stats) => stats.speedRuns >= 10
+    },
+    // No hints mastery
+    fiveNoHints: {
+        id: 'fiveNoHints',
+        nameKey: 'achievements.pureBrainpower',
+        descKey: 'achievements.pureBrainpowerDesc',
+        icon: '🎓',
+        check: (stats) => stats.perfectNoHints >= 5
     }
 };
 
