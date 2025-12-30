@@ -1,18 +1,20 @@
 /**
  * User Stats Module
  * Handles reading/writing user stats to Firestore
+ * Uses lazy-loaded Firebase for better initial page load
  */
 
-import { db } from '../auth/firebase.js';
-import { doc, getDoc, setDoc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { getFirebase, getFirestoreModule } from '../auth/firebaseLazy.js';
 import { getCurrentUser } from '../auth/auth.js';
 import { STORAGE_KEYS } from '../utils/constants.js';
 import { state } from './state.js';
 
 /**
- * Get the user's stats document reference
+ * Get the user's stats document reference (lazy loaded)
  */
-function getUserDocRef(userId) {
+async function getUserDocRef(userId) {
+    const { db } = await getFirebase();
+    const { doc } = await getFirestoreModule();
     return doc(db, 'users', userId);
 }
 
@@ -32,7 +34,8 @@ export async function loadUserData() {
     if (!userId) return null;
 
     try {
-        const docRef = getUserDocRef(userId);
+        const { getDoc } = await getFirestoreModule();
+        const docRef = await getUserDocRef(userId);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
@@ -53,7 +56,8 @@ export async function saveUserData(data) {
     if (!userId) return false;
 
     try {
-        const docRef = getUserDocRef(userId);
+        const { setDoc } = await getFirestoreModule();
+        const docRef = await getUserDocRef(userId);
         const user = getCurrentUser();
 
         const dataToSave = {
@@ -295,7 +299,8 @@ export async function getUserProfile() {
     if (!userId) return null;
 
     try {
-        const docRef = getUserDocRef(userId);
+        const { getDoc } = await getFirestoreModule();
+        const docRef = await getUserDocRef(userId);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
@@ -323,7 +328,8 @@ export async function saveUserProfile(profileData) {
     if (!userId) return false;
 
     try {
-        const docRef = getUserDocRef(userId);
+        const { setDoc } = await getFirestoreModule();
+        const docRef = await getUserDocRef(userId);
 
         const dataToSave = {
             firstName: profileData.firstName || '',
@@ -376,7 +382,8 @@ export async function resetAllProgress() {
     // Delete from Firestore if user is logged in
     if (userId) {
         try {
-            const docRef = getUserDocRef(userId);
+            const { deleteDoc } = await getFirestoreModule();
+            const docRef = await getUserDocRef(userId);
             await deleteDoc(docRef);
             console.log('[UserStats] Cloud data deleted');
         } catch (error) {

@@ -55,8 +55,11 @@ function setupEventListeners() {
     // Theme
     elements.themeToggle.addEventListener('click', toggleTheme);
 
-    // Start Screen
-    elements.startBtn.addEventListener('click', initQuiz);
+    // Start Screen - handle form submit
+    document.getElementById('quiz-settings').addEventListener('submit', (e) => {
+        e.preventDefault();
+        initQuiz();
+    });
     elements.regionSelect.addEventListener('change', updateFilteredCountries);
     elements.difficultySelect.addEventListener('change', updateDifficultyHint);
 
@@ -109,9 +112,7 @@ function setupEventListeners() {
             }
         }
 
-        if (elements.startScreen.classList.contains('active') && e.key === 'Enter') {
-            elements.startBtn.click();
-        }
+        // Form submission is handled naturally by the submit button, no need for manual Enter handling
     });
 
     // Legal Modals
@@ -264,14 +265,22 @@ async function initApp() {
     // Initialize data sync
     initDataSync();
 
-    // Initialize auth (this will trigger auth state change and show appropriate screen)
-    await initAuth();
-
-    // Mark data sync as initialized (after auth is ready)
-    markInitialized();
-
-    // Hide loading screen
+    // Hide loading screen first for faster perceived load
     hideLoadingScreen();
+
+    // Defer Firebase initialization to after initial render
+    // This allows the page to be interactive before loading Firebase (~500KB)
+    const initFirebase = async () => {
+        await initAuth();
+        markInitialized();
+    };
+
+    // Use requestIdleCallback if available, otherwise setTimeout
+    if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => initFirebase(), { timeout: 2000 });
+    } else {
+        setTimeout(initFirebase, 100);
+    }
 }
 
 // Start the app

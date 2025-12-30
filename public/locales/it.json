@@ -64,6 +64,7 @@
     "score": "Punteggio",
     "countryInfo": "Info Paese",
     "questionPrefix": "Qual è la capitale di",
+    "questionPlaceholder": "Qual è la capitale di...?",
     "timeUp": "Tempo scaduto! La risposta corretta era"
   },
   "hints": {

@@ -64,6 +64,7 @@
     "score": "Poäng",
     "countryInfo": "Landinfo",
     "questionPrefix": "Vad är huvudstaden i",
+    "questionPlaceholder": "Vad är huvudstaden i...?",
     "timeUp": "Tiden är slut! Rätt svar var"
   },
   "hints": {

@@ -1,34 +1,37 @@
 /**
  * Authentication Module
  * Handles Google, Email/Password, and Guest sign-in
+ * Uses lazy-loaded Firebase for better initial page load
  */
 
-import { auth } from './firebase.js';
-import {
-    signInWithPopup,
-    signInWithEmailAndPassword,
-    createUserWithEmailAndPassword,
-    signInAnonymously,
-    signOut,
-    onAuthStateChanged,
-    GoogleAuthProvider,
-    sendEmailVerification,
-    sendPasswordResetEmail,
-    deleteUser
-} from 'firebase/auth';
-
-const googleProvider = new GoogleAuthProvider();
+import { getFirebase, getAuthModule } from './firebaseLazy.js';
 
 // Current user state
 let currentUser = null;
 let authStateListeners = [];
+let authInstance = null;
+let unsubscribeAuth = null;
+
+/**
+ * Ensure Firebase Auth is initialized
+ */
+async function ensureAuth() {
+    if (!authInstance) {
+        const { auth } = await getFirebase();
+        authInstance = auth;
+    }
+    return authInstance;
+}
 
 /**
  * Sign in with Google
  */
 export async function signInWithGoogle() {
     try {
-        const result = await signInWithPopup(auth, googleProvider);
+        const auth = await ensureAuth();
+        const { signInWithPopup, GoogleAuthProvider } = await getAuthModule();
+        const provider = new GoogleAuthProvider();
+        const result = await signInWithPopup(auth, provider);
         return { success: true, user: result.user };
     } catch (error) {
         console.error('Google sign-in error:', error);
@@ -41,6 +44,8 @@ export async function signInWithGoogle() {
  */
 export async function signInWithEmail(email, password) {
     try {
+        const auth = await ensureAuth();
+        const { signInWithEmailAndPassword } = await getAuthModule();
         const result = await signInWithEmailAndPassword(auth, email, password);
         return { success: true, user: result.user };
     } catch (error) {
@@ -54,6 +59,8 @@ export async function signInWithEmail(email, password) {
  */
 export async function createAccountWithEmail(email, password) {
     try {
+        const auth = await ensureAuth();
+        const { createUserWithEmailAndPassword, sendEmailVerification } = await getAuthModule();
         const result = await createUserWithEmailAndPassword(auth, email, password);
 
         // Send verification email
@@ -72,6 +79,7 @@ export async function createAccountWithEmail(email, password) {
 export async function resendVerificationEmail() {
     try {
         if (currentUser && !currentUser.emailVerified) {
+            const { sendEmailVerification } = await getAuthModule();
             await sendEmailVerification(currentUser);
             return { success: true };
         }
@@ -99,6 +107,7 @@ export function isEmailVerified() {
 export async function reloadUser() {
     if (currentUser) {
         await currentUser.reload();
+        const auth = await ensureAuth();
         currentUser = auth.currentUser;
         return currentUser;
     }
@@ -110,6 +119,8 @@ export async function reloadUser() {
  */
 export async function resetPassword(email) {
     try {
+        const auth = await ensureAuth();
+        const { sendPasswordResetEmail } = await getAuthModule();
         await sendPasswordResetEmail(auth, email);
         return { success: true };
     } catch (error) {
@@ -123,6 +134,8 @@ export async function resetPassword(email) {
  */
 export async function signInAsGuest() {
     try {
+        const auth = await ensureAuth();
+        const { signInAnonymously } = await getAuthModule();
         const result = await signInAnonymously(auth);
         return { success: true, user: result.user };
     } catch (error) {
@@ -136,6 +149,8 @@ export async function signInAsGuest() {
  */
 export async function logOut() {
     try {
+        const auth = await ensureAuth();
+        const { signOut } = await getAuthModule();
         await signOut(auth);
         return { success: true };
     } catch (error) {
@@ -195,9 +210,12 @@ export function onAuthChange(callback) {
 /**
  * Initialize auth state listener
  */
-export function initAuth() {
+export async function initAuth() {
+    const auth = await ensureAuth();
+    const { onAuthStateChanged } = await getAuthModule();
+
     return new Promise((resolve) => {
-        onAuthStateChanged(auth, (user) => {
+        unsubscribeAuth = onAuthStateChanged(auth, (user) => {
             currentUser = user;
 
             // Notify all listeners
@@ -235,7 +253,10 @@ function getErrorMessage(errorCode) {
  */
 export async function deleteAccount() {
     try {
+        const auth = await ensureAuth();
+        const { deleteUser } = await getAuthModule();
         const user = auth.currentUser;
+
         if (!user) {
             return { success: false, error: 'No user is signed in.' };
         }

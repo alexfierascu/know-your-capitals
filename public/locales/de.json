@@ -64,6 +64,7 @@
     "score": "Punkte",
     "countryInfo": "Länderinfo",
     "questionPrefix": "Was ist die Hauptstadt von",
+    "questionPlaceholder": "Was ist die Hauptstadt von...?",
     "timeUp": "Zeit abgelaufen! Die richtige Antwort war"
   },
   "hints": {

@@ -6,13 +6,33 @@ export default defineConfig(({ command }) => ({
   publicDir: 'public',
   build: {
     outDir: 'dist',
+    // Enable minification
+    minify: 'esbuild',
+    // Target modern browsers for smaller bundles
+    target: 'es2020',
     rollupOptions: {
       output: {
-        manualChunks: {
-          firebase: ['firebase/app', 'firebase/auth', 'firebase/firestore', 'firebase/app-check']
+        // Split Firebase into separate chunks for lazy loading
+        manualChunks(id) {
+          if (id.includes('firebase/app')) {
+            return 'firebase-app';
+          }
+          if (id.includes('firebase/auth')) {
+            return 'firebase-auth';
+          }
+          if (id.includes('firebase/firestore')) {
+            return 'firebase-firestore';
+          }
+          if (id.includes('i18next')) {
+            return 'i18next';
+          }
         }
       }
-    }
+    },
+    // Ensure CSS is extracted and can be loaded efficiently
+    cssCodeSplit: true,
+    // CSS minification
+    cssMinify: true
   },
   server: {
     open: true

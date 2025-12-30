@@ -27,11 +27,17 @@
 
     <title>European Capitals Quiz</title>
 
-    <!-- Fonts -->
+    <!-- Fonts with preconnect and optimal loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@400;500;600&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+    </noscript>
 
+    <!-- Preload main CSS for faster rendering -->
+    <link rel="preload" href="./src/styles/main.css" as="style">
     <link rel="stylesheet" href="./src/styles/main.css">
 
     <!-- Structured Data -->
@@ -97,8 +103,8 @@
 
     <!-- User Profile -->
     <div id="user-profile" class="user-profile" hidden>
-        <button id="user-menu-toggle" class="user-menu-toggle" aria-label="User menu">
-            <img id="user-avatar" class="user-avatar" src="" alt="" />
+        <button id="user-menu-toggle" class="user-menu-toggle" aria-haspopup="true" aria-expanded="false">
+            <img id="user-avatar" class="user-avatar" src="" alt="" role="presentation" aria-hidden="true" />
             <span id="user-name" class="user-name">Guest</span>
             <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M6 9l6 6 6-6"/>
@@ -144,7 +150,7 @@
 
     <!-- Language Selector -->
     <div class="language-selector">
-        <button id="language-toggle" class="language-toggle" aria-label="Change language" title="Change language">
+        <button id="language-toggle" class="language-toggle" aria-haspopup="true" aria-expanded="false" title="Change language">
             <svg class="globe-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <circle cx="12" cy="12" r="10"/>
                 <path d="M2 12h20"/>
@@ -356,7 +362,7 @@
                             <polyline points="22,6 12,13 2,6"/>
                         </svg>
                     </div>
-                    <h3 data-i18n="auth.verifyEmailTitle">Check your email</h3>
+                    <h2 class="verification-title" data-i18n="auth.verifyEmailTitle">Check your email</h2>
                     <p data-i18n="auth.verifyEmailMessage">We've sent a verification link to your email. Please verify your email to continue.</p>
                     <p id="verification-email" class="verification-email"></p>
                     <div class="verification-actions">
@@ -448,14 +454,14 @@
                 <p class="available-count">
                     <span id="available-questions">45</span> <span data-i18n="start.questionsAvailable">questions available</span>
                 </p>
-            </form>
 
-            <button id="start-btn" class="btn btn-primary" type="button">
-                <span data-i18n="buttons.beginQuiz">Begin Quiz</span>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-            </button>
+                <button id="start-btn" class="btn btn-primary" type="submit">
+                    <span data-i18n="buttons.beginQuiz">Begin Quiz</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </button>
+            </form>
         </div>
     </section>
 
@@ -498,7 +504,7 @@
             <div class="question-container">
                 <div class="question-with-flag">
                     <img id="question-flag" class="question-flag" src="" alt="" aria-hidden="true">
-                    <h2 id="question-text"></h2>
+                    <h2 id="question-text" data-i18n="quiz.questionPlaceholder">What is the capital of...?</h2>
                 </div>
             </div>
 
@@ -533,7 +539,7 @@
                     <p class="map-title" data-i18n="quiz.countryInfo">📍 Country Info</p>
                     <div class="map-content">
                         <div class="map-flag-section">
-                            <img id="map-image" src="" alt="" class="map-image">
+                            <img id="map-image" src="" alt="" class="map-image" role="presentation" aria-hidden="true">
                         </div>
                         <div class="map-geo-section">
                             <div id="europe-map-container" class="europe-map-container">
@@ -622,7 +628,7 @@
                     </svg>
                     <span data-i18n="buttons.share">Share</span>
                 </button>
-                <button id="share-image-btn" class="btn btn-secondary" aria-label="Share results as image">
+                <button id="share-image-btn" class="btn btn-secondary">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                         <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
                         <circle cx="8.5" cy="8.5" r="1.5"/>

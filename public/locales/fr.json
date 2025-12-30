@@ -64,6 +64,7 @@
     "score": "Score",
     "countryInfo": "Info Pays",
     "questionPrefix": "Quelle est la capitale de",
+    "questionPlaceholder": "Quelle est la capitale de...?",
     "timeUp": "Temps ecoule! La bonne reponse etait"
   },
   "hints": {

@@ -64,6 +64,7 @@
     "score": "Score",
     "countryInfo": "Land Info",
     "questionPrefix": "Wat is de hoofdstad van",
+    "questionPlaceholder": "Wat is de hoofdstad van...?",
     "timeUp": "Tijd is om! Het juiste antwoord was"
   },
   "hints": {

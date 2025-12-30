@@ -64,6 +64,7 @@
     "score": "Wynik",
     "countryInfo": "Info o Kraju",
     "questionPrefix": "Jaka jest stolica",
+    "questionPlaceholder": "Jaka jest stolica...?",
     "timeUp": "Czas minął! Prawidłowa odpowiedź to"
   },
   "hints": {

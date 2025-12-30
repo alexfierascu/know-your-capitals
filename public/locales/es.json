@@ -64,6 +64,7 @@
     "score": "Puntuacion",
     "countryInfo": "Info del Pais",
     "questionPrefix": "Cual es la capital de",
+    "questionPlaceholder": "Cual es la capital de...?",
     "timeUp": "Se acabo el tiempo! La respuesta correcta era"
   },
   "hints": {

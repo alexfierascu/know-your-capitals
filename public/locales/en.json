@@ -64,6 +64,7 @@
     "score": "Score",
     "countryInfo": "Country Info",
     "questionPrefix": "What is the capital of",
+    "questionPlaceholder": "What is the capital of...?",
     "timeUp": "Time is up! The correct answer was"
   },
   "hints": {

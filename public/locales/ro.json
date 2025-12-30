@@ -64,6 +64,7 @@
     "score": "Scor",
     "countryInfo": "Info Țară",
     "questionPrefix": "Care este capitala",
+    "questionPlaceholder": "Care este capitala...?",
     "timeUp": "Timpul a expirat! Răspunsul corect era"
   },
   "hints": {
