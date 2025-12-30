@@ -102,6 +102,7 @@
   },
   "modal": {
     "leaderboard": "Clasament",
+    "global": "Global",
     "achievements": "Realizări",
     "progress": "Progres"
   },
@@ -113,7 +114,14 @@
     "avgTime": "Timp Mediu/Întrebare",
     "accuracy": "Acuratețe",
     "topScores": "Cele Mai Bune Scoruri",
-    "noScores": "Încă nu există scoruri. Joacă un quiz pentru a intra în clasament!"
+    "noScores": "Încă nu există scoruri. Joacă un quiz pentru a intra în clasament!",
+    "globalLeaderboard": "Clasament Global",
+    "globalSubtitle": "Cele mai bune scoruri de la jucători din întreaga lume",
+    "allModes": "Toate Modurile",
+    "allDifficulties": "Toate Dificultățile",
+    "noGlobalScores": "Încă nu există scoruri globale. Fii primul!",
+    "loading": "Se încarcă...",
+    "guestNotice": "Conectează-te pentru a trimite scoruri în clasamentul global!"
   },
   "achievements": {
     "unlocked": "Realizare Deblocată!",

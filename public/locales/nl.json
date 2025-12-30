@@ -102,6 +102,7 @@
   },
   "modal": {
     "leaderboard": "Ranglijst",
+    "global": "Globaal",
     "achievements": "Prestaties",
     "progress": "Voortgang"
   },
@@ -113,7 +114,14 @@
     "avgTime": "Gem. Tijd/Vraag",
     "accuracy": "Nauwkeurigheid",
     "topScores": "Topscores",
-    "noScores": "Nog geen scores. Speel een quiz om op de ranglijst te komen!"
+    "noScores": "Nog geen scores. Speel een quiz om op de ranglijst te komen!",
+    "globalLeaderboard": "Globale Ranglijst",
+    "globalSubtitle": "Topscores van spelers wereldwijd",
+    "allModes": "Alle Modi",
+    "allDifficulties": "Alle Moeilijkheden",
+    "noGlobalScores": "Nog geen globale scores. Wees de eerste!",
+    "loading": "Laden...",
+    "guestNotice": "Log in om scores naar de globale ranglijst te sturen!"
   },
   "achievements": {
     "unlocked": "Prestatie Ontgrendeld!",

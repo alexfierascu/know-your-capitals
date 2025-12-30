@@ -102,6 +102,7 @@
   },
   "modal": {
     "leaderboard": "Classement",
+    "global": "Global",
     "achievements": "Succes",
     "progress": "Progres"
   },
@@ -113,7 +114,14 @@
     "avgTime": "Temps Moy./Question",
     "accuracy": "Precision",
     "topScores": "Meilleurs Scores",
-    "noScores": "Pas encore de scores. Jouez un quiz pour apparaitre au classement!"
+    "noScores": "Pas encore de scores. Jouez un quiz pour apparaitre au classement!",
+    "globalLeaderboard": "Classement Mondial",
+    "globalSubtitle": "Meilleurs scores des joueurs du monde entier",
+    "allModes": "Tous les Modes",
+    "allDifficulties": "Toutes les Difficultés",
+    "noGlobalScores": "Pas encore de scores globaux. Soyez le premier!",
+    "loading": "Chargement...",
+    "guestNotice": "Connectez-vous pour soumettre des scores au classement mondial!"
   },
   "achievements": {
     "unlocked": "Succes Debloque!",

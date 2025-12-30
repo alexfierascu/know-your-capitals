@@ -9,7 +9,11 @@ import { ACHIEVEMENTS, STORAGE_KEYS } from '../utils/constants.js';
 import { loadFromStorage, exportProgress, importProgress } from '../data/storage.js';
 import { t } from '../utils/i18n.js';
 import { renderLeaderboard } from './leaderboard.js';
+import { getRegionName } from './share.js';
 import { getCountryMasteryLevel } from './progress.js';
+import { fetchGlobalLeaderboard } from '../data/globalLeaderboard.js';
+import { getCurrentUser, isGuest } from '../auth/auth.js';
+import { escapeHtml } from '../utils/utils.js';
 
 export function setupModalListeners(callbacks = {}) {
     const { onImportSuccess } = callbacks;
@@ -42,6 +46,11 @@ export function setupModalListeners(callbacks = {}) {
             }
         });
     });
+
+    // Listen for global filter changes
+    modal.addEventListener('global-filter-change', (e) => {
+        renderGlobalLeaderboard(e.detail);
+    });
 }
 
 export function openStatsModal() {
@@ -50,6 +59,7 @@ export function openStatsModal() {
     modal.translate(t);
     renderLifetimeStats();
     renderLeaderboard();
+    renderGlobalLeaderboard();
     renderAchievements();
     renderProgress();
 }
@@ -265,4 +275,76 @@ export function renderProgressList(filter = 'all') {
         `;
         list.appendChild(item);
     });
+}
+
+/**
+ * Render the global leaderboard
+ */
+export async function renderGlobalLeaderboard(filters = {}) {
+    const modal = elements.statsModal;
+    const list = modal.globalLeaderboardList;
+    const emptyState = modal.globalLeaderboardEmpty;
+    const loadingState = modal.globalLeaderboardLoading;
+    const guestNotice = modal.globalLeaderboardGuest;
+
+    // Clear previous entries
+    list.innerHTML = '';
+    emptyState.hidden = true;
+    guestNotice.hidden = true;
+    loadingState.hidden = false;
+
+    const user = getCurrentUser();
+    const isGuestUser = !user || user.isAnonymous;
+
+    // Show guest notice if applicable
+    if (isGuestUser) {
+        guestNotice.hidden = false;
+    }
+
+    try {
+        const entries = await fetchGlobalLeaderboard(filters, 25);
+
+        loadingState.hidden = true;
+
+        if (entries.length === 0) {
+            emptyState.hidden = false;
+            return;
+        }
+
+        entries.forEach((entry, index) => {
+            const rankClass = index === 0 ? 'gold' : index === 1 ? 'silver' : index === 2 ? 'bronze' : '';
+            const isCurrentUser = user && entry.userId === user.uid;
+            const date = entry.timestamp ? new Date(entry.timestamp).toLocaleDateString() : '';
+            const difficultyText = t(`difficulty.${entry.difficulty}`) || entry.difficulty;
+            const regionText = getRegionName(entry.region);
+            const modeText = entry.gameMode === 'speedrun' ? t('settings.speedRun') : t('settings.classic');
+
+            const entryEl = document.createElement('div');
+            entryEl.className = `leaderboard-entry ${rankClass} ${isCurrentUser ? 'current-user' : ''}`;
+
+            // Avatar HTML
+            let avatarHtml;
+            if (entry.avatarUrl) {
+                avatarHtml = `<img class="leaderboard-avatar" src="${escapeHtml(entry.avatarUrl)}" alt="">`;
+            } else {
+                const initial = (entry.displayName || 'A').charAt(0).toUpperCase();
+                avatarHtml = `<div class="leaderboard-avatar-placeholder">${initial}</div>`;
+            }
+
+            entryEl.innerHTML = `
+                <span class="leaderboard-rank">${index + 1}</span>
+                ${avatarHtml}
+                <div class="leaderboard-info">
+                    <span class="leaderboard-name">${escapeHtml(entry.displayName || 'Anonymous')}</span>
+                    <span class="leaderboard-details">${difficultyText} · ${regionText} · ${modeText}</span>
+                </div>
+                <span class="leaderboard-score">${entry.percentage}%</span>
+            `;
+            list.appendChild(entryEl);
+        });
+    } catch (error) {
+        console.error('[Stats] Error rendering global leaderboard:', error);
+        loadingState.hidden = true;
+        emptyState.hidden = false;
+    }
 }

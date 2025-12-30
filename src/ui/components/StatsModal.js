@@ -36,16 +36,36 @@ export class StatsModal extends BaseModal {
 
             .modal-tab {
                 flex: 1;
-                padding: 0.75rem 0.5rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 0.35rem;
+                padding: 0.75rem 0.25rem;
                 background: transparent;
                 border: none;
                 border-radius: var(--radius-sm, 8px);
                 color: var(--color-text-muted, #8892b0);
                 font-family: var(--font-body, 'Source Sans 3', sans-serif);
-                font-size: 0.85rem;
+                font-size: 0.7rem;
                 font-weight: 600;
                 cursor: pointer;
                 transition: all 0.2s ease;
+                min-height: 60px;
+            }
+
+            .modal-tab .tab-icon {
+                font-size: 1.35rem;
+                line-height: 1;
+                height: 1.35rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .modal-tab .tab-label {
+                white-space: nowrap;
+                text-align: center;
             }
 
             .modal-tab:hover {
@@ -348,6 +368,76 @@ export class StatsModal extends BaseModal {
                 font-style: italic;
             }
 
+            /* Global Leaderboard */
+            .global-subtitle {
+                color: var(--color-text-muted, #8892b0);
+                font-size: 0.85rem;
+                margin-bottom: 1rem;
+                text-align: center;
+            }
+
+            .global-filters {
+                display: flex;
+                gap: 0.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .global-filter-select {
+                flex: 1;
+                padding: 0.5rem 0.75rem;
+                background: var(--color-bg-card-light, #242b45);
+                border: 1px solid var(--color-border, #2a3352);
+                border-radius: var(--radius-sm, 8px);
+                color: var(--color-text, #e8e6e3);
+                font-family: var(--font-body, 'Source Sans 3', sans-serif);
+                font-size: 0.85rem;
+                cursor: pointer;
+            }
+
+            .global-filter-select:focus {
+                outline: none;
+                border-color: var(--color-primary, #c9a227);
+            }
+
+            .global-leaderboard-list {
+                max-height: 350px;
+                overflow-y: auto;
+            }
+
+            .leaderboard-entry.current-user {
+                border-color: var(--color-primary, #c9a227);
+                background: rgba(201, 162, 39, 0.15);
+            }
+
+            .leaderboard-avatar {
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                object-fit: cover;
+                background: var(--color-bg-card, #1a1f35);
+            }
+
+            .leaderboard-avatar-placeholder {
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                background: var(--color-bg-card, #1a1f35);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: var(--color-text-muted, #8892b0);
+                font-size: 0.9rem;
+                font-weight: 600;
+            }
+
+            .guest-notice {
+                background: rgba(201, 162, 39, 0.1);
+                border: 1px solid var(--color-primary, #c9a227);
+                border-radius: var(--radius-md, 12px);
+                color: var(--color-text, #e8e6e3);
+                font-style: normal;
+            }
+
             /* Achievements */
             .achievements-summary {
                 text-align: center;
@@ -586,9 +676,22 @@ export class StatsModal extends BaseModal {
 
                 <!-- Modal Tabs -->
                 <div class="modal-tabs" role="tablist">
-                    <button class="modal-tab active" data-tab="leaderboard" role="tab" aria-selected="true">🏆 <span data-i18n="modal.leaderboard">Leaderboard</span></button>
-                    <button class="modal-tab" data-tab="achievements" role="tab" aria-selected="false">🎖️ <span data-i18n="modal.achievements">Achievements</span></button>
-                    <button class="modal-tab" data-tab="progress" role="tab" aria-selected="false">📊 <span data-i18n="modal.progress">Progress</span></button>
+                    <button class="modal-tab active" data-tab="leaderboard" role="tab" aria-selected="true">
+                        <span class="tab-icon">🏆</span>
+                        <span class="tab-label" data-i18n="modal.leaderboard">Leaderboard</span>
+                    </button>
+                    <button class="modal-tab" data-tab="global" role="tab" aria-selected="false">
+                        <span class="tab-icon">🌍</span>
+                        <span class="tab-label" data-i18n="modal.global">Global</span>
+                    </button>
+                    <button class="modal-tab" data-tab="achievements" role="tab" aria-selected="false">
+                        <span class="tab-icon">🎖️</span>
+                        <span class="tab-label" data-i18n="modal.achievements">Achievements</span>
+                    </button>
+                    <button class="modal-tab" data-tab="progress" role="tab" aria-selected="false">
+                        <span class="tab-icon">📊</span>
+                        <span class="tab-label" data-i18n="modal.progress">Progress</span>
+                    </button>
                 </div>
 
                 <!-- Leaderboard Tab -->
@@ -621,6 +724,33 @@ export class StatsModal extends BaseModal {
                         <!-- Leaderboard entries will be inserted here -->
                     </div>
                     <p id="leaderboard-empty" class="empty-state" hidden data-i18n="stats.noScores">No scores yet. Play a quiz to get on the leaderboard!</p>
+                </div>
+
+                <!-- Global Leaderboard Tab -->
+                <div id="tab-global" class="modal-tab-content" role="tabpanel" hidden>
+                    <h2 data-i18n="stats.globalLeaderboard">Global Leaderboard</h2>
+                    <p class="global-subtitle" data-i18n="stats.globalSubtitle">Top scores from players worldwide</p>
+
+                    <div class="global-filters">
+                        <select id="global-filter-mode" class="global-filter-select">
+                            <option value="all" data-i18n="stats.allModes">All Modes</option>
+                            <option value="classic" data-i18n="settings.classic">Classic</option>
+                            <option value="speedrun" data-i18n="settings.speedRun">Speed Run</option>
+                        </select>
+                        <select id="global-filter-difficulty" class="global-filter-select">
+                            <option value="all" data-i18n="stats.allDifficulties">All Difficulties</option>
+                            <option value="easy" data-i18n="difficulty.easy">Easy</option>
+                            <option value="medium" data-i18n="difficulty.medium">Medium</option>
+                            <option value="hard" data-i18n="difficulty.hard">Hard</option>
+                        </select>
+                    </div>
+
+                    <div id="global-leaderboard-list" class="leaderboard-list global-leaderboard-list">
+                        <!-- Global leaderboard entries will be inserted here -->
+                    </div>
+                    <p id="global-leaderboard-empty" class="empty-state" hidden data-i18n="stats.noGlobalScores">No global scores yet. Be the first!</p>
+                    <p id="global-leaderboard-loading" class="empty-state" data-i18n="stats.loading">Loading...</p>
+                    <p id="global-leaderboard-guest" class="empty-state guest-notice" hidden data-i18n="stats.guestNotice">Sign in to see your rank and submit scores to the global leaderboard!</p>
                 </div>
 
                 <!-- Achievements Tab -->
@@ -749,6 +879,23 @@ export class StatsModal extends BaseModal {
                 e.target.value = ''; // Reset for re-selection
             }
         });
+
+        // Global leaderboard filters
+        const globalModeFilter = this.shadowRoot.getElementById('global-filter-mode');
+        const globalDifficultyFilter = this.shadowRoot.getElementById('global-filter-difficulty');
+
+        const emitGlobalFilterChange = () => {
+            this.dispatchEvent(new CustomEvent('global-filter-change', {
+                detail: {
+                    gameMode: globalModeFilter.value,
+                    difficulty: globalDifficultyFilter.value
+                },
+                bubbles: true
+            }));
+        };
+
+        globalModeFilter.addEventListener('change', emitGlobalFilterChange);
+        globalDifficultyFilter.addEventListener('change', emitGlobalFilterChange);
     }
 
     /**
@@ -831,6 +978,31 @@ export class StatsModal extends BaseModal {
 
     get statAccuracy() {
         return this.shadowRoot.getElementById('stat-accuracy');
+    }
+
+    // Global leaderboard getters
+    get globalLeaderboardList() {
+        return this.shadowRoot.getElementById('global-leaderboard-list');
+    }
+
+    get globalLeaderboardEmpty() {
+        return this.shadowRoot.getElementById('global-leaderboard-empty');
+    }
+
+    get globalLeaderboardLoading() {
+        return this.shadowRoot.getElementById('global-leaderboard-loading');
+    }
+
+    get globalLeaderboardGuest() {
+        return this.shadowRoot.getElementById('global-leaderboard-guest');
+    }
+
+    get globalFilterMode() {
+        return this.shadowRoot.getElementById('global-filter-mode');
+    }
+
+    get globalFilterDifficulty() {
+        return this.shadowRoot.getElementById('global-filter-difficulty');
     }
 
     /**

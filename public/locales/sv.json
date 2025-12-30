@@ -102,6 +102,7 @@
   },
   "modal": {
     "leaderboard": "Topplista",
+    "global": "Globalt",
     "achievements": "Prestationer",
     "progress": "Framsteg"
   },
@@ -113,7 +114,14 @@
     "avgTime": "Snitt Tid/Fråga",
     "accuracy": "Noggrannhet",
     "topScores": "Toppresultat",
-    "noScores": "Inga poäng än. Spela ett quiz för att komma på topplistan!"
+    "noScores": "Inga poäng än. Spela ett quiz för att komma på topplistan!",
+    "globalLeaderboard": "Global Topplista",
+    "globalSubtitle": "Bästa poäng från spelare världen över",
+    "allModes": "Alla Lägen",
+    "allDifficulties": "Alla Svårighetsgrader",
+    "noGlobalScores": "Inga globala poäng än. Var först!",
+    "loading": "Laddar...",
+    "guestNotice": "Logga in för att skicka poäng till den globala topplistan!"
   },
   "achievements": {
     "unlocked": "Prestation Upplåst!",

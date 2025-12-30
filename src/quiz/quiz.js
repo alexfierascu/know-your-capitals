@@ -17,6 +17,7 @@ import { checkAchievements } from '../ui/achievements.js';
 import { recordAnswer } from './review.js';
 import { getRegionName } from '../ui/share.js';
 import { saveToLeaderboard } from '../ui/leaderboard.js';
+import { submitToGlobalLeaderboard } from '../data/globalLeaderboard.js';
 import { launchConfetti, launchStreakConfetti } from '../ui/confetti.js';
 
 export function populateRegionSelect() {
@@ -474,6 +475,15 @@ export function showResults() {
         state.difficulty,
         state.gameMode === 'speedrun' ? 'speedrun' : state.selectedRegion
     );
+
+    // Submit to global leaderboard (for registered users only)
+    submitToGlobalLeaderboard({
+        score: state.score,
+        total: questionsAnswered,
+        difficulty: state.difficulty,
+        region: state.selectedRegion,
+        gameMode: state.gameMode || 'classic'
+    });
 
     const isPerfect = percentage === 100;
     const storedStats = loadFromStorage(STORAGE_KEYS.stats, {

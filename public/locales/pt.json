@@ -102,6 +102,7 @@
   },
   "modal": {
     "leaderboard": "Classificação",
+    "global": "Global",
     "achievements": "Conquistas",
     "progress": "Progresso"
   },
@@ -113,7 +114,14 @@
     "avgTime": "Tempo Médio/Pergunta",
     "accuracy": "Precisão",
     "topScores": "Melhores Pontuações",
-    "noScores": "Ainda sem pontuações. Jogue um quiz para entrar na classificação!"
+    "noScores": "Ainda sem pontuações. Jogue um quiz para entrar na classificação!",
+    "globalLeaderboard": "Classificação Global",
+    "globalSubtitle": "Melhores pontuações de jogadores de todo o mundo",
+    "allModes": "Todos os Modos",
+    "allDifficulties": "Todas as Dificuldades",
+    "noGlobalScores": "Ainda sem pontuações globais. Seja o primeiro!",
+    "loading": "Carregando...",
+    "guestNotice": "Faça login para enviar pontuações para a classificação global!"
   },
   "achievements": {
     "unlocked": "Conquista Desbloqueada!",

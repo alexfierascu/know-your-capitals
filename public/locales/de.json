@@ -102,6 +102,7 @@
   },
   "modal": {
     "leaderboard": "Bestenliste",
+    "global": "Global",
     "achievements": "Erfolge",
     "progress": "Fortschritt"
   },
@@ -113,7 +114,14 @@
     "avgTime": "Durchschn. Zeit/Frage",
     "accuracy": "Genauigkeit",
     "topScores": "Bestpunktzahlen",
-    "noScores": "Noch keine Punkte. Spiele ein Quiz, um in die Bestenliste zu kommen!"
+    "noScores": "Noch keine Punkte. Spiele ein Quiz, um in die Bestenliste zu kommen!",
+    "globalLeaderboard": "Globale Bestenliste",
+    "globalSubtitle": "Beste Ergebnisse von Spielern weltweit",
+    "allModes": "Alle Modi",
+    "allDifficulties": "Alle Schwierigkeiten",
+    "noGlobalScores": "Noch keine globalen Ergebnisse. Sei der Erste!",
+    "loading": "Lädt...",
+    "guestNotice": "Melde dich an, um Ergebnisse in die globale Bestenliste einzutragen!"
   },
   "achievements": {
     "unlocked": "Erfolg freigeschaltet!",

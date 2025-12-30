@@ -74,7 +74,9 @@ export function initAuthElements() {
         userProfile: document.getElementById('user-profile'),
         userMenuToggle: document.getElementById('user-menu-toggle'),
         userAvatar: document.getElementById('user-avatar'),
+        userAvatarFallback: document.getElementById('user-avatar-fallback'),
         userName: document.getElementById('user-name'),
+        userGuestBadge: document.getElementById('user-guest-badge'),
         userDropdown: document.getElementById('user-dropdown'),
         userDropdownEmail: document.getElementById('user-dropdown-email'),
         logoutBtn: document.getElementById('logout-btn'),
@@ -156,6 +158,9 @@ export function setupAuthUI() {
             elements.userMenuToggle.setAttribute('aria-expanded', 'false');
         }
     });
+
+    // Keyboard navigation for user dropdown
+    elements.userProfile.addEventListener('keydown', handleDropdownKeyboard);
 
     // Listen for auth state changes
     onAuthChange(handleAuthStateChange);
@@ -553,17 +558,14 @@ async function handleProfileSave(e) {
  * Update user profile display from profile data
  */
 function updateUserProfileFromData(profileData) {
-    // Update avatar in header
-    if (profileData.avatarUrl) {
-        elements.userAvatar.src = profileData.avatarUrl;
-        elements.userAvatar.style.display = '';
-    }
-
     // Update display name
     const displayName = getDisplayNameFromProfile(profileData);
     if (displayName) {
         elements.userName.textContent = displayName;
     }
+
+    // Update avatar using the new function
+    updateAvatarDisplay(profileData.avatarUrl, displayName);
 }
 
 /**
@@ -716,9 +718,86 @@ function toggleAuthMode() {
  * Toggle user dropdown menu
  */
 function toggleUserMenu() {
+    // Close language dropdown if open
+    const langDropdown = document.getElementById('language-dropdown');
+    if (langDropdown) {
+        langDropdown.hidden = true;
+    }
+
     const isExpanded = elements.userDropdown.hidden;
     elements.userDropdown.hidden = !isExpanded;
     elements.userMenuToggle.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+
+    // Focus first item when opening
+    if (isExpanded) {
+        const firstItem = elements.userDropdown.querySelector('.user-dropdown-item');
+        if (firstItem) {
+            firstItem.focus();
+        }
+    }
+}
+
+/**
+ * Handle keyboard navigation in dropdown
+ */
+function handleDropdownKeyboard(e) {
+    const isOpen = !elements.userDropdown.hidden;
+
+    // Escape closes the dropdown
+    if (e.key === 'Escape' && isOpen) {
+        e.preventDefault();
+        elements.userDropdown.hidden = true;
+        elements.userMenuToggle.setAttribute('aria-expanded', 'false');
+        elements.userMenuToggle.focus();
+        return;
+    }
+
+    // Arrow navigation only when open
+    if (!isOpen) return;
+
+    const items = Array.from(elements.userDropdown.querySelectorAll('.user-dropdown-item'));
+    const currentIndex = items.indexOf(document.activeElement);
+
+    if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        const nextIndex = currentIndex < items.length - 1 ? currentIndex + 1 : 0;
+        items[nextIndex].focus();
+    } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        const prevIndex = currentIndex > 0 ? currentIndex - 1 : items.length - 1;
+        items[prevIndex].focus();
+    } else if (e.key === 'Tab') {
+        // Close on tab out
+        elements.userDropdown.hidden = true;
+        elements.userMenuToggle.setAttribute('aria-expanded', 'false');
+    }
+}
+
+/**
+ * Get initials from a display name
+ */
+function getInitials(name) {
+    if (!name) return '?';
+    const parts = name.trim().split(/\s+/);
+    if (parts.length === 1) {
+        return parts[0].charAt(0).toUpperCase();
+    }
+    return (parts[0].charAt(0) + parts[parts.length - 1].charAt(0)).toUpperCase();
+}
+
+/**
+ * Update avatar display (image or fallback initials)
+ */
+function updateAvatarDisplay(avatarUrl, displayName) {
+    if (avatarUrl) {
+        elements.userAvatar.src = avatarUrl;
+        elements.userAvatar.style.display = '';
+        elements.userAvatarFallback.hidden = true;
+    } else {
+        elements.userAvatar.style.display = 'none';
+        elements.userAvatarFallback.textContent = getInitials(displayName);
+        elements.userAvatarFallback.hidden = false;
+    }
 }
 
 /**
@@ -752,8 +831,10 @@ async function handleAuthStateChange(user) {
         if (user.isAnonymous) {
             // Guest users get a random name and go straight to the game
             showStartScreen();
-            elements.userName.textContent = generateGuestName();
-            elements.userAvatar.style.display = 'none';
+            const guestName = generateGuestName();
+            elements.userName.textContent = guestName;
+            updateAvatarDisplay(null, guestName); // Show initials fallback
+            elements.userGuestBadge.hidden = false; // Show guest badge
             elements.userProfile.hidden = false;
             elements.userDropdown.querySelector('.user-dropdown-header').style.display = 'none';
             if (elements.statsBtn) {
@@ -846,20 +927,17 @@ async function updateUserProfile() {
     // Load custom profile from Firestore
     const profile = await getUserProfile();
 
-    // Determine avatar (custom > Google > none)
-    const avatarUrl = profile?.avatarUrl || userInfo.photoURL;
-    if (avatarUrl) {
-        elements.userAvatar.src = avatarUrl;
-        elements.userAvatar.alt = userInfo.displayName;
-        elements.userAvatar.style.display = '';
-    } else {
-        elements.userAvatar.style.display = 'none';
-    }
-
     // Determine display name (nickname > Firebase displayName > email prefix > 'Player')
     const customDisplayName = getDisplayNameFromProfile(profile);
     const displayName = customDisplayName || userInfo.displayName || (userInfo.email ? userInfo.email.split('@')[0] : 'Player');
     elements.userName.textContent = displayName;
+
+    // Determine avatar (custom > Google > none) and update display
+    const avatarUrl = profile?.avatarUrl || userInfo.photoURL;
+    updateAvatarDisplay(avatarUrl, displayName);
+
+    // Hide guest badge for regular users
+    elements.userGuestBadge.hidden = true;
 
     // Update dropdown email
     if (userInfo.email) {

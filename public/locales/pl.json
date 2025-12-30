@@ -102,6 +102,7 @@
   },
   "modal": {
     "leaderboard": "Ranking",
+    "global": "Globalny",
     "achievements": "Osiągnięcia",
     "progress": "Postęp"
   },
@@ -113,7 +114,14 @@
     "avgTime": "Śr. Czas/Pytanie",
     "accuracy": "Dokładność",
     "topScores": "Najlepsze Wyniki",
-    "noScores": "Brak wyników. Zagraj w quiz, aby pojawić się w rankingu!"
+    "noScores": "Brak wyników. Zagraj w quiz, aby pojawić się w rankingu!",
+    "globalLeaderboard": "Globalny Ranking",
+    "globalSubtitle": "Najlepsze wyniki graczy z całego świata",
+    "allModes": "Wszystkie Tryby",
+    "allDifficulties": "Wszystkie Trudności",
+    "noGlobalScores": "Brak globalnych wyników. Bądź pierwszy!",
+    "loading": "Ładowanie...",
+    "guestNotice": "Zaloguj się, aby przesłać wyniki do globalnego rankingu!"
   },
   "achievements": {
     "unlocked": "Osiągnięcie Odblokowane!",

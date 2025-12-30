@@ -102,6 +102,7 @@
   },
   "modal": {
     "leaderboard": "Leaderboard",
+    "global": "Global",
     "achievements": "Achievements",
     "progress": "Progress"
   },
@@ -113,7 +114,14 @@
     "avgTime": "Avg Time/Question",
     "accuracy": "Accuracy",
     "topScores": "Top Scores",
-    "noScores": "No scores yet. Play a quiz to get on the leaderboard!"
+    "noScores": "No scores yet. Play a quiz to get on the leaderboard!",
+    "globalLeaderboard": "Global Leaderboard",
+    "globalSubtitle": "Top scores from players worldwide",
+    "allModes": "All Modes",
+    "allDifficulties": "All Difficulties",
+    "noGlobalScores": "No global scores yet. Be the first!",
+    "loading": "Loading...",
+    "guestNotice": "Sign in to submit scores to the global leaderboard!"
   },
   "achievements": {
     "unlocked": "Achievement Unlocked!",

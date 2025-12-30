@@ -91,6 +91,13 @@ export function updateLanguageUI(lang) {
     });
 }
 
+export function closeLanguageDropdown() {
+    const dropdown = document.getElementById('language-dropdown');
+    if (dropdown) {
+        dropdown.hidden = true;
+    }
+}
+
 export function setupLanguageSelector(callbacks = {}) {
     const { onLanguageChange } = callbacks;
 
@@ -101,6 +108,15 @@ export function setupLanguageSelector(callbacks = {}) {
 
     toggle.addEventListener('click', (e) => {
         e.stopPropagation();
+        // Close user profile dropdown if open
+        const userDropdown = document.getElementById('user-dropdown');
+        const userMenuToggle = document.getElementById('user-menu-toggle');
+        if (userDropdown) {
+            userDropdown.hidden = true;
+        }
+        if (userMenuToggle) {
+            userMenuToggle.setAttribute('aria-expanded', 'false');
+        }
         dropdown.hidden = !dropdown.hidden;
     });
 
