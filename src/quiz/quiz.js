@@ -2,22 +2,22 @@
  * Core quiz logic
  */
 
-import { state } from './state.js';
-import { elements } from './elements.js';
-import { difficultyHintKeys, STORAGE_KEYS } from './constants.js';
-import { shuffleArray, showScreen, getOptionLetter, getCountryCode, announceToScreenReader } from './utils.js';
-import { t, translatePage } from './i18n.js';
-import { loadFromStorage, saveToStorage } from './storage.js';
+import { state } from '../data/state.js';
+import { elements } from '../ui/elements.js';
+import { difficultyHintKeys, STORAGE_KEYS } from '../utils/constants.js';
+import { shuffleArray, showScreen, getOptionLetter, getCountryCode, announceToScreenReader } from '../utils/utils.js';
+import { t, translatePage } from '../utils/i18n.js';
+import { loadFromStorage, saveToStorage } from '../data/storage.js';
 import { startTimer, stopTimer, startSpeedRunTimer, stopSpeedRunTimer } from './timer.js';
 import { updateHintButtons, resetHints } from './hints.js';
-import { showMap, hideMap } from './map.js';
+import { showMap, hideMap } from '../ui/map.js';
 import { generateOptions } from './options.js';
-import { updateCountryProgress } from './progress.js';
-import { checkAchievements } from './achievements.js';
+import { updateCountryProgress } from '../ui/progress.js';
+import { checkAchievements } from '../ui/achievements.js';
 import { recordAnswer } from './review.js';
-import { getRegionName } from './share.js';
-import { saveToLeaderboard } from './leaderboard.js';
-import { launchConfetti, launchStreakConfetti } from './confetti.js';
+import { getRegionName } from '../ui/share.js';
+import { saveToLeaderboard } from '../ui/leaderboard.js';
+import { launchConfetti, launchStreakConfetti } from '../ui/confetti.js';
 
 export function populateRegionSelect() {
     if (!elements.regionSelect) return;

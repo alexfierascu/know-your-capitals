@@ -17,8 +17,8 @@ import {
     resetPassword,
     deleteAccount
 } from './auth.js';
-import { resetAllProgress, getUserProfile, saveUserProfile, getDisplayNameFromProfile } from './userStats.js';
-import { compressImage, isValidImageFile } from './imageUtils.js';
+import { resetAllProgress, getUserProfile, saveUserProfile, getDisplayNameFromProfile } from '../data/userStats.js';
+import { compressImage, isValidImageFile } from '../utils/imageUtils.js';
 
 // DOM Elements
 let elements = {};
@@ -40,7 +40,6 @@ export function initAuthElements() {
 
         // Sign Up Form
         signupForm: document.getElementById('signup-form'),
-        signupName: document.getElementById('signup-name'),
         signupEmail: document.getElementById('signup-email'),
         signupPassword: document.getElementById('signup-password'),
         signupError: document.getElementById('signup-error'),
@@ -239,7 +238,7 @@ function setupFormValidation() {
 
     // Sign Up form
     const signupBtn = elements.signupForm.querySelector('button[type="submit"]');
-    const signupInputs = [elements.signupName, elements.signupEmail, elements.signupPassword];
+    const signupInputs = [elements.signupEmail, elements.signupPassword];
 
     function validateSignupForm() {
         const isValid = signupInputs.every(input => input.value.trim() !== '');
@@ -287,13 +286,12 @@ async function handleSignIn(e) {
 async function handleSignUp(e) {
     e.preventDefault();
 
-    const name = elements.signupName.value.trim();
     const email = elements.signupEmail.value.trim();
     const password = elements.signupPassword.value;
 
     showError(elements.signupError, '');
 
-    const result = await createAccountWithEmail(email, password, name);
+    const result = await createAccountWithEmail(email, password);
 
     if (result.success && result.verificationSent) {
         // Show verification pending screen

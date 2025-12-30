@@ -3,7 +3,7 @@
  * Handles syncing user data between localStorage and Firestore
  */
 
-import { onAuthChange, getCurrentUser } from './auth.js';
+import { onAuthChange, getCurrentUser } from '../auth/auth.js';
 import {
     loadUserData,
     saveUserData,
@@ -17,7 +17,7 @@ import {
     isDataDifferent
 } from './userStats.js';
 import { state } from './state.js';
-import { STORAGE_KEYS } from './constants.js';
+import { STORAGE_KEYS } from '../utils/constants.js';
 
 // Migration modal elements
 let migrationModal = null;

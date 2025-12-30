@@ -3,10 +3,10 @@
  * Handles reading/writing user stats to Firestore
  */
 
-import { db } from './firebase.js';
+import { db } from '../auth/firebase.js';
 import { doc, getDoc, setDoc, updateDoc, deleteDoc } from 'firebase/firestore';
-import { getCurrentUser } from './auth.js';
-import { STORAGE_KEYS } from './constants.js';
+import { getCurrentUser } from '../auth/auth.js';
+import { STORAGE_KEYS } from '../utils/constants.js';
 import { state } from './state.js';
 
 /**

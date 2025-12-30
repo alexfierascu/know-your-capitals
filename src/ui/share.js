@@ -2,9 +2,9 @@
  * Share results functionality
  */
 
-import { state } from './state.js';
+import { state } from '../data/state.js';
 import { elements } from './elements.js';
-import { t } from './i18n.js';
+import { t } from '../utils/i18n.js';
 
 export function getRegionName(regionId) {
     const regionKeys = {

@@ -2,11 +2,11 @@
  * Leaderboard functionality
  */
 
-import { state } from './state.js';
+import { state } from '../data/state.js';
 import { elements } from './elements.js';
-import { STORAGE_KEYS } from './constants.js';
-import { saveToStorage } from './storage.js';
-import { escapeHtml } from './utils.js';
+import { STORAGE_KEYS } from '../utils/constants.js';
+import { saveToStorage } from '../data/storage.js';
+import { escapeHtml } from '../utils/utils.js';
 import { getRegionName } from './share.js';
 
 export function saveToLeaderboard(name, score, total, difficulty, region) {

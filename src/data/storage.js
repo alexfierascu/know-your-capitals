@@ -2,9 +2,9 @@
  * LocalStorage functions
  */
 
-import { STORAGE_KEYS } from './constants.js';
+import { STORAGE_KEYS } from '../utils/constants.js';
 import { state } from './state.js';
-import { t } from './i18n.js';
+import { t } from '../utils/i18n.js';
 import { debouncedSave } from './dataSync.js';
 
 export function loadFromStorage(key, defaultValue = {}) {

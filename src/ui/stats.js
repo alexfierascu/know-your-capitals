@@ -2,11 +2,11 @@
  * Stats modal functionality
  */
 
-import { state } from './state.js';
+import { state } from '../data/state.js';
 import { elements } from './elements.js';
-import { ACHIEVEMENTS, STORAGE_KEYS } from './constants.js';
-import { loadFromStorage, exportProgress, importProgress } from './storage.js';
-import { t } from './i18n.js';
+import { ACHIEVEMENTS, STORAGE_KEYS } from '../utils/constants.js';
+import { loadFromStorage, exportProgress, importProgress } from '../data/storage.js';
+import { t } from '../utils/i18n.js';
 import { renderLeaderboard } from './leaderboard.js';
 import { getCountryMasteryLevel } from './progress.js';
 

@@ -4,8 +4,8 @@
 
 import i18next from 'i18next';
 import { SUPPORTED_LANGUAGES, DEFAULT_LANGUAGE } from './constants.js';
-import { state } from './state.js';
-import { elements } from './elements.js';
+import { state } from '../data/state.js';
+import { elements } from '../ui/elements.js';
 
 let translations = {};
 

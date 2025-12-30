@@ -2,8 +2,8 @@
  * Option generation logic
  */
 
-import { state } from './state.js';
-import { shuffleArray } from './utils.js';
+import { state } from '../data/state.js';
+import { shuffleArray } from '../utils/utils.js';
 
 export function getCitiesForCountry(countryName) {
     return state.cities[countryName] || [];

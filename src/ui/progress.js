@@ -2,9 +2,9 @@
  * Country progress tracking
  */
 
-import { state } from './state.js';
-import { STORAGE_KEYS } from './constants.js';
-import { saveToStorage } from './storage.js';
+import { state } from '../data/state.js';
+import { STORAGE_KEYS } from '../utils/constants.js';
+import { saveToStorage } from '../data/storage.js';
 
 export function updateCountryProgress(countryName, isCorrect) {
     if (!state.countryProgress[countryName]) {

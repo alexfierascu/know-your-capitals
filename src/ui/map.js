@@ -2,10 +2,10 @@
  * Map preview functionality
  */
 
-import { state } from './state.js';
+import { state } from '../data/state.js';
 import { elements } from './elements.js';
-import { CAPITAL_COORDINATES } from './constants.js';
-import { getCountryCode } from './utils.js';
+import { CAPITAL_COORDINATES } from '../utils/constants.js';
+import { getCountryCode } from '../utils/utils.js';
 
 export function showMap() {
     const country = state.questions[state.currentQuestionIndex];

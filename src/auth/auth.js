@@ -12,7 +12,6 @@ import {
     signOut,
     onAuthStateChanged,
     GoogleAuthProvider,
-    updateProfile,
     sendEmailVerification,
     sendPasswordResetEmail,
     deleteUser
@@ -53,14 +52,9 @@ export async function signInWithEmail(email, password) {
 /**
  * Create account with Email and Password
  */
-export async function createAccountWithEmail(email, password, displayName) {
+export async function createAccountWithEmail(email, password) {
     try {
         const result = await createUserWithEmailAndPassword(auth, email, password);
-
-        // Set display name
-        if (displayName) {
-            await updateProfile(result.user, { displayName });
-        }
 
         // Send verification email
         await sendEmailVerification(result.user);

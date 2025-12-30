@@ -2,11 +2,11 @@
  * Achievements system
  */
 
-import { state } from './state.js';
+import { state } from '../data/state.js';
 import { elements } from './elements.js';
-import { ACHIEVEMENTS, STORAGE_KEYS } from './constants.js';
-import { saveToStorage, getStats } from './storage.js';
-import { t } from './i18n.js';
+import { ACHIEVEMENTS, STORAGE_KEYS } from '../utils/constants.js';
+import { saveToStorage, getStats } from '../data/storage.js';
+import { t } from '../utils/i18n.js';
 
 export function checkAchievements(providedStats = null) {
     const stats = providedStats || getStats();

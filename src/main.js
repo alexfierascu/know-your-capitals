@@ -3,11 +3,11 @@
  * Main entry point
  */
 
-import { state } from './state.js';
-import { initElements, elements } from './elements.js';
-import { initTheme, toggleTheme } from './theme.js';
-import { initI18n, setupLanguageSelector, loadFunFacts, translatePage } from './i18n.js';
-import { loadAllStoredData } from './storage.js';
+import { state } from './data/state.js';
+import { initElements, elements } from './ui/elements.js';
+import { initTheme, toggleTheme } from './utils/theme.js';
+import { initI18n, setupLanguageSelector, loadFunFacts, translatePage } from './utils/i18n.js';
+import { loadAllStoredData } from './data/storage.js';
 import {
     initQuiz,
     nextQuestion,
@@ -17,14 +17,14 @@ import {
     updateDifficultyHint,
     populateRegionSelect,
     hideLoadingScreen
-} from './quiz.js';
-import { useLetterHint, useEliminateHint } from './hints.js';
-import { toggleReview } from './review.js';
-import { shareResults, shareResultsAsImage } from './share.js';
-import { openStatsModal, setupModalListeners } from './stats.js';
-import { initAuth } from './auth.js';
-import { initAuthElements, setupAuthUI } from './authUI.js';
-import { initDataSync, markInitialized } from './dataSync.js';
+} from './quiz/quiz.js';
+import { useLetterHint, useEliminateHint } from './quiz/hints.js';
+import { toggleReview } from './quiz/review.js';
+import { shareResults, shareResultsAsImage } from './ui/share.js';
+import { openStatsModal, setupModalListeners } from './ui/stats.js';
+import { initAuth } from './auth/auth.js';
+import { initAuthElements, setupAuthUI } from './auth/authUI.js';
+import { initDataSync, markInitialized } from './data/dataSync.js';
 
 async function loadCountries() {
     try {
