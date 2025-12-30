@@ -722,6 +722,18 @@ function toggleUserMenu() {
 }
 
 /**
+ * Generate a random guest name
+ */
+function generateGuestName() {
+    const adjectives = ['Swift', 'Clever', 'Brave', 'Curious', 'Lucky', 'Wise', 'Bold', 'Quick', 'Sharp', 'Keen'];
+    const nouns = ['Explorer', 'Traveler', 'Voyager', 'Navigator', 'Pioneer', 'Wanderer', 'Scout', 'Seeker', 'Adventurer', 'Nomad'];
+    const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
+    const noun = nouns[Math.floor(Math.random() * nouns.length)];
+    const num = Math.floor(Math.random() * 100);
+    return `${adj}${noun}${num}`;
+}
+
+/**
  * Handle auth state changes
  */
 async function handleAuthStateChange(user) {
@@ -735,6 +747,20 @@ async function handleAuthStateChange(user) {
 
         // User is signed in and verified
         hideVerificationPending();
+
+        // Check if user is a guest (anonymous)
+        if (user.isAnonymous) {
+            // Guest users get a random name and go straight to the game
+            showStartScreen();
+            elements.userName.textContent = generateGuestName();
+            elements.userAvatar.style.display = 'none';
+            elements.userProfile.hidden = false;
+            elements.userDropdown.querySelector('.user-dropdown-header').style.display = 'none';
+            if (elements.statsBtn) {
+                elements.statsBtn.hidden = false;
+            }
+            return;
+        }
 
         // Check if user has completed profile setup (has nickname)
         const profile = await getUserProfile();
