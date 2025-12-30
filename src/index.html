@@ -7,9 +7,9 @@
     <meta name="theme-color" content="#0f1729">
 
     <!-- PWA -->
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="icons/icon-192.png">
-    <link rel="icon" type="image/png" href="icons/icon-192.png">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/icons/icon-192.png">
+    <link rel="icon" type="image/png" href="/icons/icon-192.png">
 
     <title>European Capitals Quiz</title>
 
@@ -18,7 +18,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="src/styles/main.css">
+    <link rel="stylesheet" href="./styles/main.css">
 
 </head>
 <body>
@@ -902,12 +902,12 @@
 <!-- Skip Link for Accessibility -->
 <a href="#quiz-settings" class="skip-link">Skip to quiz settings</a>
 
-<script type="module" src="/src/main.js"></script>
+<script type="module" src="./main.js"></script>
 <script>
     // Register Service Worker (only in production, not dev server)
     if ('serviceWorker' in navigator && !location.port) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('sw.js')
+            navigator.serviceWorker.register('/sw.js')
                 .then(reg => console.log('Service Worker registered'))
                 .catch(err => console.log('Service Worker registration failed:', err));
         });
