@@ -22,6 +22,14 @@ import { STORAGE_KEYS } from '../utils/constants.js';
 // Key for storing guest user ID
 const GUEST_UID_KEY = 'quiz-guest-uid';
 
+/**
+ * Check if running as installed PWA (standalone mode)
+ */
+function isStandalonePWA() {
+    return window.matchMedia('(display-mode: standalone)').matches ||
+           window.navigator.standalone === true;
+}
+
 // Migration modal and data
 let migrationModal = null;
 let cloudData = null;
@@ -58,10 +66,13 @@ async function handleAuthChange(user) {
         // Check if this is a guest user with a different UID (new session)
         if (user.isAnonymous) {
             const storedGuestUid = localStorage.getItem(GUEST_UID_KEY);
+            const isPWA = isStandalonePWA();
 
-            if (storedGuestUid && storedGuestUid !== user.uid) {
-                // Different guest user - clear all local data for fresh start
-                console.log('[DataSync] New guest session detected, clearing local data');
+            // Clear data if: new guest UID OR guest in PWA mode (always fresh)
+            const shouldClearData = (storedGuestUid && storedGuestUid !== user.uid) || isPWA;
+
+            if (shouldClearData) {
+                console.log('[DataSync] Clearing guest data:', isPWA ? 'PWA mode' : 'new session');
                 clearLocalData();
                 // Reset state
                 state.countryProgress = {};
