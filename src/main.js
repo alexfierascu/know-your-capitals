@@ -113,6 +113,99 @@ function setupEventListeners() {
             elements.startBtn.click();
         }
     });
+
+    // Legal Modals
+    setupLegalModals();
+}
+
+/**
+ * Setup legal modal open/close handlers
+ */
+function setupLegalModals() {
+    const privacyBtn = document.getElementById('privacy-policy-btn');
+    const termsBtn = document.getElementById('terms-of-service-btn');
+    const privacyModal = document.getElementById('privacy-modal');
+    const termsModal = document.getElementById('terms-modal');
+
+    // Open modals
+    privacyBtn?.addEventListener('click', () => privacyModal.hidden = false);
+    termsBtn?.addEventListener('click', () => termsModal.hidden = false);
+
+    // Close modals
+    [privacyModal, termsModal].forEach(modal => {
+        if (!modal) return;
+
+        // Close button
+        modal.querySelector('.legal-modal-close')?.addEventListener('click', () => {
+            modal.hidden = true;
+        });
+
+        // Overlay click
+        modal.querySelector('.legal-modal-overlay')?.addEventListener('click', () => {
+            modal.hidden = true;
+        });
+
+        // Escape key
+        modal.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') modal.hidden = true;
+        });
+    });
+
+    // Cookie consent
+    setupCookieConsent(privacyModal);
+
+    // Offline indicator
+    setupOfflineIndicator();
+}
+
+/**
+ * Setup offline indicator
+ */
+function setupOfflineIndicator() {
+    const indicator = document.getElementById('offline-indicator');
+    if (!indicator) return;
+
+    const updateOnlineStatus = () => {
+        indicator.hidden = navigator.onLine;
+    };
+
+    // Initial check
+    updateOnlineStatus();
+
+    // Listen for changes
+    window.addEventListener('online', updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+}
+
+/**
+ * Setup cookie consent banner
+ */
+function setupCookieConsent(privacyModal) {
+    const COOKIE_CONSENT_KEY = 'cookie-consent-accepted';
+    const cookieBanner = document.getElementById('cookie-consent');
+    const acceptBtn = document.getElementById('cookie-accept');
+    const privacyBtn = document.getElementById('cookie-privacy');
+
+    if (!cookieBanner) return;
+
+    // Check if already accepted
+    if (localStorage.getItem(COOKIE_CONSENT_KEY)) {
+        return; // Don't show banner
+    }
+
+    // Show banner
+    cookieBanner.hidden = false;
+
+    // Accept button
+    acceptBtn?.addEventListener('click', () => {
+        localStorage.setItem(COOKIE_CONSENT_KEY, 'true');
+        cookieBanner.hidden = true;
+    });
+
+    // Privacy policy link
+    privacyBtn?.addEventListener('click', () => {
+        if (privacyModal) privacyModal.hidden = false;
+    });
 }
 
 async function initApp() {

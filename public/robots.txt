@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://alexfierascu.github.io/know-your-capitals/sitemap.xml

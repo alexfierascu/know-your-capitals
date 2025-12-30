@@ -34,15 +34,53 @@
 
     <link rel="stylesheet" href="./src/styles/main.css">
 
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "European Capitals Quiz",
+        "description": "Test your knowledge of European capital cities with this interactive quiz game. 45 countries, multiple difficulty levels, and track your progress!",
+        "url": "https://alexfierascu.github.io/know-your-capitals/",
+        "applicationCategory": "GameApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "author": {
+            "@type": "Person",
+            "name": "Alex Fierascu"
+        },
+        "genre": ["Educational", "Quiz", "Trivia"],
+        "inLanguage": ["en", "de", "es", "fr", "it", "pt", "pl", "nl", "ro", "sv"]
+    }
+    </script>
+
 </head>
 <body>
 <div class="background-decoration" aria-hidden="true"></div>
 
-<!-- Loading Screen -->
+<!-- Loading Screen with Skeleton -->
 <div id="loading-screen" class="loading-screen" role="status" aria-live="polite">
-    <div class="loader">
-        <div class="loader-spinner"></div>
-        <p data-i18n="loading.text">Loading quiz...</p>
+    <div class="skeleton-card">
+        <div class="skeleton-header">
+            <div class="skeleton skeleton-title"></div>
+            <div class="skeleton skeleton-subtitle"></div>
+        </div>
+        <div class="skeleton-stats">
+            <div class="skeleton skeleton-stat"></div>
+            <div class="skeleton skeleton-stat"></div>
+            <div class="skeleton skeleton-stat"></div>
+        </div>
+        <div class="skeleton-form">
+            <div class="skeleton skeleton-input"></div>
+            <div class="skeleton skeleton-input"></div>
+            <div class="skeleton skeleton-input"></div>
+        </div>
+        <div class="skeleton skeleton-button"></div>
+        <p class="skeleton-loading-text" data-i18n="loading.text">Loading quiz...</p>
     </div>
 </div>
 
@@ -627,7 +665,125 @@
 
 <footer class="footer">
     <p data-i18n="app.footer">Explore Europe, one capital at a time</p>
+    <div class="footer-links">
+        <button id="privacy-policy-btn" class="footer-link">Privacy Policy</button>
+        <span class="footer-separator">|</span>
+        <button id="terms-of-service-btn" class="footer-link">Terms of Service</button>
+    </div>
 </footer>
+
+<!-- Legal Modals -->
+<div id="privacy-modal" class="legal-modal" hidden>
+    <div class="legal-modal-overlay"></div>
+    <div class="legal-modal-content">
+        <button class="legal-modal-close" aria-label="Close">&times;</button>
+        <h2>Privacy Policy</h2>
+        <div class="legal-modal-body">
+            <p><strong>Last updated:</strong> December 30, 2025</p>
+
+            <h3>Information We Collect</h3>
+            <p>When you use European Capitals Quiz, we may collect:</p>
+            <ul>
+                <li><strong>Account Information:</strong> Email address and display name when you create an account</li>
+                <li><strong>Game Data:</strong> Your quiz scores, achievements, and progress</li>
+                <li><strong>Profile Information:</strong> Optional details like nickname, location, and avatar</li>
+            </ul>
+
+            <h3>How We Use Your Information</h3>
+            <ul>
+                <li>To provide and maintain your account</li>
+                <li>To save your game progress and achievements</li>
+                <li>To display your profile on leaderboards (if you choose)</li>
+            </ul>
+
+            <h3>Data Storage</h3>
+            <p>Your data is stored securely using Firebase services by Google. We do not sell or share your personal information with third parties.</p>
+
+            <h3>Cookies</h3>
+            <p>We use essential cookies for authentication and to remember your preferences (theme, language). We do not use tracking or advertising cookies.</p>
+
+            <h3>Your Rights</h3>
+            <p>You can:</p>
+            <ul>
+                <li>Access and update your profile information at any time</li>
+                <li>Reset your game progress</li>
+                <li>Delete your account and all associated data</li>
+            </ul>
+
+            <h3>Contact</h3>
+            <p>For questions about this privacy policy, please open an issue on our GitHub repository.</p>
+        </div>
+    </div>
+</div>
+
+<div id="terms-modal" class="legal-modal" hidden>
+    <div class="legal-modal-overlay"></div>
+    <div class="legal-modal-content">
+        <button class="legal-modal-close" aria-label="Close">&times;</button>
+        <h2>Terms of Service</h2>
+        <div class="legal-modal-body">
+            <p><strong>Last updated:</strong> December 30, 2025</p>
+
+            <h3>Acceptance of Terms</h3>
+            <p>By using European Capitals Quiz, you agree to these terms. If you don't agree, please don't use the app.</p>
+
+            <h3>Use of Service</h3>
+            <p>European Capitals Quiz is a free educational game. You may:</p>
+            <ul>
+                <li>Play the quiz and track your progress</li>
+                <li>Create an account to save your data across devices</li>
+                <li>Compete on leaderboards</li>
+            </ul>
+
+            <h3>User Accounts</h3>
+            <ul>
+                <li>You are responsible for maintaining the security of your account</li>
+                <li>You must provide accurate information when creating an account</li>
+                <li>We reserve the right to suspend accounts that violate these terms</li>
+            </ul>
+
+            <h3>Prohibited Activities</h3>
+            <p>You may not:</p>
+            <ul>
+                <li>Attempt to cheat or manipulate game scores</li>
+                <li>Use automated tools or bots</li>
+                <li>Abuse or harass other users</li>
+                <li>Attempt to access other users' data</li>
+            </ul>
+
+            <h3>Disclaimer</h3>
+            <p>The app is provided "as is" without warranties. We are not responsible for any data loss or service interruptions.</p>
+
+            <h3>Changes to Terms</h3>
+            <p>We may update these terms. Continued use of the app after changes constitutes acceptance of the new terms.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Offline Indicator -->
+<div id="offline-indicator" class="offline-indicator" hidden>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="1" y1="1" x2="23" y2="23"/>
+        <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/>
+        <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/>
+        <path d="M10.71 5.05A16 16 0 0 1 22.58 9"/>
+        <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/>
+        <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+        <line x1="12" y1="20" x2="12.01" y2="20"/>
+    </svg>
+    <span>You're offline. Some features may be limited.</span>
+</div>
+
+<!-- Cookie Consent Banner -->
+<div id="cookie-consent" class="cookie-consent" hidden>
+    <div class="cookie-consent-content">
+        <p>We use essential cookies for authentication and to save your preferences (theme, language). No tracking or advertising cookies.</p>
+        <div class="cookie-consent-actions">
+            <button id="cookie-accept" class="cookie-btn cookie-btn--accept">Accept</button>
+            <button id="cookie-privacy" class="cookie-btn cookie-btn--link">Privacy Policy</button>
+        </div>
+    </div>
+</div>
 
 <!-- Skip Link for Accessibility -->
 <a href="#quiz-settings" class="skip-link">Skip to quiz settings</a>
