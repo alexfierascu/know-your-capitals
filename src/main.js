@@ -25,6 +25,7 @@ import { openStatsModal, setupModalListeners } from './ui/stats.js';
 import { initAuth } from './auth/auth.js';
 import { initAuthElements, setupAuthUI } from './auth/authUI.js';
 import { initDataSync, markInitialized } from './data/dataSync.js';
+import { initAnalytics, setAnalyticsConsent, hasAnalyticsConsent } from './utils/analytics.js';
 
 // Import Web Components (auto-registers custom elements)
 import './ui/components/index.js';
@@ -184,22 +185,35 @@ function setupOfflineIndicator() {
 function setupCookieConsent(privacyModal) {
     const COOKIE_CONSENT_KEY = 'cookie-consent-accepted';
     const cookieBanner = document.getElementById('cookie-consent');
-    const acceptBtn = document.getElementById('cookie-accept');
+    const acceptAllBtn = document.getElementById('cookie-accept');
+    const acceptEssentialBtn = document.getElementById('cookie-essential');
     const privacyBtn = document.getElementById('cookie-privacy');
 
     if (!cookieBanner) return;
 
     // Check if already accepted
     if (localStorage.getItem(COOKIE_CONSENT_KEY)) {
+        // Initialize analytics if previously consented
+        if (hasAnalyticsConsent()) {
+            initAnalytics();
+        }
         return; // Don't show banner
     }
 
     // Show banner
     cookieBanner.hidden = false;
 
-    // Accept button
-    acceptBtn?.addEventListener('click', () => {
+    // Accept all (including analytics)
+    acceptAllBtn?.addEventListener('click', () => {
         localStorage.setItem(COOKIE_CONSENT_KEY, 'true');
+        setAnalyticsConsent(true);
+        cookieBanner.hidden = true;
+    });
+
+    // Accept essential only (no analytics)
+    acceptEssentialBtn?.addEventListener('click', () => {
+        localStorage.setItem(COOKIE_CONSENT_KEY, 'true');
+        setAnalyticsConsent(false);
         cookieBanner.hidden = true;
     });
 

@@ -567,16 +567,26 @@
     background: var(--color-primary-light);
 }
 
-.cookie-btn--link {
-    background: transparent;
+.cookie-btn--secondary {
+    background: var(--color-bg-card-light);
     border: 1px solid var(--color-border);
     color: var(--color-text);
 }
 
-.cookie-btn--link:hover {
+.cookie-btn--secondary:hover {
+    background: var(--color-bg-card);
     border-color: var(--color-primary);
+}
+
+.cookie-btn--link {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--color-text-muted);
+    text-decoration: underline;
+}
+
+.cookie-btn--link:hover {
     color: var(--color-primary);
-    background: rgba(201, 162, 39, 0.1);
 }
 
 @media (max-width: 600px) {
