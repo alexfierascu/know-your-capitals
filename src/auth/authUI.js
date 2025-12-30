@@ -91,7 +91,10 @@ export function initAuthElements() {
         // Modal Web Components (accessed from main elements)
         resetConfirmModal: document.getElementById('reset-confirm-modal'),
         profileModal: document.getElementById('profile-modal'),
-        deleteAccountModal: document.getElementById('delete-account-modal')
+        deleteAccountModal: document.getElementById('delete-account-modal'),
+
+        // Stats Button (shown only when logged in)
+        statsBtn: document.getElementById('stats-btn')
     };
 }
 
@@ -398,7 +401,6 @@ async function openProfileModal(forced = false) {
             lastName: profile.lastName || '',
             nickname: profile.nickname || '',
             location: profile.location || '',
-            age: profile.age || '',
             avatarUrl: profile.avatarUrl || ''
         });
 
@@ -408,7 +410,6 @@ async function openProfileModal(forced = false) {
             lastName: profile.lastName || '',
             nickname: profile.nickname || '',
             location: profile.location || '',
-            age: profile.age || '',
             avatarUrl: profile.avatarUrl || ''
         };
     } else {
@@ -418,7 +419,6 @@ async function openProfileModal(forced = false) {
             lastName: '',
             nickname: '',
             location: '',
-            age: '',
             avatarUrl: ''
         });
 
@@ -428,7 +428,6 @@ async function openProfileModal(forced = false) {
             lastName: '',
             nickname: '',
             location: '',
-            age: '',
             avatarUrl: ''
         };
     }
@@ -499,8 +498,7 @@ async function handleProfileSave(e) {
         firstName: formData.firstName,
         lastName: formData.lastName,
         nickname: formData.nickname,
-        location: formData.location,
-        age: formData.age
+        location: formData.location
     };
 
     // If there's avatar data from the form
@@ -523,7 +521,6 @@ async function handleProfileSave(e) {
                 lastName: profileData.lastName,
                 nickname: profileData.nickname,
                 location: profileData.location,
-                age: profileData.age || '',
                 avatarUrl: profileData.avatarUrl || ''
             };
 
@@ -846,15 +843,21 @@ async function updateUserProfile() {
         elements.userDropdown.querySelector('.user-dropdown-header').style.display = 'none';
     }
 
-    // Show user profile
+    // Show user profile and stats button
     elements.userProfile.hidden = false;
+    if (elements.statsBtn) {
+        elements.statsBtn.hidden = false;
+    }
 }
 
 /**
- * Hide user profile
+ * Hide user profile and stats button
  */
 function hideUserProfile() {
     elements.userProfile.hidden = true;
+    if (elements.statsBtn) {
+        elements.statsBtn.hidden = true;
+    }
 }
 
 /**

@@ -305,7 +305,6 @@ export async function getUserProfile() {
                 lastName: data.lastName || '',
                 nickname: data.nickname || '',
                 location: data.location || '',
-                age: data.age || null,
                 avatarUrl: data.avatarUrl || null
             };
         }
@@ -331,7 +330,6 @@ export async function saveUserProfile(profileData) {
             lastName: profileData.lastName || '',
             nickname: profileData.nickname || '',
             location: profileData.location || '',
-            age: profileData.age || null,
             avatarUrl: profileData.avatarUrl || null,
             profileUpdatedAt: new Date().toISOString()
         };

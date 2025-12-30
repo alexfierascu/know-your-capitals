@@ -342,22 +342,14 @@
 /* ========================================
    Responsive Design
 ======================================== */
-/* For larger screens, ensure top controls don't overlap main content */
-@media (min-width: 601px) {
-    body {
-        padding-top: 5rem;
-    }
-}
-
 @media (max-width: 600px) {
     body {
         padding: 1rem;
-        padding-top: 4rem;
+        padding-top: 4.5rem;
     }
 
     .top-controls {
-        top: 1rem;
-        right: 1rem;
+        padding: 0.5rem 0.75rem;
     }
 
     .card {
@@ -442,12 +434,9 @@
 }
 
 /* ========================================
-   Stats Button
+   Stats Button (in header bar)
 ======================================== */
 .stats-btn {
-    position: fixed;
-    top: 1.5rem;
-    left: 1.5rem;
     width: 44px;
     height: 44px;
     border-radius: 50%;
@@ -459,19 +448,16 @@
     align-items: center;
     justify-content: center;
     transition: var(--transition-fast);
-    z-index: 100;
+    margin-right: auto;
+}
+
+.stats-btn[hidden] {
+    display: none;
 }
 
 .stats-btn:hover {
     background: var(--color-bg-card-light);
     border-color: var(--color-primary);
     color: var(--color-primary);
-}
-
-@media (max-width: 600px) {
-    .stats-btn {
-        top: 1rem;
-        left: 1rem;
-    }
 }
 

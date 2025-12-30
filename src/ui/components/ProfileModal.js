@@ -159,6 +159,65 @@ export class ProfileModal extends BaseModal {
                 color: var(--color-text-muted, #8892b0);
             }
 
+            /* Location Autocomplete */
+            .profile-form-group--autocomplete {
+                position: relative;
+            }
+
+            .autocomplete-dropdown {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--color-bg-card, #1a1f35);
+                border: 1px solid var(--color-border, #2a3352);
+                border-top: none;
+                border-radius: 0 0 var(--radius-sm, 8px) var(--radius-sm, 8px);
+                max-height: 200px;
+                overflow-y: auto;
+                z-index: 100;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            }
+
+            .autocomplete-dropdown[hidden] {
+                display: none;
+            }
+
+            .autocomplete-item {
+                padding: 0.75rem;
+                cursor: pointer;
+                border-bottom: 1px solid var(--color-border, #2a3352);
+                transition: background 0.15s ease;
+            }
+
+            .autocomplete-item:last-child {
+                border-bottom: none;
+            }
+
+            .autocomplete-item:hover,
+            .autocomplete-item.selected {
+                background: var(--color-bg-card-light, #242b45);
+            }
+
+            .autocomplete-item-name {
+                font-size: 0.95rem;
+                color: var(--color-text, #e8e6e3);
+            }
+
+            .autocomplete-item-detail {
+                font-size: 0.8rem;
+                color: var(--color-text-muted, #8892b0);
+                margin-top: 0.15rem;
+            }
+
+            .autocomplete-loading,
+            .autocomplete-empty {
+                padding: 0.75rem;
+                text-align: center;
+                color: var(--color-text-muted, #8892b0);
+                font-size: 0.9rem;
+            }
+
             /* Buttons */
             .profile-form-buttons {
                 display: flex;
@@ -273,16 +332,11 @@ export class ProfileModal extends BaseModal {
                         <span class="profile-field-hint" data-i18n="profile.nicknameHint">This will be displayed in the app</span>
                     </div>
 
-                    <!-- Location -->
-                    <div class="profile-form-group">
+                    <!-- Location with Autocomplete -->
+                    <div class="profile-form-group profile-form-group--autocomplete">
                         <label for="profile-location" data-i18n="profile.location">Location</label>
-                        <input type="text" id="profile-location" maxlength="100" placeholder="City, Country" />
-                    </div>
-
-                    <!-- Age -->
-                    <div class="profile-form-group profile-form-group--small">
-                        <label for="profile-age" data-i18n="profile.age">Age</label>
-                        <input type="number" id="profile-age" min="1" max="120" />
+                        <input type="text" id="profile-location" maxlength="100" placeholder="Start typing a city..." autocomplete="off" />
+                        <div id="location-autocomplete" class="autocomplete-dropdown" hidden></div>
                     </div>
 
                     <!-- Buttons -->
@@ -303,8 +357,6 @@ export class ProfileModal extends BaseModal {
 
         const form = this.shadowRoot.getElementById('profile-form');
         const avatarInput = this.shadowRoot.getElementById('profile-avatar-input');
-        const avatarPreview = this.shadowRoot.getElementById('profile-avatar-preview');
-        const avatarPlaceholder = this.shadowRoot.getElementById('profile-avatar-placeholder');
 
         // Handle avatar file selection
         avatarInput.addEventListener('change', async (e) => {
@@ -325,6 +377,142 @@ export class ProfileModal extends BaseModal {
                 bubbles: true
             }));
         });
+
+        // Location autocomplete
+        this._setupLocationAutocomplete();
+    }
+
+    /**
+     * Setup location autocomplete with Photon API
+     */
+    _setupLocationAutocomplete() {
+        const input = this.locationInput;
+        const dropdown = this.locationAutocomplete;
+        let debounceTimer = null;
+        let selectedIndex = -1;
+
+        // Debounced search
+        input.addEventListener('input', () => {
+            const query = input.value.trim();
+            clearTimeout(debounceTimer);
+            selectedIndex = -1;
+
+            if (query.length < 2) {
+                this._hideAutocomplete();
+                return;
+            }
+
+            debounceTimer = setTimeout(() => {
+                this._fetchLocations(query);
+            }, 300);
+        });
+
+        // Keyboard navigation
+        input.addEventListener('keydown', (e) => {
+            const items = dropdown.querySelectorAll('.autocomplete-item');
+            if (!items.length || dropdown.hidden) return;
+
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                selectedIndex = Math.min(selectedIndex + 1, items.length - 1);
+                this._updateAutocompleteSelection(items, selectedIndex);
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                selectedIndex = Math.max(selectedIndex - 1, 0);
+                this._updateAutocompleteSelection(items, selectedIndex);
+            } else if (e.key === 'Enter' && selectedIndex >= 0) {
+                e.preventDefault();
+                items[selectedIndex].click();
+            } else if (e.key === 'Escape') {
+                this._hideAutocomplete();
+            }
+        });
+
+        // Close on blur (with delay to allow click)
+        input.addEventListener('blur', () => {
+            setTimeout(() => this._hideAutocomplete(), 200);
+        });
+
+        // Reopen on focus if has value
+        input.addEventListener('focus', () => {
+            if (input.value.trim().length >= 2 && dropdown.children.length > 0) {
+                dropdown.hidden = false;
+            }
+        });
+    }
+
+    /**
+     * Fetch locations from Photon API
+     */
+    async _fetchLocations(query) {
+        const dropdown = this.locationAutocomplete;
+        dropdown.innerHTML = '<div class="autocomplete-loading">Searching...</div>';
+        dropdown.hidden = false;
+
+        try {
+            const response = await fetch(
+                `https://photon.komoot.io/api/?q=${encodeURIComponent(query)}&limit=5&lang=en`
+            );
+
+            if (!response.ok) throw new Error('Failed to fetch');
+
+            const data = await response.json();
+            const results = data.features || [];
+
+            if (results.length === 0) {
+                dropdown.innerHTML = '<div class="autocomplete-empty">No locations found</div>';
+                return;
+            }
+
+            dropdown.innerHTML = results.map((feature, index) => {
+                const props = feature.properties;
+                const name = props.name || '';
+                const city = props.city || '';
+                const state = props.state || '';
+                const country = props.country || '';
+
+                // Build display text
+                const displayName = name || city;
+                const details = [city !== displayName ? city : '', state, country]
+                    .filter(Boolean)
+                    .join(', ');
+
+                return `
+                    <div class="autocomplete-item" data-index="${index}" data-value="${displayName}${details ? ', ' + country : ''}">
+                        <div class="autocomplete-item-name">${displayName}</div>
+                        ${details ? `<div class="autocomplete-item-detail">${details}</div>` : ''}
+                    </div>
+                `;
+            }).join('');
+
+            // Add click handlers
+            dropdown.querySelectorAll('.autocomplete-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    this.locationInput.value = item.dataset.value;
+                    this._hideAutocomplete();
+                });
+            });
+
+        } catch (error) {
+            console.error('Location search error:', error);
+            dropdown.innerHTML = '<div class="autocomplete-empty">Search failed. Try again.</div>';
+        }
+    }
+
+    /**
+     * Update autocomplete selection highlight
+     */
+    _updateAutocompleteSelection(items, index) {
+        items.forEach((item, i) => {
+            item.classList.toggle('selected', i === index);
+        });
+    }
+
+    /**
+     * Hide autocomplete dropdown
+     */
+    _hideAutocomplete() {
+        this.locationAutocomplete.hidden = true;
     }
 
     // Getters for form elements
@@ -352,8 +540,8 @@ export class ProfileModal extends BaseModal {
         return this.shadowRoot.getElementById('profile-location');
     }
 
-    get ageInput() {
-        return this.shadowRoot.getElementById('profile-age');
+    get locationAutocomplete() {
+        return this.shadowRoot.getElementById('location-autocomplete');
     }
 
     get errorElement() {
@@ -377,7 +565,6 @@ export class ProfileModal extends BaseModal {
             lastName: this.lastnameInput.value.trim(),
             nickname: this.nicknameInput.value.trim(),
             location: this.locationInput.value.trim(),
-            age: this.ageInput.value ? parseInt(this.ageInput.value) : null,
             avatarData: this._avatarData
         };
     }
@@ -390,7 +577,6 @@ export class ProfileModal extends BaseModal {
         if (data.lastName !== undefined) this.lastnameInput.value = data.lastName || '';
         if (data.nickname !== undefined) this.nicknameInput.value = data.nickname || '';
         if (data.location !== undefined) this.locationInput.value = data.location || '';
-        if (data.age !== undefined) this.ageInput.value = data.age || '';
         if (data.avatarUrl !== undefined) {
             this.setAvatar(data.avatarUrl);
         }

@@ -48,6 +48,15 @@
 
 <!-- Top Controls -->
 <div class="top-controls">
+    <!-- Stats Button (only visible when logged in) -->
+    <button id="stats-btn" class="stats-btn" aria-label="View stats, achievements and leaderboard" title="Stats & Achievements" hidden>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M12 20V10"/>
+            <path d="M18 20V4"/>
+            <path d="M6 20v-4"/>
+        </svg>
+    </button>
+
     <!-- User Profile -->
     <div id="user-profile" class="user-profile" hidden>
         <button id="user-menu-toggle" class="user-menu-toggle" aria-label="User menu">
@@ -615,15 +624,6 @@
 <reset-confirm-modal id="reset-confirm-modal"></reset-confirm-modal>
 <delete-account-modal id="delete-account-modal"></delete-account-modal>
 <profile-modal id="profile-modal"></profile-modal>
-
-<!-- Stats Button (visible on the start screen) -->
-<button id="stats-btn" class="stats-btn" aria-label="View stats, achievements and leaderboard" title="Stats & Achievements">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-        <path d="M12 20V10"/>
-        <path d="M18 20V4"/>
-        <path d="M6 20v-4"/>
-    </svg>
-</button>
 
 <footer class="footer">
     <p data-i18n="app.footer">Explore Europe, one capital at a time</p>
