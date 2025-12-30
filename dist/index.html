@@ -7,9 +7,9 @@
     <meta name="theme-color" content="#0f1729">
 
     <!-- PWA -->
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="icons/icon-192.png">
-    <link rel="icon" type="image/png" href="icons/icon-192.png">
+    <link rel="manifest" href="/know-your-capitals/manifest.json">
+    <link rel="apple-touch-icon" href="/know-your-capitals/icons/icon-192.png">
+    <link rel="icon" type="image/png" href="/know-your-capitals/icons/icon-192.png">
 
     <title>European Capitals Quiz</title>
 
@@ -19,8 +19,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
 
 
-  <script type="module" crossorigin src="/know-your-capitals/assets/index-B9Apaeaj.js"></script>
-  <link rel="stylesheet" crossorigin href="/know-your-capitals/assets/index-BSX45bFS.css">
+  <script type="module" crossorigin src="/know-your-capitals/assets/index-DICF-XcA.js"></script>
+  <link rel="modulepreload" crossorigin href="/know-your-capitals/assets/firebase-Yx-ixXf8.js">
+  <link rel="stylesheet" crossorigin href="/know-your-capitals/assets/index-SzxdcJ1t.css">
 </head>
 <body>
 <div class="background-decoration" aria-hidden="true"></div>
@@ -35,6 +36,53 @@
 
 <!-- Top Controls -->
 <div class="top-controls">
+    <!-- User Profile -->
+    <div id="user-profile" class="user-profile" hidden>
+        <button id="user-menu-toggle" class="user-menu-toggle" aria-label="User menu">
+            <img id="user-avatar" class="user-avatar" src="" alt="" />
+            <span id="user-name" class="user-name">Guest</span>
+            <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"/>
+            </svg>
+        </button>
+        <div id="user-dropdown" class="user-dropdown" hidden>
+            <div class="user-dropdown-header">
+                <span id="user-dropdown-email" class="user-dropdown-email"></span>
+            </div>
+            <button id="edit-profile-btn" class="user-dropdown-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                </svg>
+                <span data-i18n="profile.editProfile">Edit Profile</span>
+            </button>
+            <button id="logout-btn" class="user-dropdown-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                    <polyline points="16 17 21 12 16 7"/>
+                    <line x1="21" y1="12" x2="9" y2="12"/>
+                </svg>
+                <span data-i18n="auth.signOut">Sign Out</span>
+            </button>
+            <div class="user-dropdown-divider"></div>
+            <button id="reset-progress-btn" class="user-dropdown-item user-dropdown-item--danger">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                    <path d="M3 3v5h5"/>
+                </svg>
+                <span data-i18n="auth.resetProgress">Reset Progress</span>
+            </button>
+            <button id="delete-account-btn" class="user-dropdown-item user-dropdown-item--danger">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="15" y1="9" x2="9" y2="15"/>
+                    <line x1="9" y1="9" x2="15" y2="15"/>
+                </svg>
+                <span data-i18n="auth.deleteAccount">Delete Account</span>
+            </button>
+        </div>
+    </div>
+
     <!-- Language Selector -->
     <div class="language-selector">
         <button id="language-toggle" class="language-toggle" aria-label="Change language" title="Change language">
@@ -105,8 +153,169 @@
 <canvas id="confetti-canvas" aria-hidden="true"></canvas>
 
 <main class="container" role="main">
+    <!-- Login Screen -->
+    <section id="login-screen" class="screen active" aria-labelledby="login-title">
+        <div class="card">
+            <div class="card-decoration" aria-hidden="true"></div>
+            <div class="logo" aria-hidden="true">
+                <span class="compass">◈</span>
+            </div>
+            <h1 id="login-title" data-i18n="app.title">European Capitals</h1>
+            <p class="subtitle" data-i18n="auth.welcome">Sign in to track your progress</p>
+
+            <!-- Login Form -->
+            <div id="auth-form-container" class="auth-form-container">
+                <!-- Sign In Form -->
+                <form id="signin-form" class="auth-form">
+                    <div class="form-group">
+                        <label for="signin-email" data-i18n="auth.email">Email</label>
+                        <input type="email" id="signin-email" required autocomplete="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="signin-password" data-i18n="auth.password">Password</label>
+                        <div class="password-input-wrapper">
+                            <input type="password" id="signin-password" required autocomplete="current-password">
+                            <button type="button" class="password-toggle" aria-label="Show password" data-visible="false">
+                                <!-- Eye open: password is hidden, click to show -->
+                                <svg class="eye-show" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                    <circle cx="12" cy="12" r="3"/>
+                                </svg>
+                                <!-- Eye with slash: password is visible, click to hide -->
+                                <svg class="eye-hide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                    <circle cx="12" cy="12" r="3"/>
+                                    <line x1="1" y1="1" x2="23" y2="23" stroke-width="2.5"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <p id="signin-error" class="auth-error" hidden></p>
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <span data-i18n="auth.signIn">Sign In</span>
+                    </button>
+                    <button type="button" id="forgot-password-btn" class="btn-link forgot-password-link" data-i18n="auth.forgotPassword">Forgot password?</button>
+                </form>
+
+                <!-- Forgot Password Form -->
+                <form id="forgot-password-form" class="auth-form" hidden>
+                    <p class="auth-form-desc" data-i18n="auth.forgotPasswordDesc">Enter your email and we'll send you a link to reset your password.</p>
+                    <div class="form-group">
+                        <label for="reset-email" data-i18n="auth.email">Email</label>
+                        <input type="email" id="reset-email" required autocomplete="email">
+                    </div>
+                    <p id="reset-error" class="auth-error" hidden></p>
+                    <p id="reset-success" class="auth-success" hidden data-i18n="auth.resetEmailSent">Password reset email sent! Check your inbox.</p>
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <span data-i18n="auth.sendResetLink">Send Reset Link</span>
+                    </button>
+                    <button type="button" id="back-to-signin-btn" class="btn-link" data-i18n="auth.backToSignIn">Back to sign in</button>
+                </form>
+
+                <!-- Sign Up Form (hidden by default) -->
+                <form id="signup-form" class="auth-form" hidden>
+                    <div class="form-group">
+                        <label for="signup-email" data-i18n="auth.email">Email</label>
+                        <input type="email" id="signup-email" required autocomplete="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-password" class="label-with-tooltip">
+                            <span data-i18n="auth.password">Password</span>
+                            <span class="password-tooltip">
+                                <svg class="tooltip-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                                </svg>
+                                <span class="tooltip-content">
+                                    <strong data-i18n="auth.passwordRequirements">Password requirements:</strong>
+                                    <ul>
+                                        <li data-i18n="auth.passwordMinLength">At least 8 characters</li>
+                                        <li data-i18n="auth.passwordUppercase">At least 1 uppercase letter</li>
+                                        <li data-i18n="auth.passwordLowercase">At least 1 lowercase letter</li>
+                                        <li data-i18n="auth.passwordSpecial">At least 1 special character</li>
+                                    </ul>
+                                </span>
+                            </span>
+                        </label>
+                        <div class="password-input-wrapper">
+                            <input type="password" id="signup-password" required autocomplete="new-password" minlength="8">
+                            <button type="button" class="password-toggle" aria-label="Show password" data-visible="false">
+                                <!-- Eye open: password is hidden, click to show -->
+                                <svg class="eye-show" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                    <circle cx="12" cy="12" r="3"/>
+                                </svg>
+                                <!-- Eye with slash: password is visible, click to hide -->
+                                <svg class="eye-hide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                    <circle cx="12" cy="12" r="3"/>
+                                    <line x1="1" y1="1" x2="23" y2="23" stroke-width="2.5"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <p id="signup-error" class="auth-error" hidden></p>
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <span data-i18n="auth.createAccount">Create Account</span>
+                    </button>
+                </form>
+
+                <!-- Toggle between Sign In / Sign Up -->
+                <p class="auth-toggle">
+                    <span id="auth-toggle-text" data-i18n="auth.noAccount">Don't have an account?</span>
+                    <button type="button" id="auth-toggle-btn" class="btn-link" data-i18n="auth.signUp">Sign Up</button>
+                </p>
+
+                <div class="auth-divider">
+                    <span data-i18n="auth.or">or</span>
+                </div>
+
+                <!-- Social & Guest Login -->
+                <div class="auth-alternatives">
+                    <button id="google-signin-btn" class="btn btn-google">
+                        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                        </svg>
+                        <span data-i18n="auth.continueWithGoogle">Continue with Google</span>
+                    </button>
+                    <button id="guest-signin-btn" class="btn btn-secondary btn-full">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                        <span data-i18n="auth.playAsGuest">Play as Guest</span>
+                    </button>
+                </div>
+
+                <!-- Verification Pending -->
+                <div id="verification-pending" class="verification-pending" hidden>
+                    <div class="verification-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="auth.verifyEmailTitle">Check your email</h3>
+                    <p data-i18n="auth.verifyEmailMessage">We've sent a verification link to your email. Please verify your email to continue.</p>
+                    <p id="verification-email" class="verification-email"></p>
+                    <div class="verification-actions">
+                        <button id="resend-verification-btn" class="btn btn-secondary">
+                            <span data-i18n="auth.resendEmail">Resend Email</span>
+                        </button>
+                        <button id="check-verification-btn" class="btn btn-primary">
+                            <span data-i18n="auth.iVerified">I've Verified</span>
+                        </button>
+                    </div>
+                    <button id="back-to-login-btn" class="btn-link" data-i18n="auth.backToLogin">Back to login</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Start Screen -->
-    <section id="start-screen" class="screen active" aria-labelledby="start-title">
+    <section id="start-screen" class="screen" aria-labelledby="start-title">
         <div class="card">
             <div class="card-decoration" aria-hidden="true"></div>
             <div class="logo" aria-hidden="true">
@@ -127,10 +336,6 @@
             </div>
 
             <form id="quiz-settings" class="settings" aria-label="Quiz settings">
-                <div class="setting-group">
-                    <label for="player-name" data-i18n="settings.yourName">Your name:</label>
-                    <input type="text" id="player-name" data-i18n="[placeholder]settings.enterName" placeholder="Enter your name" maxlength="30" autocomplete="name">
-                </div>
                 <div class="setting-group game-mode-group">
                     <label data-i18n="settings.gameMode">Game Mode:</label>
                     <div class="game-mode-options">
@@ -392,137 +597,12 @@
     </div>
 </div>
 
-<!-- Stats Modal -->
-<div id="stats-modal" class="modal" hidden>
-    <div class="modal-overlay"></div>
-    <div class="modal-content">
-        <button class="modal-close" aria-label="Close modal">&times;</button>
-
-        <!-- Modal Tabs -->
-        <div class="modal-tabs" role="tablist">
-            <button class="modal-tab active" data-tab="leaderboard" role="tab" aria-selected="true">🏆 <span data-i18n="modal.leaderboard">Leaderboard</span></button>
-            <button class="modal-tab" data-tab="achievements" role="tab" aria-selected="false">🎖️ <span data-i18n="modal.achievements">Achievements</span></button>
-            <button class="modal-tab" data-tab="progress" role="tab" aria-selected="false">📊 <span data-i18n="modal.progress">Progress</span></button>
-        </div>
-
-        <!-- Leaderboard Tab -->
-        <div id="tab-leaderboard" class="modal-tab-content active" role="tabpanel">
-            <h2 data-i18n="stats.thisWeek">This Week</h2>
-            <div id="weekly-summary" class="weekly-summary">
-                <!-- Weekly summary will be rendered here -->
-            </div>
-            <h2 data-i18n="stats.lifetimeStats">Lifetime Stats</h2>
-            <div class="lifetime-stats">
-                <div class="lifetime-stat">
-                    <span class="lifetime-stat-value" id="stat-total-quizzes">0</span>
-                    <span class="lifetime-stat-label" data-i18n="stats.quizzesPlayed">Quizzes Played</span>
-                </div>
-                <div class="lifetime-stat">
-                    <span class="lifetime-stat-value" id="stat-best-streak">0</span>
-                    <span class="lifetime-stat-label" data-i18n="stats.bestStreak">Best Streak</span>
-                </div>
-                <div class="lifetime-stat">
-                    <span class="lifetime-stat-value" id="stat-avg-time">-</span>
-                    <span class="lifetime-stat-label" data-i18n="stats.avgTime">Avg Time/Question</span>
-                </div>
-                <div class="lifetime-stat">
-                    <span class="lifetime-stat-value" id="stat-accuracy">-</span>
-                    <span class="lifetime-stat-label" data-i18n="stats.accuracy">Accuracy</span>
-                </div>
-            </div>
-            <h2 data-i18n="stats.topScores">Top Scores</h2>
-            <div id="leaderboard-list" class="leaderboard-list">
-                <!-- Leaderboard entries will be inserted here -->
-            </div>
-            <p id="leaderboard-empty" class="empty-state" hidden data-i18n="stats.noScores">No scores yet. Play a quiz to get on the leaderboard!</p>
-        </div>
-
-        <!-- Achievements Tab -->
-        <div id="tab-achievements" class="modal-tab-content" role="tabpanel" hidden>
-            <h2 class="tab-header-with-info">
-                <span data-i18n="modal.achievements">Achievements</span>
-                <span class="info-tooltip">
-                    <button class="info-icon" aria-label="Achievement rules info">?</button>
-                    <span class="info-tooltip-content">
-                        <strong data-i18n="achievements.howToUnlock">How to unlock achievements:</strong><br><br>
-                        <span data-i18n="achievements.howToUnlockDesc">Complete quizzes and hit milestones like perfect scores, answer streaks, or mastering countries.</span><br><br>
-                        <strong data-i18n="achievements.masteringCountry">Mastering a country:</strong><br>
-                        <span data-i18n="achievements.masteringCountryDesc">Answer questions about it 3+ times with 80%+ accuracy.</span>
-                    </span>
-                </span>
-            </h2>
-            <div class="achievements-summary">
-                <span id="achievements-unlocked">0</span> / <span id="achievements-total">0</span> <span data-i18n="achievements.unlockedLabel">unlocked</span>
-            </div>
-            <div id="achievements-grid" class="achievements-grid">
-                <!-- Achievement badges will be inserted here -->
-            </div>
-        </div>
-
-        <!-- Progress Tab -->
-        <div id="tab-progress" class="modal-tab-content" role="tabpanel" hidden>
-            <h2 class="tab-header-with-info">
-                <span data-i18n="progress.countryMastery">Country Mastery</span>
-                <span class="info-tooltip">
-                    <button class="info-icon" aria-label="Mastery rules info">?</button>
-                    <span class="info-tooltip-content">
-                        <strong data-i18n="progress.masteryLevels">Mastery Levels:</strong><br><br>
-                        <strong data-i18n="progress.mastered">Mastered:</strong> <span data-i18n="progress.masteredDesc">80%+ correct over 3+ attempts</span><br>
-                        <strong data-i18n="progress.learning">Learning:</strong> <span data-i18n="progress.learningDesc">50–79% correct</span><br>
-                        <strong data-i18n="progress.weak">Weak:</strong> <span data-i18n="progress.weakDesc">Below 50% correct</span><br>
-                        <strong data-i18n="progress.notSeen">Not Seen:</strong> <span data-i18n="progress.notSeenDesc">No attempts yet</span>
-                    </span>
-                </span>
-            </h2>
-            <div class="progress-summary">
-                <div class="progress-stat">
-                    <span id="progress-mastered" class="progress-stat-value">0</span>
-                    <span class="progress-stat-label" data-i18n="progress.mastered">Mastered</span>
-                </div>
-                <div class="progress-stat">
-                    <span id="progress-learning" class="progress-stat-value">0</span>
-                    <span class="progress-stat-label" data-i18n="progress.learning">Learning</span>
-                </div>
-                <div class="progress-stat">
-                    <span id="progress-new" class="progress-stat-value">0</span>
-                    <span class="progress-stat-label" data-i18n="progress.notSeen">Not Seen</span>
-                </div>
-            </div>
-            <div class="progress-filter">
-                <button class="progress-filter-btn active" data-filter="all" data-i18n="progress.all">All</button>
-                <button class="progress-filter-btn" data-filter="mastered" data-i18n="progress.mastered">Mastered</button>
-                <button class="progress-filter-btn" data-filter="learning" data-i18n="progress.learning">Learning</button>
-                <button class="progress-filter-btn" data-filter="weak" data-i18n="progress.weak">Weak</button>
-            </div>
-            <div id="progress-list" class="progress-list">
-                <!-- Progress items will be inserted here -->
-            </div>
-
-            <div class="data-management">
-                <h3 data-i18n="data.management">Data Management</h3>
-                <div class="data-management-buttons">
-                    <button id="export-data-btn" class="btn btn-secondary btn-small">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                            <polyline points="7 10 12 15 17 10"/>
-                            <line x1="12" y1="15" x2="12" y2="3"/>
-                        </svg>
-                        <span data-i18n="data.export">Export Progress</span>
-                    </button>
-                    <label class="btn btn-secondary btn-small import-btn">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                            <polyline points="17 8 12 3 7 8"/>
-                            <line x1="12" y1="3" x2="12" y2="15"/>
-                        </svg>
-                        <span data-i18n="data.import">Import Progress</span>
-                        <input type="file" id="import-data-input" accept=".json" hidden>
-                    </label>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<!-- Modal Web Components -->
+<stats-modal id="stats-modal"></stats-modal>
+<migration-modal id="migration-modal"></migration-modal>
+<reset-confirm-modal id="reset-confirm-modal"></reset-confirm-modal>
+<delete-account-modal id="delete-account-modal"></delete-account-modal>
+<profile-modal id="profile-modal"></profile-modal>
 
 <!-- Stats Button (visible on the start screen) -->
 <button id="stats-btn" class="stats-btn" aria-label="View stats, achievements and leaderboard" title="Stats & Achievements">
@@ -541,10 +621,10 @@
 <a href="#quiz-settings" class="skip-link">Skip to quiz settings</a>
 
 <script>
-    // Register Service Worker
-    if ('serviceWorker' in navigator) {
+    // Register Service Worker (only in production, not dev server)
+    if ('serviceWorker' in navigator && !location.port) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('sw.js')
+            navigator.serviceWorker.register('/sw.js')
                 .then(reg => console.log('Service Worker registered'))
                 .catch(err => console.log('Service Worker registration failed:', err));
         });

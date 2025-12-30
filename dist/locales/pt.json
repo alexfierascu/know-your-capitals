@@ -23,7 +23,9 @@
     "difficulty": "Dificuldade:",
     "timer": "Cronômetro:",
     "region": "Região:",
-    "numQuestions": "Número de perguntas:"
+    "numQuestions": "Número de perguntas:",
+    "nQuestions": "{{count}} Perguntas",
+    "allQuestions": "Todas as {{count}} Perguntas"
   },
   "difficulty": {
     "easy": "Fácil",
@@ -191,5 +193,37 @@
     "speedChallenge": "Consegue responder mais perguntas em 60 segundos?",
     "scoreMessage": "Obtive {{score}}/{{total}} ({{percent}}%) no Quiz Capitais Europeias!",
     "results": "Resultados"
+  },
+  "auth": {
+    "welcome": "Entre para acompanhar seu progresso",
+    "email": "E-mail",
+    "password": "Senha",
+    "displayName": "Nome de exibição",
+    "signIn": "Entrar",
+    "signUp": "Cadastrar",
+    "signOut": "Sair",
+    "resetProgress": "Redefinir progresso",
+    "deleteAccount": "Excluir conta",
+    "createAccount": "Criar conta",
+    "noAccount": "Não tem uma conta?",
+    "hasAccount": "Já tem uma conta?",
+    "or": "ou",
+    "continueWithGoogle": "Continuar com Google",
+    "playAsGuest": "Jogar como convidado",
+    "verifyEmailTitle": "Verifique seu e-mail",
+    "verifyEmailMessage": "Enviamos um link de verificação. Verifique seu e-mail para continuar.",
+    "resendEmail": "Reenviar e-mail",
+    "iVerified": "Já verifiquei",
+    "backToLogin": "Voltar ao login",
+    "forgotPassword": "Esqueceu a senha?",
+    "forgotPasswordDesc": "Digite seu e-mail e enviaremos um link para redefinir sua senha.",
+    "sendResetLink": "Enviar link",
+    "resetEmailSent": "E-mail de redefinição enviado! Verifique sua caixa de entrada.",
+    "backToSignIn": "Voltar ao login",
+    "passwordRequirements": "Requisitos da senha:",
+    "passwordMinLength": "Pelo menos 8 caracteres",
+    "passwordUppercase": "Pelo menos 1 letra maiúscula",
+    "passwordLowercase": "Pelo menos 1 letra minúscula",
+    "passwordSpecial": "Pelo menos 1 caractere especial"
   }
 }

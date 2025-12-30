@@ -59,9 +59,13 @@ export async function saveUserData(data) {
         const dataToSave = {
             ...data,
             updatedAt: new Date().toISOString(),
-            displayName: user?.displayName || 'Guest',
             email: user?.email || null
         };
+
+        // Only set displayName if user has one from provider (e.g., Google)
+        if (user?.displayName) {
+            dataToSave.displayName = user.displayName;
+        }
 
         await setDoc(docRef, dataToSave, { merge: true });
         return true;

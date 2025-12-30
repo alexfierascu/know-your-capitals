@@ -1,5 +1,6 @@
 /**
  * Stats modal functionality
+ * Works with StatsModal Web Component
  */
 
 import { state } from '../data/state.js';
@@ -12,50 +13,41 @@ import { getCountryMasteryLevel } from './progress.js';
 
 export function setupModalListeners(callbacks = {}) {
     const { onImportSuccess } = callbacks;
+    const modal = elements.statsModal;
 
-    const overlay = elements.statsModal.querySelector('.modal-overlay');
-    overlay.addEventListener('click', closeStatsModal);
-
-    const closeBtn = elements.statsModal.querySelector('.modal-close');
-    closeBtn.addEventListener('click', closeStatsModal);
-
-    elements.modalTabs.forEach(tab => {
-        tab.addEventListener('click', () => switchTab(tab.dataset.tab));
+    // Listen for tab changes
+    modal.addEventListener('tab-change', (e) => {
+        // Tab switching is handled by the component
     });
 
-    elements.progressFilterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            elements.progressFilterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            renderProgressList(btn.dataset.filter);
+    // Listen for filter changes
+    modal.addEventListener('filter-change', (e) => {
+        renderProgressList(e.detail.filter);
+    });
+
+    // Listen for export
+    modal.addEventListener('export-data', () => {
+        exportProgress();
+    });
+
+    // Listen for import
+    modal.addEventListener('import-data', (e) => {
+        importProgress(e.detail.file, {
+            onSuccess: () => {
+                renderLifetimeStats();
+                renderLeaderboard();
+                renderAchievements();
+                renderProgress();
+                if (onImportSuccess) onImportSuccess();
+            }
         });
-    });
-
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !elements.statsModal.hidden) {
-            closeStatsModal();
-        }
-    });
-
-    elements.exportDataBtn.addEventListener('click', exportProgress);
-    elements.importDataInput.addEventListener('change', (e) => {
-        if (e.target.files.length > 0) {
-            importProgress(e.target.files[0], {
-                onSuccess: () => {
-                    renderLifetimeStats();
-                    renderLeaderboard();
-                    renderAchievements();
-                    renderProgress();
-                    if (onImportSuccess) onImportSuccess();
-                }
-            });
-            e.target.value = '';
-        }
     });
 }
 
 export function openStatsModal() {
-    elements.statsModal.hidden = false;
+    const modal = elements.statsModal;
+    modal.show();
+    modal.translate(t);
     renderLifetimeStats();
     renderLeaderboard();
     renderAchievements();
@@ -63,21 +55,15 @@ export function openStatsModal() {
 }
 
 export function closeStatsModal() {
-    elements.statsModal.hidden = true;
+    elements.statsModal.close();
 }
 
 export function switchTab(tabName) {
-    elements.modalTabs.forEach(tab => {
-        tab.classList.toggle('active', tab.dataset.tab === tabName);
-        tab.setAttribute('aria-selected', tab.dataset.tab === tabName);
-    });
-
-    Object.entries(elements.modalTabContents).forEach(([name, content]) => {
-        content.hidden = name !== tabName;
-    });
+    elements.statsModal.switchTab(tabName);
 }
 
 export function renderLifetimeStats() {
+    const modal = elements.statsModal;
     const stats = loadFromStorage(STORAGE_KEYS.stats, {
         totalQuizzes: 0,
         bestStreakEver: 0,
@@ -86,28 +72,29 @@ export function renderLifetimeStats() {
         totalTimeSpent: 0
     });
 
-    elements.statTotalQuizzes.textContent = stats.totalQuizzes || 0;
-    elements.statBestStreak.textContent = stats.bestStreakEver || 0;
+    modal.statTotalQuizzes.textContent = stats.totalQuizzes || 0;
+    modal.statBestStreak.textContent = stats.bestStreakEver || 0;
 
     if (stats.totalQuestionsAnswered > 0) {
         const avgTime = stats.totalTimeSpent / stats.totalQuestionsAnswered;
-        elements.statAvgTime.textContent = avgTime.toFixed(1) + 's';
+        modal.statAvgTime.textContent = avgTime.toFixed(1) + 's';
     } else {
-        elements.statAvgTime.textContent = '-';
+        modal.statAvgTime.textContent = '-';
     }
 
     if (stats.totalQuestionsAnswered > 0) {
         const accuracy = (stats.totalCorrectAnswers / stats.totalQuestionsAnswered) * 100;
-        elements.statAccuracy.textContent = accuracy.toFixed(0) + '%';
+        modal.statAccuracy.textContent = accuracy.toFixed(0) + '%';
     } else {
-        elements.statAccuracy.textContent = '-';
+        modal.statAccuracy.textContent = '-';
     }
 
     renderWeeklySummary();
 }
 
 export function renderWeeklySummary() {
-    const weeklyContainer = document.getElementById('weekly-summary');
+    const modal = elements.statsModal;
+    const weeklyContainer = modal.weeklySummary;
     if (!weeklyContainer) return;
 
     const leaderboard = state.leaderboard;
@@ -192,14 +179,15 @@ export function renderWeeklySummary() {
 }
 
 export function renderAchievements() {
-    const grid = elements.achievementsGrid;
+    const modal = elements.statsModal;
+    const grid = modal.achievementsGrid;
     grid.innerHTML = '';
 
     const achievementList = Object.values(ACHIEVEMENTS);
     const unlockedCount = Object.keys(state.achievements).length;
 
-    elements.achievementsUnlocked.textContent = unlockedCount;
-    elements.achievementsTotal.textContent = achievementList.length;
+    modal.achievementsUnlocked.textContent = unlockedCount;
+    modal.achievementsTotal.textContent = achievementList.length;
 
     achievementList.forEach(achievement => {
         const isUnlocked = !!state.achievements[achievement.id];
@@ -216,6 +204,7 @@ export function renderAchievements() {
 }
 
 export function renderProgress() {
+    const modal = elements.statsModal;
     let mastered = 0, learning = 0, notSeen = 0;
 
     state.countries.forEach(country => {
@@ -225,16 +214,16 @@ export function renderProgress() {
         else notSeen++;
     });
 
-    elements.progressMastered.textContent = mastered;
-    elements.progressLearning.textContent = learning;
-    elements.progressNew.textContent = notSeen;
+    modal.progressMastered.textContent = mastered;
+    modal.progressLearning.textContent = learning;
+    modal.progressNew.textContent = notSeen;
 
-    const activeFilter = document.querySelector('.progress-filter-btn.active');
-    renderProgressList(activeFilter ? activeFilter.dataset.filter : 'all');
+    renderProgressList('all');
 }
 
 export function renderProgressList(filter = 'all') {
-    const list = elements.progressList;
+    const modal = elements.statsModal;
+    const list = modal.progressList;
     list.innerHTML = '';
 
     const filteredCountries = state.countries.filter(country => {

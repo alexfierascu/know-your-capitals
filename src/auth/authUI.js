@@ -79,40 +79,19 @@ export function initAuthElements() {
         userDropdownEmail: document.getElementById('user-dropdown-email'),
         logoutBtn: document.getElementById('logout-btn'),
 
-        // Player name input (to sync with auth)
-        playerNameInput: document.getElementById('player-name'),
-
         // Reset Progress
         resetProgressBtn: document.getElementById('reset-progress-btn'),
-        resetConfirmModal: document.getElementById('reset-confirm-modal'),
-        resetCancelBtn: document.getElementById('reset-cancel-btn'),
-        resetConfirmBtn: document.getElementById('reset-confirm-btn'),
 
         // Edit Profile
         editProfileBtn: document.getElementById('edit-profile-btn'),
-        profileModal: document.getElementById('profile-modal'),
-        profileModalClose: document.getElementById('profile-modal-close'),
-        profileForm: document.getElementById('profile-form'),
-        profileFirstname: document.getElementById('profile-firstname'),
-        profileLastname: document.getElementById('profile-lastname'),
-        profileNickname: document.getElementById('profile-nickname'),
-        profileLocation: document.getElementById('profile-location'),
-        profileAge: document.getElementById('profile-age'),
-        profileAvatarInput: document.getElementById('profile-avatar-input'),
-        profileAvatarPreview: document.getElementById('profile-avatar-preview'),
-        profileAvatarPlaceholder: document.getElementById('profile-avatar-placeholder'),
-        profileError: document.getElementById('profile-error'),
-        profileSuccess: document.getElementById('profile-success'),
-        profileSaveBtn: document.getElementById('profile-save-btn'),
 
         // Delete Account
         deleteAccountBtn: document.getElementById('delete-account-btn'),
-        deleteAccountModal: document.getElementById('delete-account-modal'),
-        deleteAccountCancelBtn: document.getElementById('delete-account-cancel-btn'),
-        deleteAccountConfirmBtn: document.getElementById('delete-account-confirm-btn'),
 
-        // Modal overlays (for click-outside-to-close)
-        profileModalOverlay: document.querySelector('#profile-modal .modal-overlay')
+        // Modal Web Components (accessed from main elements)
+        resetConfirmModal: document.getElementById('reset-confirm-modal'),
+        profileModal: document.getElementById('profile-modal'),
+        deleteAccountModal: document.getElementById('delete-account-modal')
     };
 }
 
@@ -151,36 +130,21 @@ export function setupAuthUI() {
     // Logout
     elements.logoutBtn.addEventListener('click', handleLogout);
 
-    // Reset Progress
+    // Reset Progress - using Web Component events
     elements.resetProgressBtn.addEventListener('click', showResetConfirmModal);
-    elements.resetCancelBtn.addEventListener('click', hideResetConfirmModal);
-    elements.resetConfirmBtn.addEventListener('click', handleResetProgress);
+    elements.resetConfirmModal.addEventListener('reset-confirm', handleResetProgress);
+    elements.resetConfirmModal.addEventListener('reset-cancel', () => {});
 
-    // Edit Profile
+    // Edit Profile - using Web Component events
     elements.editProfileBtn.addEventListener('click', () => openProfileModal(false));
-    elements.profileModalClose.addEventListener('click', closeProfileModal);
-    elements.profileForm.addEventListener('submit', handleProfileSave);
-    elements.profileAvatarInput.addEventListener('change', handleAvatarUpload);
-    if (elements.profileModalOverlay) {
-        elements.profileModalOverlay.addEventListener('click', closeProfileModal);
-    }
+    elements.profileModal.addEventListener('profile-submit', handleProfileSave);
+    elements.profileModal.addEventListener('avatar-selected', handleAvatarUpload);
+    elements.profileModal.addEventListener('modal-close', handleProfileModalClose);
 
-    // Profile form validation on input change
-    const profileInputs = [
-        elements.profileFirstname,
-        elements.profileLastname,
-        elements.profileNickname,
-        elements.profileLocation,
-        elements.profileAge
-    ];
-    profileInputs.forEach(input => {
-        input.addEventListener('input', validateProfileForm);
-    });
-
-    // Delete Account
+    // Delete Account - using Web Component events
     elements.deleteAccountBtn.addEventListener('click', showDeleteAccountModal);
-    elements.deleteAccountCancelBtn.addEventListener('click', hideDeleteAccountModal);
-    elements.deleteAccountConfirmBtn.addEventListener('click', handleDeleteAccount);
+    elements.deleteAccountModal.addEventListener('delete-confirm', handleDeleteAccount);
+    elements.deleteAccountModal.addEventListener('delete-cancel', () => {});
 
     // Close dropdown when clicking outside
     document.addEventListener('click', (e) => {
@@ -281,6 +245,32 @@ async function handleSignIn(e) {
 }
 
 /**
+ * Validate password strength
+ * Requirements: 8+ chars, 1 uppercase, 1 lowercase, 1 special character
+ */
+function validatePassword(password) {
+    const minLength = 8;
+    const hasUppercase = /[A-Z]/.test(password);
+    const hasLowercase = /[a-z]/.test(password);
+    const hasSpecial = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password);
+
+    if (password.length < minLength) {
+        return { valid: false, error: 'Password must be at least 8 characters long.' };
+    }
+    if (!hasUppercase) {
+        return { valid: false, error: 'Password must contain at least one uppercase letter.' };
+    }
+    if (!hasLowercase) {
+        return { valid: false, error: 'Password must contain at least one lowercase letter.' };
+    }
+    if (!hasSpecial) {
+        return { valid: false, error: 'Password must contain at least one special character.' };
+    }
+
+    return { valid: true };
+}
+
+/**
  * Handle Sign Up form submission
  */
 async function handleSignUp(e) {
@@ -290,6 +280,13 @@ async function handleSignUp(e) {
     const password = elements.signupPassword.value;
 
     showError(elements.signupError, '');
+
+    // Validate password strength
+    const passwordValidation = validatePassword(password);
+    if (!passwordValidation.valid) {
+        showError(elements.signupError, passwordValidation.error);
+        return;
+    }
 
     const result = await createAccountWithEmail(email, password);
 
@@ -336,32 +333,18 @@ async function handleLogout() {
  */
 function showResetConfirmModal() {
     elements.userDropdown.hidden = true;
-    elements.resetConfirmModal.hidden = false;
-}
-
-/**
- * Hide reset confirmation modal
- */
-function hideResetConfirmModal() {
-    elements.resetConfirmModal.hidden = true;
+    elements.resetConfirmModal.show();
 }
 
 /**
  * Handle reset progress confirmation
  */
 async function handleResetProgress() {
-    elements.resetConfirmBtn.disabled = true;
-    elements.resetConfirmBtn.textContent = 'Resetting...';
-
     const success = await resetAllProgress();
 
     if (success) {
-        hideResetConfirmModal();
         // Optionally show a success message or refresh the page
         window.location.reload();
-    } else {
-        elements.resetConfirmBtn.disabled = false;
-        elements.resetConfirmBtn.innerHTML = '<span data-i18n="reset.confirm">Reset Everything</span>';
     }
 }
 
@@ -370,43 +353,27 @@ async function handleResetProgress() {
  */
 function showDeleteAccountModal() {
     elements.userDropdown.hidden = true;
-    elements.deleteAccountModal.hidden = false;
-}
-
-/**
- * Hide delete account confirmation modal
- */
-function hideDeleteAccountModal() {
-    elements.deleteAccountModal.hidden = true;
+    elements.deleteAccountModal.show();
 }
 
 /**
  * Handle delete account confirmation
  */
 async function handleDeleteAccount() {
-    elements.deleteAccountConfirmBtn.disabled = true;
-    elements.deleteAccountConfirmBtn.textContent = 'Deleting...';
-
     // First delete user data from Firestore
     await resetAllProgress();
 
     // Then delete the Firebase Auth account
     const result = await deleteAccount();
 
-    if (result.success) {
-        hideDeleteAccountModal();
-        // User is automatically signed out, auth state listener will handle UI
-    } else {
-        elements.deleteAccountConfirmBtn.disabled = false;
-        elements.deleteAccountConfirmBtn.innerHTML = '<span data-i18n="deleteAccount.confirm">Delete My Account</span>';
-
+    if (!result.success) {
         // Show error in alert for now (could improve with inline error)
         alert(result.error);
     }
+    // User is automatically signed out, auth state listener will handle UI
 }
 
-// Store pending avatar data and original profile for comparison
-let pendingAvatarData = null;
+// Store original profile for comparison
 let originalProfileData = null;
 let isProfileSetupForced = false;
 
@@ -415,52 +382,25 @@ let isProfileSetupForced = false;
  * @param {boolean} forced - If true, user cannot close without setting nickname
  */
 async function openProfileModal(forced = false) {
+    const modal = elements.profileModal;
     elements.userDropdown.hidden = true;
-    elements.profileModal.hidden = false;
     isProfileSetupForced = forced;
 
-    // Update UI based on forced mode
-    if (forced) {
-        elements.profileModalClose.style.display = 'none';
-        // Update title to indicate setup
-        const titleEl = elements.profileModal.querySelector('h2');
-        if (titleEl) {
-            titleEl.textContent = 'Complete Your Profile';
-            titleEl.setAttribute('data-i18n', 'profile.completeProfile');
-        }
-    } else {
-        elements.profileModalClose.style.display = '';
-        const titleEl = elements.profileModal.querySelector('h2');
-        if (titleEl) {
-            titleEl.textContent = 'Edit Profile';
-            titleEl.setAttribute('data-i18n', 'profile.title');
-        }
-    }
-
     // Clear previous state
-    elements.profileError.hidden = true;
-    elements.profileSuccess.hidden = true;
-    pendingAvatarData = null;
+    modal.hideMessages();
 
     // Load current profile
     const profile = await getUserProfile();
 
     if (profile) {
-        elements.profileFirstname.value = profile.firstName || '';
-        elements.profileLastname.value = profile.lastName || '';
-        elements.profileNickname.value = profile.nickname || '';
-        elements.profileLocation.value = profile.location || '';
-        elements.profileAge.value = profile.age || '';
-
-        if (profile.avatarUrl) {
-            elements.profileAvatarPreview.src = profile.avatarUrl;
-            elements.profileAvatarPreview.style.display = '';
-            elements.profileAvatarPlaceholder.style.display = 'none';
-        } else {
-            elements.profileAvatarPreview.src = '';
-            elements.profileAvatarPreview.style.display = 'none';
-            elements.profileAvatarPlaceholder.style.display = '';
-        }
+        modal.setFormData({
+            firstName: profile.firstName || '',
+            lastName: profile.lastName || '',
+            nickname: profile.nickname || '',
+            location: profile.location || '',
+            age: profile.age || '',
+            avatarUrl: profile.avatarUrl || ''
+        });
 
         // Store original data for comparison
         originalProfileData = {
@@ -473,14 +413,14 @@ async function openProfileModal(forced = false) {
         };
     } else {
         // Clear form
-        elements.profileFirstname.value = '';
-        elements.profileLastname.value = '';
-        elements.profileNickname.value = '';
-        elements.profileLocation.value = '';
-        elements.profileAge.value = '';
-        elements.profileAvatarPreview.src = '';
-        elements.profileAvatarPreview.style.display = 'none';
-        elements.profileAvatarPlaceholder.style.display = '';
+        modal.setFormData({
+            firstName: '',
+            lastName: '',
+            nickname: '',
+            location: '',
+            age: '',
+            avatarUrl: ''
+        });
 
         // No original data
         originalProfileData = {
@@ -493,191 +433,91 @@ async function openProfileModal(forced = false) {
         };
     }
 
-    // Initial validation
-    validateProfileForm();
+    modal.show();
 }
 
 /**
- * Attempt to close profile modal (with confirmation if unsaved changes)
+ * Handle profile modal close event
  */
-function closeProfileModal() {
+function handleProfileModalClose() {
     // Don't allow closing in forced mode
     if (isProfileSetupForced) {
+        // Reopen the modal since it auto-closed
+        elements.profileModal.show();
         return;
     }
 
-    // Check for unsaved changes
-    if (checkProfileChanges()) {
-        const confirmClose = confirm('You have unsaved changes. Are you sure you want to close without saving?');
-        if (!confirmClose) {
-            return;
-        }
-    }
-
-    forceCloseProfileModal();
-}
-
-/**
- * Force close profile modal without confirmation
- */
-function forceCloseProfileModal() {
-    elements.profileModal.hidden = true;
-    pendingAvatarData = null;
     originalProfileData = null;
     isProfileSetupForced = false;
-
-    // Clear any messages
-    elements.profileError.hidden = true;
-    elements.profileSuccess.hidden = true;
-}
-
-/**
- * Validate profile form - check nickname and changes
- */
-function validateProfileForm() {
-    const nickname = elements.profileNickname.value.trim();
-    const hasNickname = nickname.length > 0;
-    const hasChanges = checkProfileChanges();
-
-    // In forced mode, only require nickname (it's a new profile)
-    // In normal mode, require nickname AND changes
-    if (isProfileSetupForced) {
-        elements.profileSaveBtn.disabled = !hasNickname;
-    } else {
-        elements.profileSaveBtn.disabled = !hasNickname || !hasChanges;
-    }
-}
-
-/**
- * Check if profile has changes compared to original
- */
-function checkProfileChanges() {
-    if (!originalProfileData) return true; // New profile, allow save
-
-    const currentData = {
-        firstName: elements.profileFirstname.value.trim(),
-        lastName: elements.profileLastname.value.trim(),
-        nickname: elements.profileNickname.value.trim(),
-        location: elements.profileLocation.value.trim(),
-        age: elements.profileAge.value || ''
-    };
-
-    // Check text fields
-    if (currentData.firstName !== originalProfileData.firstName) return true;
-    if (currentData.lastName !== originalProfileData.lastName) return true;
-    if (currentData.nickname !== originalProfileData.nickname) return true;
-    if (currentData.location !== originalProfileData.location) return true;
-    if (String(currentData.age) !== String(originalProfileData.age)) return true;
-
-    // Check avatar
-    if (pendingAvatarData) return true;
-
-    return false;
 }
 
 /**
  * Handle avatar file upload
  */
 async function handleAvatarUpload(e) {
-    const file = e.target.files[0];
+    const modal = elements.profileModal;
+    const file = e.detail.file;
     if (!file) return;
 
     // Validate file type
     if (!isValidImageFile(file)) {
-        showProfileError('Please select a valid image file (JPEG, PNG, GIF, or WebP)');
+        modal.showError('Please select a valid image file (JPEG, PNG, GIF, or WebP)');
         return;
     }
 
     try {
-        // Show loading state
-        elements.profileAvatarPlaceholder.innerHTML = '<span style="font-size: 12px;">Compressing...</span>';
-        elements.profileAvatarPlaceholder.style.display = '';
-        elements.profileAvatarPreview.style.display = 'none';
-
         // Compress the image
         const compressedImage = await compressImage(file);
 
-        // Store for later save
-        pendingAvatarData = compressedImage;
-
-        // Show preview
-        elements.profileAvatarPreview.src = compressedImage;
-        elements.profileAvatarPreview.style.display = '';
-        elements.profileAvatarPlaceholder.style.display = 'none';
-
-        // Reset placeholder content
-        elements.profileAvatarPlaceholder.innerHTML = `
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                <circle cx="12" cy="7" r="4"/>
-            </svg>
-        `;
-
-        elements.profileError.hidden = true;
+        // Store in component and show preview
+        modal.setAvatarData(compressedImage);
+        modal.setAvatar(compressedImage);
+        modal.hideMessages();
     } catch (error) {
         console.error('Error processing avatar:', error);
-        showProfileError('Failed to process image. Please try another file.');
-
-        // Reset placeholder content
-        elements.profileAvatarPlaceholder.innerHTML = `
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                <circle cx="12" cy="7" r="4"/>
-            </svg>
-        `;
-        elements.profileAvatarPlaceholder.style.display = '';
+        modal.showError('Failed to process image. Please try another file.');
     }
-
-    // Clear the input so the same file can be selected again
-    e.target.value = '';
-
-    // Re-validate form after avatar change
-    validateProfileForm();
 }
 
 /**
  * Handle profile form save
  */
 async function handleProfileSave(e) {
-    e.preventDefault();
+    const modal = elements.profileModal;
+    const formData = e.detail;
 
     // Validate nickname is required
-    const nickname = elements.profileNickname.value.trim();
-    if (!nickname) {
-        showProfileError('Nickname is required');
+    if (!formData.nickname) {
+        modal.showError('Nickname is required');
         return;
     }
 
-    elements.profileSaveBtn.disabled = true;
-    elements.profileSaveBtn.textContent = 'Saving...';
-    elements.profileError.hidden = true;
-    elements.profileSuccess.hidden = true;
+    modal.setSaving(true);
+    modal.hideMessages();
 
     const profileData = {
-        firstName: elements.profileFirstname.value.trim(),
-        lastName: elements.profileLastname.value.trim(),
-        nickname: nickname,
-        location: elements.profileLocation.value.trim(),
-        age: elements.profileAge.value ? parseInt(elements.profileAge.value, 10) : null
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        nickname: formData.nickname,
+        location: formData.location,
+        age: formData.age
     };
 
-    // If there's a pending avatar, include it
-    if (pendingAvatarData) {
-        profileData.avatarUrl = pendingAvatarData;
-    } else if (elements.profileAvatarPreview.src && elements.profileAvatarPreview.style.display !== 'none') {
+    // If there's avatar data from the form
+    if (formData.avatarData) {
+        profileData.avatarUrl = formData.avatarData;
+    } else if (modal.avatarPreview.src && modal.avatarPreview.style.display !== 'none') {
         // Keep existing avatar
-        profileData.avatarUrl = elements.profileAvatarPreview.src;
+        profileData.avatarUrl = modal.avatarPreview.src;
     }
 
     try {
         const success = await saveUserProfile(profileData);
 
         if (success) {
-            elements.profileSuccess.textContent = 'Profile saved successfully!';
-            elements.profileSuccess.hidden = false;
-            pendingAvatarData = null;
+            modal.showSuccess('Profile saved successfully!');
 
-            // Update original data to reflect saved state (prevents false "unsaved changes" warning)
+            // Update original data
             originalProfileData = {
                 firstName: profileData.firstName,
                 lastName: profileData.lastName,
@@ -690,12 +530,11 @@ async function handleProfileSave(e) {
             // Update the UI with new profile data
             updateUserProfileFromData(profileData);
 
-            // Close modal after a short delay (force close even in forced mode)
+            // Close modal after a short delay
             const wasForced = isProfileSetupForced;
             setTimeout(() => {
-                // Reset forced mode before closing
                 isProfileSetupForced = false;
-                forceCloseProfileModal();
+                modal.close();
 
                 // If this was forced setup, now show the start screen
                 if (wasForced) {
@@ -703,23 +542,14 @@ async function handleProfileSave(e) {
                 }
             }, 1500);
         } else {
-            showProfileError('Failed to save profile. Please try again.');
+            modal.showError('Failed to save profile. Please try again.');
         }
     } catch (error) {
         console.error('Error saving profile:', error);
-        showProfileError('An error occurred. Please try again.');
+        modal.showError('An error occurred. Please try again.');
     }
 
-    elements.profileSaveBtn.disabled = false;
-    elements.profileSaveBtn.innerHTML = '<span data-i18n="profile.save">Save Changes</span>';
-}
-
-/**
- * Show profile error message
- */
-function showProfileError(message) {
-    elements.profileError.textContent = message;
-    elements.profileError.hidden = false;
+    modal.setSaving(false);
 }
 
 /**
@@ -736,9 +566,6 @@ function updateUserProfileFromData(profileData) {
     const displayName = getDisplayNameFromProfile(profileData);
     if (displayName) {
         elements.userName.textContent = displayName;
-        if (elements.playerNameInput) {
-            elements.playerNameInput.value = displayName;
-        }
     }
 }
 
@@ -776,10 +603,20 @@ async function handleCheckVerification() {
     await reloadUser();
 
     if (isEmailVerified()) {
-        // Email is verified, proceed to start screen
+        // Email is verified, proceed
         hideVerificationPending();
+
+        // Check if user has completed profile setup (has nickname)
+        const profile = await getUserProfile();
+        const hasNickname = profile?.nickname && profile.nickname.trim().length > 0;
+
         showStartScreen();
         updateUserProfile();
+
+        if (!hasNickname) {
+            // New user - force profile setup
+            openProfileModal(true);
+        }
     } else {
         elements.checkVerificationBtn.textContent = 'Not verified yet';
         setTimeout(() => {
@@ -996,9 +833,9 @@ async function updateUserProfile() {
         elements.userAvatar.style.display = 'none';
     }
 
-    // Determine display name (custom > Firebase > Guest)
+    // Determine display name (nickname > Firebase displayName > email prefix > 'Player')
     const customDisplayName = getDisplayNameFromProfile(profile);
-    const displayName = customDisplayName || userInfo.displayName || 'Guest';
+    const displayName = customDisplayName || userInfo.displayName || (userInfo.email ? userInfo.email.split('@')[0] : 'Player');
     elements.userName.textContent = displayName;
 
     // Update dropdown email
@@ -1011,11 +848,6 @@ async function updateUserProfile() {
 
     // Show user profile
     elements.userProfile.hidden = false;
-
-    // Pre-fill player name input with display name
-    if (elements.playerNameInput) {
-        elements.playerNameInput.value = displayName;
-    }
 }
 
 /**

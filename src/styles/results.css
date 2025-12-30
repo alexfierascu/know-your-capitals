@@ -342,6 +342,13 @@
 /* ========================================
    Responsive Design
 ======================================== */
+/* For larger screens, ensure top controls don't overlap main content */
+@media (min-width: 601px) {
+    body {
+        padding-top: 5rem;
+    }
+}
+
 @media (max-width: 600px) {
     body {
         padding: 1rem;

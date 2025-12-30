@@ -23,7 +23,9 @@
     "difficulty": "Trudność:",
     "timer": "Timer:",
     "region": "Region:",
-    "numQuestions": "Liczba pytań:"
+    "numQuestions": "Liczba pytań:",
+    "nQuestions": "{{count}} Pytań",
+    "allQuestions": "Wszystkie {{count}} Pytań"
   },
   "difficulty": {
     "easy": "Łatwy",
@@ -191,5 +193,37 @@
     "speedChallenge": "Czy możesz odpowiedzieć na więcej pytań w 60 sekund?",
     "scoreMessage": "Uzyskałem {{score}}/{{total}} ({{percent}}%) w Quizie Stolice Europy!",
     "results": "Wyniki"
+  },
+  "auth": {
+    "welcome": "Zaloguj się, aby śledzić swoje postępy",
+    "email": "E-mail",
+    "password": "Hasło",
+    "displayName": "Nazwa wyświetlana",
+    "signIn": "Zaloguj się",
+    "signUp": "Zarejestruj się",
+    "signOut": "Wyloguj się",
+    "resetProgress": "Zresetuj postępy",
+    "deleteAccount": "Usuń konto",
+    "createAccount": "Utwórz konto",
+    "noAccount": "Nie masz konta?",
+    "hasAccount": "Masz już konto?",
+    "or": "lub",
+    "continueWithGoogle": "Kontynuuj z Google",
+    "playAsGuest": "Graj jako gość",
+    "verifyEmailTitle": "Sprawdź swoją pocztę",
+    "verifyEmailMessage": "Wysłaliśmy Ci link weryfikacyjny. Zweryfikuj swój e-mail, aby kontynuować.",
+    "resendEmail": "Wyślij ponownie",
+    "iVerified": "Zweryfikowałem",
+    "backToLogin": "Powrót do logowania",
+    "forgotPassword": "Zapomniałeś hasła?",
+    "forgotPasswordDesc": "Wprowadź swój e-mail, a wyślemy Ci link do zresetowania hasła.",
+    "sendResetLink": "Wyślij link",
+    "resetEmailSent": "E-mail resetujący wysłany! Sprawdź swoją skrzynkę.",
+    "backToSignIn": "Powrót do logowania",
+    "passwordRequirements": "Wymagania hasła:",
+    "passwordMinLength": "Co najmniej 8 znaków",
+    "passwordUppercase": "Co najmniej 1 wielka litera",
+    "passwordLowercase": "Co najmniej 1 mała litera",
+    "passwordSpecial": "Co najmniej 1 znak specjalny"
   }
 }

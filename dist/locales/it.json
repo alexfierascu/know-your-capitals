@@ -23,7 +23,9 @@
     "difficulty": "Difficoltà:",
     "timer": "Timer:",
     "region": "Regione:",
-    "numQuestions": "Numero di domande:"
+    "numQuestions": "Numero di domande:",
+    "nQuestions": "{{count}} Domande",
+    "allQuestions": "Tutte le {{count}} Domande"
   },
   "difficulty": {
     "easy": "Facile",
@@ -191,5 +193,37 @@
     "speedChallenge": "Riesci a rispondere a più domande in 60 secondi?",
     "scoreMessage": "Ho ottenuto {{score}}/{{total}} ({{percent}}%) nel Quiz Capitali Europee!",
     "results": "Risultati"
+  },
+  "auth": {
+    "welcome": "Accedi per salvare i tuoi progressi",
+    "email": "E-mail",
+    "password": "Password",
+    "displayName": "Nome visualizzato",
+    "signIn": "Accedi",
+    "signUp": "Registrati",
+    "signOut": "Esci",
+    "resetProgress": "Reimposta progressi",
+    "deleteAccount": "Elimina account",
+    "createAccount": "Crea account",
+    "noAccount": "Non hai un account?",
+    "hasAccount": "Hai già un account?",
+    "or": "o",
+    "continueWithGoogle": "Continua con Google",
+    "playAsGuest": "Gioca come ospite",
+    "verifyEmailTitle": "Controlla la tua e-mail",
+    "verifyEmailMessage": "Ti abbiamo inviato un link di verifica. Verifica la tua e-mail per continuare.",
+    "resendEmail": "Reinvia e-mail",
+    "iVerified": "Ho verificato",
+    "backToLogin": "Torna al login",
+    "forgotPassword": "Password dimenticata?",
+    "forgotPasswordDesc": "Inserisci la tua e-mail e ti invieremo un link per reimpostare la password.",
+    "sendResetLink": "Invia link",
+    "resetEmailSent": "E-mail di reimpostazione inviata! Controlla la tua casella di posta.",
+    "backToSignIn": "Torna al login",
+    "passwordRequirements": "Requisiti della password:",
+    "passwordMinLength": "Almeno 8 caratteri",
+    "passwordUppercase": "Almeno 1 lettera maiuscola",
+    "passwordLowercase": "Almeno 1 lettera minuscola",
+    "passwordSpecial": "Almeno 1 carattere speciale"
   }
 }

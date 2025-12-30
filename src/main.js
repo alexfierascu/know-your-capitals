@@ -26,6 +26,9 @@ import { initAuth } from './auth/auth.js';
 import { initAuthElements, setupAuthUI } from './auth/authUI.js';
 import { initDataSync, markInitialized } from './data/dataSync.js';
 
+// Import Web Components (auto-registers custom elements)
+import './ui/components/index.js';
+
 async function loadCountries() {
     try {
         const response = await fetch('countries.json');
@@ -84,10 +87,6 @@ function setupEventListeners() {
     elements.statsBtn.addEventListener('click', openStatsModal);
 
     // Keyboard navigation
-    elements.playerNameInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') elements.startBtn.click();
-    });
-
     document.addEventListener('keydown', (e) => {
         if (elements.quizScreen.classList.contains('active')) {
             const keyMap = {
@@ -110,9 +109,7 @@ function setupEventListeners() {
             }
         }
 
-        if (elements.startScreen.classList.contains('active') &&
-            e.key === 'Enter' &&
-            document.activeElement !== elements.playerNameInput) {
+        if (elements.startScreen.classList.contains('active') && e.key === 'Enter') {
             elements.startBtn.click();
         }
     });
@@ -136,6 +133,7 @@ async function initApp() {
         onLanguageChange: () => {
             loadFunFacts();
             populateRegionSelect();
+            updateFilteredCountries(); // This also updates question count options
         }
     });
 

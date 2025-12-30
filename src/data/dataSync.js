@@ -19,7 +19,7 @@ import {
 import { state } from './state.js';
 import { STORAGE_KEYS } from '../utils/constants.js';
 
-// Migration modal elements
+// Migration modal and data
 let migrationModal = null;
 let cloudData = null;
 let localData = null;
@@ -29,21 +29,17 @@ let migrationResolve = null;
  * Initialize data sync
  */
 export function initDataSync() {
-    // Get modal elements
+    // Get modal Web Component
     migrationModal = document.getElementById('migration-modal');
 
     if (!migrationModal) {
         console.warn('[DataSync] Migration modal not found in DOM');
+    } else {
+        // Listen for migration choice from Web Component
+        migrationModal.addEventListener('migration-choice', (e) => {
+            handleMigrationChoice(e.detail.choice);
+        });
     }
-
-    // Setup migration button handlers
-    const cloudBtn = document.getElementById('migration-cloud');
-    const localBtn = document.getElementById('migration-local');
-    const mergeBtn = document.getElementById('migration-merge');
-
-    if (cloudBtn) cloudBtn.addEventListener('click', () => handleMigrationChoice('cloud'));
-    if (localBtn) localBtn.addEventListener('click', () => handleMigrationChoice('local'));
-    if (mergeBtn) mergeBtn.addEventListener('click', () => handleMigrationChoice('merge'));
 
     console.log('[DataSync] Initialized, modal found:', !!migrationModal);
 
@@ -115,18 +111,9 @@ function showMigrationModal() {
     return new Promise((resolve) => {
         migrationResolve = resolve;
         if (migrationModal) {
-            migrationModal.hidden = false;
+            migrationModal.show();
         }
     });
-}
-
-/**
- * Hide migration modal
- */
-function hideMigrationModal() {
-    if (migrationModal) {
-        migrationModal.hidden = true;
-    }
 }
 
 /**
@@ -134,7 +121,7 @@ function hideMigrationModal() {
  */
 async function handleMigrationChoice(choice) {
     console.log('[DataSync] Migration choice:', choice);
-    hideMigrationModal();
+    // Modal closes itself after dispatching the event
 
     try {
         switch (choice) {

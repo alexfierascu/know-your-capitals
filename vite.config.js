@@ -1,12 +1,18 @@
 import { defineConfig } from 'vite';
 
-export default defineConfig(({ command, mode }) => ({
+export default defineConfig(({ command }) => ({
   // Only use base path in production build
   base: command === 'build' ? '/know-your-capitals/' : '/',
-  root: 'src',
-  publicDir: '../public',
+  publicDir: 'public',
   build: {
-    outDir: '../dist'
+    outDir: 'dist',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          firebase: ['firebase/app', 'firebase/auth', 'firebase/firestore', 'firebase/app-check']
+        }
+      }
+    }
   },
   server: {
     open: true

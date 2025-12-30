@@ -23,7 +23,9 @@
     "difficulty": "Dificultate:",
     "timer": "Cronometru:",
     "region": "Regiune:",
-    "numQuestions": "Număr de întrebări:"
+    "numQuestions": "Număr de întrebări:",
+    "nQuestions": "{{count}} Întrebări",
+    "allQuestions": "Toate cele {{count}} Întrebări"
   },
   "difficulty": {
     "easy": "Ușor",
@@ -191,5 +193,37 @@
     "speedChallenge": "Poți răspunde la mai multe întrebări în 60 de secunde?",
     "scoreMessage": "Am obținut {{score}}/{{total}} ({{percent}}%) la Quiz-ul Capitalele Europei!",
     "results": "Rezultate"
+  },
+  "auth": {
+    "welcome": "Conectează-te pentru a-ți urmări progresul",
+    "email": "E-mail",
+    "password": "Parolă",
+    "displayName": "Nume afișat",
+    "signIn": "Conectare",
+    "signUp": "Înregistrare",
+    "signOut": "Deconectare",
+    "resetProgress": "Resetează progresul",
+    "deleteAccount": "Șterge contul",
+    "createAccount": "Creează cont",
+    "noAccount": "Nu ai un cont?",
+    "hasAccount": "Ai deja un cont?",
+    "or": "sau",
+    "continueWithGoogle": "Continuă cu Google",
+    "playAsGuest": "Joacă ca oaspete",
+    "verifyEmailTitle": "Verifică-ți e-mailul",
+    "verifyEmailMessage": "Ți-am trimis un link de verificare. Te rugăm să verifici e-mailul pentru a continua.",
+    "resendEmail": "Retrimite e-mailul",
+    "iVerified": "Am verificat",
+    "backToLogin": "Înapoi la conectare",
+    "forgotPassword": "Ai uitat parola?",
+    "forgotPasswordDesc": "Introdu e-mailul și îți vom trimite un link pentru resetarea parolei.",
+    "sendResetLink": "Trimite linkul",
+    "resetEmailSent": "E-mail de resetare trimis! Verifică inbox-ul.",
+    "backToSignIn": "Înapoi la conectare",
+    "passwordRequirements": "Cerințe pentru parolă:",
+    "passwordMinLength": "Cel puțin 8 caractere",
+    "passwordUppercase": "Cel puțin 1 literă mare",
+    "passwordLowercase": "Cel puțin 1 literă mică",
+    "passwordSpecial": "Cel puțin 1 caracter special"
   }
 }

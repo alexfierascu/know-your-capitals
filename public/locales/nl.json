@@ -23,7 +23,9 @@
     "difficulty": "Moeilijkheid:",
     "timer": "Timer:",
     "region": "Regio:",
-    "numQuestions": "Aantal vragen:"
+    "numQuestions": "Aantal vragen:",
+    "nQuestions": "{{count}} Vragen",
+    "allQuestions": "Alle {{count}} Vragen"
   },
   "difficulty": {
     "easy": "Makkelijk",
@@ -191,5 +193,37 @@
     "speedChallenge": "Kun je meer vragen beantwoorden in 60 seconden?",
     "scoreMessage": "Ik scoorde {{score}}/{{total}} ({{percent}}%) op de Europese Hoofdsteden Quiz!",
     "results": "Resultaten"
+  },
+  "auth": {
+    "welcome": "Log in om je voortgang bij te houden",
+    "email": "E-mail",
+    "password": "Wachtwoord",
+    "displayName": "Weergavenaam",
+    "signIn": "Inloggen",
+    "signUp": "Registreren",
+    "signOut": "Uitloggen",
+    "resetProgress": "Voortgang resetten",
+    "deleteAccount": "Account verwijderen",
+    "createAccount": "Account aanmaken",
+    "noAccount": "Nog geen account?",
+    "hasAccount": "Al een account?",
+    "or": "of",
+    "continueWithGoogle": "Doorgaan met Google",
+    "playAsGuest": "Spelen als gast",
+    "verifyEmailTitle": "Controleer je e-mail",
+    "verifyEmailMessage": "We hebben je een verificatielink gestuurd. Verifieer je e-mail om door te gaan.",
+    "resendEmail": "E-mail opnieuw verzenden",
+    "iVerified": "Ik heb geverifieerd",
+    "backToLogin": "Terug naar inloggen",
+    "forgotPassword": "Wachtwoord vergeten?",
+    "forgotPasswordDesc": "Voer je e-mail in en we sturen je een link om je wachtwoord te resetten.",
+    "sendResetLink": "Link verzenden",
+    "resetEmailSent": "Reset e-mail verzonden! Controleer je inbox.",
+    "backToSignIn": "Terug naar inloggen",
+    "passwordRequirements": "Wachtwoordvereisten:",
+    "passwordMinLength": "Minimaal 8 tekens",
+    "passwordUppercase": "Minimaal 1 hoofdletter",
+    "passwordLowercase": "Minimaal 1 kleine letter",
+    "passwordSpecial": "Minimaal 1 speciaal teken"
   }
 }

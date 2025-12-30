@@ -23,7 +23,9 @@
     "difficulty": "Dificultad:",
     "timer": "Temporizador:",
     "region": "Region:",
-    "numQuestions": "Numero de preguntas:"
+    "numQuestions": "Numero de preguntas:",
+    "nQuestions": "{{count}} Preguntas",
+    "allQuestions": "Todas las {{count}} Preguntas"
   },
   "difficulty": {
     "easy": "Facil",
@@ -191,5 +193,37 @@
     "speedChallenge": "Puedes responder mas preguntas en 60 segundos?",
     "scoreMessage": "Obtuve {{score}}/{{total}} ({{percent}}%) en el Quiz de Capitales Europeas!",
     "results": "Resultados"
+  },
+  "auth": {
+    "welcome": "Inicia sesión para guardar tu progreso",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "displayName": "Nombre para mostrar",
+    "signIn": "Iniciar sesión",
+    "signUp": "Registrarse",
+    "signOut": "Cerrar sesión",
+    "resetProgress": "Restablecer progreso",
+    "deleteAccount": "Eliminar cuenta",
+    "createAccount": "Crear cuenta",
+    "noAccount": "¿No tienes una cuenta?",
+    "hasAccount": "¿Ya tienes una cuenta?",
+    "or": "o",
+    "continueWithGoogle": "Continuar con Google",
+    "playAsGuest": "Jugar como invitado",
+    "verifyEmailTitle": "Revisa tu correo",
+    "verifyEmailMessage": "Te hemos enviado un enlace de verificación. Por favor, verifica tu correo para continuar.",
+    "resendEmail": "Reenviar correo",
+    "iVerified": "Ya verifiqué",
+    "backToLogin": "Volver al inicio de sesión",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "forgotPasswordDesc": "Ingresa tu correo y te enviaremos un enlace para restablecer tu contraseña.",
+    "sendResetLink": "Enviar enlace",
+    "resetEmailSent": "¡Correo de restablecimiento enviado! Revisa tu bandeja de entrada.",
+    "backToSignIn": "Volver a iniciar sesión",
+    "passwordRequirements": "Requisitos de contraseña:",
+    "passwordMinLength": "Al menos 8 caracteres",
+    "passwordUppercase": "Al menos 1 letra mayúscula",
+    "passwordLowercase": "Al menos 1 letra minúscula",
+    "passwordSpecial": "Al menos 1 carácter especial"
   }
 }

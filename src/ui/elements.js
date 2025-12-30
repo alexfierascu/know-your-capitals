@@ -23,7 +23,6 @@ export function initElements() {
 
         // Start Screen
         startBtn: document.getElementById('start-btn'),
-        playerNameInput: document.getElementById('player-name'),
         difficultySelect: document.getElementById('difficulty-select'),
         difficultyHint: document.getElementById('difficulty-hint'),
         timerSelect: document.getElementById('timer-select'),
@@ -87,30 +86,14 @@ export function initElements() {
         shareToast: document.getElementById('share-toast'),
         achievementToast: document.getElementById('achievement-toast'),
 
-        // Stats Modal
+        // Stats Button
         statsBtn: document.getElementById('stats-btn'),
+
+        // Modal Web Components
         statsModal: document.getElementById('stats-modal'),
-        modalTabs: document.querySelectorAll('.modal-tab'),
-        modalTabContents: {
-            leaderboard: document.getElementById('tab-leaderboard'),
-            achievements: document.getElementById('tab-achievements'),
-            progress: document.getElementById('tab-progress')
-        },
-        leaderboardList: document.getElementById('leaderboard-list'),
-        leaderboardEmpty: document.getElementById('leaderboard-empty'),
-        statTotalQuizzes: document.getElementById('stat-total-quizzes'),
-        statBestStreak: document.getElementById('stat-best-streak'),
-        statAvgTime: document.getElementById('stat-avg-time'),
-        statAccuracy: document.getElementById('stat-accuracy'),
-        achievementsUnlocked: document.getElementById('achievements-unlocked'),
-        achievementsTotal: document.getElementById('achievements-total'),
-        achievementsGrid: document.getElementById('achievements-grid'),
-        progressMastered: document.getElementById('progress-mastered'),
-        progressLearning: document.getElementById('progress-learning'),
-        progressNew: document.getElementById('progress-new'),
-        progressList: document.getElementById('progress-list'),
-        progressFilterBtns: document.querySelectorAll('.progress-filter-btn'),
-        exportDataBtn: document.getElementById('export-data-btn'),
-        importDataInput: document.getElementById('import-data-input')
+        migrationModal: document.getElementById('migration-modal'),
+        resetConfirmModal: document.getElementById('reset-confirm-modal'),
+        deleteAccountModal: document.getElementById('delete-account-modal'),
+        profileModal: document.getElementById('profile-modal')
     };
 }

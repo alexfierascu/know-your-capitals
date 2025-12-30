@@ -36,15 +36,16 @@ export function saveToLeaderboard(name, score, total, difficulty, region) {
 }
 
 export function renderLeaderboard() {
-    const list = elements.leaderboardList;
+    const modal = elements.statsModal;
+    const list = modal.leaderboardList;
     list.innerHTML = '';
 
     if (state.leaderboard.length === 0) {
-        elements.leaderboardEmpty.hidden = false;
+        modal.leaderboardEmpty.hidden = false;
         return;
     }
 
-    elements.leaderboardEmpty.hidden = true;
+    modal.leaderboardEmpty.hidden = true;
 
     state.leaderboard.slice(0, 10).forEach((entry, index) => {
         const rankClass = index === 0 ? 'gold' : index === 1 ? 'silver' : index === 2 ? 'bronze' : '';

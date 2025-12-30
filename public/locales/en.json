@@ -23,7 +23,9 @@
     "difficulty": "Difficulty:",
     "timer": "Timer:",
     "region": "Region:",
-    "numQuestions": "Number of questions:"
+    "numQuestions": "Number of questions:",
+    "nQuestions": "{{count}} Questions",
+    "allQuestions": "All {{count}} Questions"
   },
   "difficulty": {
     "easy": "Easy",
@@ -217,7 +219,12 @@
     "forgotPasswordDesc": "Enter your email and we'll send you a link to reset your password.",
     "sendResetLink": "Send Reset Link",
     "resetEmailSent": "Password reset email sent! Check your inbox.",
-    "backToSignIn": "Back to sign in"
+    "backToSignIn": "Back to sign in",
+    "passwordRequirements": "Password requirements:",
+    "passwordMinLength": "At least 8 characters",
+    "passwordUppercase": "At least 1 uppercase letter",
+    "passwordLowercase": "At least 1 lowercase letter",
+    "passwordSpecial": "At least 1 special character"
   },
   "migration": {
     "title": "Data Found",

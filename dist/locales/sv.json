@@ -23,7 +23,9 @@
     "difficulty": "Svårighetsgrad:",
     "timer": "Timer:",
     "region": "Region:",
-    "numQuestions": "Antal frågor:"
+    "numQuestions": "Antal frågor:",
+    "nQuestions": "{{count}} Frågor",
+    "allQuestions": "Alla {{count}} Frågor"
   },
   "difficulty": {
     "easy": "Lätt",
@@ -191,5 +193,37 @@
     "speedChallenge": "Kan du svara på fler frågor på 60 sekunder?",
     "scoreMessage": "Jag fick {{score}}/{{total}} ({{percent}}%) på Europeiska Huvudstäder Quiz!",
     "results": "Resultat"
+  },
+  "auth": {
+    "welcome": "Logga in för att spåra dina framsteg",
+    "email": "E-post",
+    "password": "Lösenord",
+    "displayName": "Visningsnamn",
+    "signIn": "Logga in",
+    "signUp": "Registrera",
+    "signOut": "Logga ut",
+    "resetProgress": "Återställ framsteg",
+    "deleteAccount": "Radera konto",
+    "createAccount": "Skapa konto",
+    "noAccount": "Har du inget konto?",
+    "hasAccount": "Har du redan ett konto?",
+    "or": "eller",
+    "continueWithGoogle": "Fortsätt med Google",
+    "playAsGuest": "Spela som gäst",
+    "verifyEmailTitle": "Kontrollera din e-post",
+    "verifyEmailMessage": "Vi har skickat en verifieringslänk. Verifiera din e-post för att fortsätta.",
+    "resendEmail": "Skicka igen",
+    "iVerified": "Jag har verifierat",
+    "backToLogin": "Tillbaka till inloggning",
+    "forgotPassword": "Glömt lösenordet?",
+    "forgotPasswordDesc": "Ange din e-post så skickar vi en länk för att återställa ditt lösenord.",
+    "sendResetLink": "Skicka länk",
+    "resetEmailSent": "Återställningsmail skickat! Kontrollera din inkorg.",
+    "backToSignIn": "Tillbaka till inloggning",
+    "passwordRequirements": "Lösenordskrav:",
+    "passwordMinLength": "Minst 8 tecken",
+    "passwordUppercase": "Minst 1 stor bokstav",
+    "passwordLowercase": "Minst 1 liten bokstav",
+    "passwordSpecial": "Minst 1 specialtecken"
   }
 }

@@ -173,7 +173,7 @@ export function getUserDisplayInfo() {
 
     return {
         uid: currentUser.uid,
-        displayName: currentUser.displayName || 'Guest',
+        displayName: currentUser.displayName || null,
         email: currentUser.email,
         photoURL: currentUser.photoURL,
         isAnonymous: currentUser.isAnonymous

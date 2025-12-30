@@ -23,7 +23,9 @@
     "difficulty": "Schwierigkeit:",
     "timer": "Timer:",
     "region": "Region:",
-    "numQuestions": "Anzahl der Fragen:"
+    "numQuestions": "Anzahl der Fragen:",
+    "nQuestions": "{{count}} Fragen",
+    "allQuestions": "Alle {{count}} Fragen"
   },
   "difficulty": {
     "easy": "Leicht",
@@ -191,5 +193,37 @@
     "speedChallenge": "Kannst du mehr Fragen in 60 Sekunden beantworten?",
     "scoreMessage": "Ich habe {{score}}/{{total}} ({{percent}}%) beim Europäische Hauptstädte Quiz erreicht!",
     "results": "Ergebnisse"
+  },
+  "auth": {
+    "welcome": "Anmelden, um deinen Fortschritt zu speichern",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "displayName": "Anzeigename",
+    "signIn": "Anmelden",
+    "signUp": "Registrieren",
+    "signOut": "Abmelden",
+    "resetProgress": "Fortschritt zurücksetzen",
+    "deleteAccount": "Konto löschen",
+    "createAccount": "Konto erstellen",
+    "noAccount": "Noch kein Konto?",
+    "hasAccount": "Bereits ein Konto?",
+    "or": "oder",
+    "continueWithGoogle": "Mit Google fortfahren",
+    "playAsGuest": "Als Gast spielen",
+    "verifyEmailTitle": "Überprüfe deine E-Mail",
+    "verifyEmailMessage": "Wir haben dir einen Bestätigungslink gesendet. Bitte bestätige deine E-Mail, um fortzufahren.",
+    "resendEmail": "E-Mail erneut senden",
+    "iVerified": "Ich habe bestätigt",
+    "backToLogin": "Zurück zur Anmeldung",
+    "forgotPassword": "Passwort vergessen?",
+    "forgotPasswordDesc": "Gib deine E-Mail ein und wir senden dir einen Link zum Zurücksetzen deines Passworts.",
+    "sendResetLink": "Link senden",
+    "resetEmailSent": "E-Mail zum Zurücksetzen des Passworts gesendet! Überprüfe deinen Posteingang.",
+    "backToSignIn": "Zurück zur Anmeldung",
+    "passwordRequirements": "Passwortanforderungen:",
+    "passwordMinLength": "Mindestens 8 Zeichen",
+    "passwordUppercase": "Mindestens 1 Großbuchstabe",
+    "passwordLowercase": "Mindestens 1 Kleinbuchstabe",
+    "passwordSpecial": "Mindestens 1 Sonderzeichen"
   }
 }

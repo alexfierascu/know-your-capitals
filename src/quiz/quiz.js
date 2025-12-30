@@ -86,7 +86,11 @@ export function updateQuestionCountOptions(availableCount) {
     options.forEach(count => {
         const option = document.createElement('option');
         option.value = count;
-        option.textContent = count === availableCount ? `All ${count} Questions` : `${count} Questions`;
+        if (count === availableCount) {
+            option.textContent = t('settings.allQuestions', { count });
+        } else {
+            option.textContent = t('settings.nQuestions', { count });
+        }
         countSelect.appendChild(option);
     });
 
@@ -131,7 +135,9 @@ export function initQuiz() {
     const gameModeRadio = document.querySelector('input[name="game-mode"]:checked');
     state.gameMode = gameModeRadio ? gameModeRadio.value : 'classic';
 
-    state.playerName = elements.playerNameInput.value.trim() || 'Player';
+    // Get player name from user profile display
+    const userNameElement = document.getElementById('user-name');
+    state.playerName = userNameElement?.textContent?.trim() || 'Player';
     state.difficulty = elements.difficultySelect.value;
 
     if (state.gameMode === 'speedrun') {
@@ -380,9 +386,10 @@ export function nextQuestion() {
     state.currentQuestionIndex++;
 
     if (state.gameMode === 'speedrun') {
+        // If all questions have been answered, show results
         if (state.currentQuestionIndex >= state.questions.length) {
-            state.questions = shuffleArray([...state.filteredCountries]);
-            state.currentQuestionIndex = 0;
+            showResults();
+            return;
         }
         loadQuestion();
         return;

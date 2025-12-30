@@ -21,7 +21,7 @@ const app = initializeApp(firebaseConfig);
 
 // Initialize App Check (protects backend from abuse)
 if (import.meta.env.VITE_RECAPTCHA_SITE_KEY) {
-    // Enable debug mode for localhost
+    // In development, enable debug token - check console for the token
     if (import.meta.env.DEV) {
         self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
     }

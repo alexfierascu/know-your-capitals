@@ -23,7 +23,9 @@
     "difficulty": "Difficulty:",
     "timer": "Timer:",
     "region": "Region:",
-    "numQuestions": "Number of questions:"
+    "numQuestions": "Number of questions:",
+    "nQuestions": "{{count}} Questions",
+    "allQuestions": "All {{count}} Questions"
   },
   "difficulty": {
     "easy": "Easy",
@@ -191,5 +193,73 @@
     "speedChallenge": "Can you answer more questions in 60 seconds?",
     "scoreMessage": "I scored {{score}}/{{total}} ({{percent}}%) on the European Capitals Quiz!",
     "results": "Results"
+  },
+  "auth": {
+    "welcome": "Sign in to track your progress",
+    "email": "Email",
+    "password": "Password",
+    "displayName": "Display Name",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signOut": "Sign Out",
+    "resetProgress": "Reset Progress",
+    "deleteAccount": "Delete Account",
+    "createAccount": "Create Account",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "or": "or",
+    "continueWithGoogle": "Continue with Google",
+    "playAsGuest": "Play as Guest",
+    "verifyEmailTitle": "Check your email",
+    "verifyEmailMessage": "We've sent a verification link to your email. Please verify your email to continue.",
+    "resendEmail": "Resend Email",
+    "iVerified": "I've Verified",
+    "backToLogin": "Back to login",
+    "forgotPassword": "Forgot password?",
+    "forgotPasswordDesc": "Enter your email and we'll send you a link to reset your password.",
+    "sendResetLink": "Send Reset Link",
+    "resetEmailSent": "Password reset email sent! Check your inbox.",
+    "backToSignIn": "Back to sign in",
+    "passwordRequirements": "Password requirements:",
+    "passwordMinLength": "At least 8 characters",
+    "passwordUppercase": "At least 1 uppercase letter",
+    "passwordLowercase": "At least 1 lowercase letter",
+    "passwordSpecial": "At least 1 special character"
+  },
+  "migration": {
+    "title": "Data Found",
+    "message": "We found existing progress data. What would you like to do?",
+    "useCloud": "Use Cloud Data",
+    "useCloudDesc": "Keep your synced progress, discard local data",
+    "useLocal": "Use Local Data",
+    "useLocalDesc": "Keep this device's progress, replace cloud data",
+    "merge": "Merge Both",
+    "mergeDesc": "Combine local and cloud progress (Recommended)"
+  },
+  "reset": {
+    "title": "Reset Progress?",
+    "message": "This will permanently delete all your progress, achievements, and leaderboard scores. This action cannot be undone.",
+    "cancel": "Cancel",
+    "confirm": "Reset Everything"
+  },
+  "deleteAccount": {
+    "title": "Delete Account?",
+    "message": "This will permanently delete your account and all associated data. You will be able to register again with the same email. This action cannot be undone.",
+    "cancel": "Cancel",
+    "confirm": "Delete My Account"
+  },
+  "profile": {
+    "editProfile": "Edit Profile",
+    "title": "Edit Profile",
+    "completeProfile": "Complete Your Profile",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "nickname": "Nickname",
+    "nicknameHint": "This will be displayed in the app",
+    "location": "Location",
+    "age": "Age",
+    "avatarHint": "Max 100KB. Larger images will be compressed.",
+    "cancel": "Cancel",
+    "save": "Save Changes"
   }
 }

@@ -23,7 +23,9 @@
     "difficulty": "Difficulte:",
     "timer": "Minuterie:",
     "region": "Region:",
-    "numQuestions": "Nombre de questions:"
+    "numQuestions": "Nombre de questions:",
+    "nQuestions": "{{count}} Questions",
+    "allQuestions": "Les {{count}} Questions"
   },
   "difficulty": {
     "easy": "Facile",
@@ -191,5 +193,37 @@
     "speedChallenge": "Pouvez-vous repondre a plus de questions en 60 secondes?",
     "scoreMessage": "J'ai obtenu {{score}}/{{total}} ({{percent}}%) au Quiz des Capitales Europeennes!",
     "results": "Resultats"
+  },
+  "auth": {
+    "welcome": "Connectez-vous pour suivre vos progrès",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "displayName": "Nom d'affichage",
+    "signIn": "Se connecter",
+    "signUp": "S'inscrire",
+    "signOut": "Se déconnecter",
+    "resetProgress": "Réinitialiser la progression",
+    "deleteAccount": "Supprimer le compte",
+    "createAccount": "Créer un compte",
+    "noAccount": "Pas encore de compte?",
+    "hasAccount": "Déjà un compte?",
+    "or": "ou",
+    "continueWithGoogle": "Continuer avec Google",
+    "playAsGuest": "Jouer en tant qu'invité",
+    "verifyEmailTitle": "Vérifiez votre e-mail",
+    "verifyEmailMessage": "Nous vous avons envoyé un lien de vérification. Veuillez vérifier votre e-mail pour continuer.",
+    "resendEmail": "Renvoyer l'e-mail",
+    "iVerified": "J'ai vérifié",
+    "backToLogin": "Retour à la connexion",
+    "forgotPassword": "Mot de passe oublié?",
+    "forgotPasswordDesc": "Entrez votre e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.",
+    "sendResetLink": "Envoyer le lien",
+    "resetEmailSent": "E-mail de réinitialisation envoyé! Vérifiez votre boîte de réception.",
+    "backToSignIn": "Retour à la connexion",
+    "passwordRequirements": "Exigences du mot de passe:",
+    "passwordMinLength": "Au moins 8 caractères",
+    "passwordUppercase": "Au moins 1 lettre majuscule",
+    "passwordLowercase": "Au moins 1 lettre minuscule",
+    "passwordSpecial": "Au moins 1 caractère spécial"
   }
 }
