@@ -200,6 +200,8 @@
     "signIn": "Sign In",
     "signUp": "Sign Up",
     "signOut": "Sign Out",
+    "resetProgress": "Reset Progress",
+    "deleteAccount": "Delete Account",
     "createAccount": "Create Account",
     "noAccount": "Don't have an account?",
     "hasAccount": "Already have an account?",
@@ -226,5 +228,31 @@
     "useLocalDesc": "Keep this device's progress, replace cloud data",
     "merge": "Merge Both",
     "mergeDesc": "Combine local and cloud progress (Recommended)"
+  },
+  "reset": {
+    "title": "Reset Progress?",
+    "message": "This will permanently delete all your progress, achievements, and leaderboard scores. This action cannot be undone.",
+    "cancel": "Cancel",
+    "confirm": "Reset Everything"
+  },
+  "deleteAccount": {
+    "title": "Delete Account?",
+    "message": "This will permanently delete your account and all associated data. You will be able to register again with the same email. This action cannot be undone.",
+    "cancel": "Cancel",
+    "confirm": "Delete My Account"
+  },
+  "profile": {
+    "editProfile": "Edit Profile",
+    "title": "Edit Profile",
+    "completeProfile": "Complete Your Profile",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "nickname": "Nickname",
+    "nicknameHint": "This will be displayed in the app",
+    "location": "Location",
+    "age": "Age",
+    "avatarHint": "Max 100KB. Larger images will be compressed.",
+    "cancel": "Cancel",
+    "save": "Save Changes"
   }
 }

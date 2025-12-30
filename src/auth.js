@@ -14,7 +14,8 @@ import {
     GoogleAuthProvider,
     updateProfile,
     sendEmailVerification,
-    sendPasswordResetEmail
+    sendPasswordResetEmail,
+    deleteUser
 } from 'firebase/auth';
 
 const googleProvider = new GoogleAuthProvider();
@@ -233,4 +234,34 @@ function getErrorMessage(errorCode) {
     };
 
     return errorMessages[errorCode] || 'An error occurred. Please try again.';
+}
+
+/**
+ * Delete the current user's account
+ */
+export async function deleteAccount() {
+    try {
+        const user = auth.currentUser;
+        if (!user) {
+            return { success: false, error: 'No user is signed in.' };
+        }
+
+        await deleteUser(user);
+        currentUser = null;
+
+        return { success: true };
+    } catch (error) {
+        console.error('Error deleting account:', error);
+
+        // Handle requires-recent-login error
+        if (error.code === 'auth/requires-recent-login') {
+            return {
+                success: false,
+                error: 'For security, please sign out and sign in again before deleting your account.',
+                requiresReauth: true
+            };
+        }
+
+        return { success: false, error: getErrorMessage(error.code) };
+    }
 }

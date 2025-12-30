@@ -4,7 +4,7 @@
  */
 
 import { db } from './firebase.js';
-import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { getCurrentUser } from './auth.js';
 import { STORAGE_KEYS } from './constants.js';
 import { state } from './state.js';
@@ -281,4 +281,108 @@ export function isDataDifferent(localData, cloudData) {
 export async function syncToCloud() {
     const data = getCurrentStatsForSave();
     return await saveUserData(data);
+}
+
+/**
+ * Get user profile from Firestore
+ */
+export async function getUserProfile() {
+    const userId = getCurrentUserId();
+    if (!userId) return null;
+
+    try {
+        const docRef = getUserDocRef(userId);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            const data = docSnap.data();
+            return {
+                firstName: data.firstName || '',
+                lastName: data.lastName || '',
+                nickname: data.nickname || '',
+                location: data.location || '',
+                age: data.age || null,
+                avatarUrl: data.avatarUrl || null
+            };
+        }
+        return null;
+    } catch (error) {
+        console.error('Error loading user profile:', error);
+        return null;
+    }
+}
+
+/**
+ * Save user profile to Firestore
+ */
+export async function saveUserProfile(profileData) {
+    const userId = getCurrentUserId();
+    if (!userId) return false;
+
+    try {
+        const docRef = getUserDocRef(userId);
+
+        const dataToSave = {
+            firstName: profileData.firstName || '',
+            lastName: profileData.lastName || '',
+            nickname: profileData.nickname || '',
+            location: profileData.location || '',
+            age: profileData.age || null,
+            avatarUrl: profileData.avatarUrl || null,
+            profileUpdatedAt: new Date().toISOString()
+        };
+
+        await setDoc(docRef, dataToSave, { merge: true });
+        console.log('[UserStats] Profile saved');
+        return true;
+    } catch (error) {
+        console.error('Error saving user profile:', error);
+        return false;
+    }
+}
+
+/**
+ * Get display name from profile
+ */
+export function getDisplayNameFromProfile(profile) {
+    if (!profile) return null;
+
+    // Priority: nickname > firstName + lastName > firstName
+    if (profile.nickname) return profile.nickname;
+    if (profile.firstName && profile.lastName) {
+        return `${profile.firstName} ${profile.lastName}`;
+    }
+    if (profile.firstName) return profile.firstName;
+
+    return null;
+}
+
+/**
+ * Reset all user progress (local and cloud)
+ */
+export async function resetAllProgress() {
+    const userId = getCurrentUserId();
+
+    // Clear local storage
+    clearLocalData();
+
+    // Reset state
+    state.countryProgress = {};
+    state.leaderboard = [];
+    state.achievements = {};
+
+    // Delete from Firestore if user is logged in
+    if (userId) {
+        try {
+            const docRef = getUserDocRef(userId);
+            await deleteDoc(docRef);
+            console.log('[UserStats] Cloud data deleted');
+        } catch (error) {
+            console.error('Error deleting user data from Firestore:', error);
+            return false;
+        }
+    }
+
+    console.log('[UserStats] All progress reset');
+    return true;
 }
