@@ -3,7 +3,7 @@
  * Enables offline functionality and caching
  */
 
-const CACHE_NAME = 'euro-capitals-quiz-v8';
+const CACHE_NAME = 'euro-capitals-quiz-v9';
 // Only cache static assets - JS/CSS are hashed by Vite and cached via network-first strategy
 const ASSETS_TO_CACHE = [
     './',
@@ -11,6 +11,7 @@ const ASSETS_TO_CACHE = [
     './countries.json',
     './cities.json',
     './manifest.json',
+    // Locales
     './locales/en.json',
     './locales/es.json',
     './locales/fr.json',
@@ -30,7 +31,16 @@ const ASSETS_TO_CACHE = [
     './locales/fun-facts-pl.json',
     './locales/fun-facts-nl.json',
     './locales/fun-facts-ro.json',
-    './locales/fun-facts-sv.json'
+    './locales/fun-facts-sv.json',
+    // Icons for PWA
+    './icons/icon-72.png',
+    './icons/icon-96.png',
+    './icons/icon-128.png',
+    './icons/icon-144.png',
+    './icons/icon-152.png',
+    './icons/icon-192.png',
+    './icons/icon-384.png',
+    './icons/icon-512.png'
 ];
 
 // Install event - cache assets

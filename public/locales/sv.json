@@ -250,5 +250,13 @@
     "passwordUppercase": "Minst 1 stor bokstav",
     "passwordLowercase": "Minst 1 liten bokstav",
     "passwordSpecial": "Minst 1 specialtecken"
+  },
+  "pwa": {
+    "installTitle": "Installera App",
+    "installDesc": "Lägg till på hemskärmen",
+    "install": "Installera",
+    "later": "Senare",
+    "offline": "Du är offline",
+    "offlineDesc": "Vissa funktioner kan vara begränsade"
   }
 }

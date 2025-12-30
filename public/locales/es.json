@@ -250,5 +250,13 @@
     "passwordUppercase": "Al menos 1 letra mayúscula",
     "passwordLowercase": "Al menos 1 letra minúscula",
     "passwordSpecial": "Al menos 1 carácter especial"
+  },
+  "pwa": {
+    "installTitle": "Instalar App",
+    "installDesc": "Agregar a la pantalla de inicio",
+    "install": "Instalar",
+    "later": "Más tarde",
+    "offline": "Estás sin conexión",
+    "offlineDesc": "Algunas funciones pueden estar limitadas"
   }
 }

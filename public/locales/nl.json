@@ -250,5 +250,13 @@
     "passwordUppercase": "Minimaal 1 hoofdletter",
     "passwordLowercase": "Minimaal 1 kleine letter",
     "passwordSpecial": "Minimaal 1 speciaal teken"
+  },
+  "pwa": {
+    "installTitle": "App Installeren",
+    "installDesc": "Toevoegen aan startscherm",
+    "install": "Installeren",
+    "later": "Later",
+    "offline": "Je bent offline",
+    "offlineDesc": "Sommige functies kunnen beperkt zijn"
   }
 }

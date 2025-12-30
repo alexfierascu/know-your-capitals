@@ -250,5 +250,13 @@
     "passwordUppercase": "Cel puțin 1 literă mare",
     "passwordLowercase": "Cel puțin 1 literă mică",
     "passwordSpecial": "Cel puțin 1 caracter special"
+  },
+  "pwa": {
+    "installTitle": "Instalează Aplicația",
+    "installDesc": "Adaugă pe ecranul principal",
+    "install": "Instalează",
+    "later": "Mai târziu",
+    "offline": "Ești offline",
+    "offlineDesc": "Unele funcții pot fi limitate"
   }
 }

@@ -286,5 +286,13 @@
     "avatarHint": "Max 100KB. Larger images will be compressed.",
     "cancel": "Cancel",
     "save": "Save Changes"
+  },
+  "pwa": {
+    "installTitle": "Install App",
+    "installDesc": "Add to home screen for quick access",
+    "install": "Install",
+    "later": "Later",
+    "offline": "You're offline",
+    "offlineDesc": "Some features may be limited"
   }
 }

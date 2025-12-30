@@ -27,6 +27,7 @@ import { initAuthElements, setupAuthUI } from './auth/authUI.js';
 import { initDataSync, markInitialized } from './data/dataSync.js';
 import { initAnalytics, setAnalyticsConsent, hasAnalyticsConsent } from './utils/analytics.js';
 import { startOnboarding, shouldShowOnboarding } from './ui/onboarding.js';
+import { initPWAInstall } from './utils/pwa.js';
 
 // Import Web Components (auto-registers custom elements)
 import './ui/components/index.js';
@@ -282,6 +283,9 @@ async function initApp() {
 
     // Hide loading screen first for faster perceived load
     hideLoadingScreen();
+
+    // Initialize PWA install prompt
+    initPWAInstall();
 
     // Start onboarding tutorial for first-time users (after a short delay)
     if (shouldShowOnboarding()) {

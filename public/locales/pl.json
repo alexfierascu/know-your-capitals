@@ -250,5 +250,13 @@
     "passwordUppercase": "Co najmniej 1 wielka litera",
     "passwordLowercase": "Co najmniej 1 mała litera",
     "passwordSpecial": "Co najmniej 1 znak specjalny"
+  },
+  "pwa": {
+    "installTitle": "Zainstaluj Aplikację",
+    "installDesc": "Dodaj do ekranu głównego",
+    "install": "Zainstaluj",
+    "later": "Później",
+    "offline": "Jesteś offline",
+    "offlineDesc": "Niektóre funkcje mogą być ograniczone"
   }
 }
