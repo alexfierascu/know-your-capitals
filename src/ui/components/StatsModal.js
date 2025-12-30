@@ -438,6 +438,94 @@ export class StatsModal extends BaseModal {
                 font-style: normal;
             }
 
+            /* User Rank Display */
+            .user-rank-display {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.75rem;
+                padding: 0.75rem 1rem;
+                margin-bottom: 1rem;
+                background: linear-gradient(135deg, rgba(201, 162, 39, 0.15) 0%, rgba(201, 162, 39, 0.05) 100%);
+                border: 1px solid var(--color-primary, #c9a227);
+                border-radius: var(--radius-md, 12px);
+            }
+
+            .user-rank-display[hidden] {
+                display: none;
+            }
+
+            .user-rank-label {
+                font-size: 0.85rem;
+                color: var(--color-text, #e8e6e3);
+            }
+
+            .user-rank-value {
+                font-family: var(--font-display, 'Playfair Display', serif);
+                font-size: 1.25rem;
+                font-weight: 700;
+                color: var(--color-primary, #c9a227);
+            }
+
+            /* Skeleton Loading */
+            @keyframes skeleton-pulse {
+                0%, 100% { opacity: 0.4; }
+                50% { opacity: 0.8; }
+            }
+
+            .skeleton {
+                background: linear-gradient(90deg,
+                    var(--color-bg-card-light, #242b45) 0%,
+                    var(--color-bg-card, #1a1f35) 50%,
+                    var(--color-bg-card-light, #242b45) 100%);
+                background-size: 200% 100%;
+                animation: skeleton-pulse 1.5s ease-in-out infinite;
+                border-radius: var(--radius-sm, 8px);
+            }
+
+            .skeleton-entry {
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                padding: 0.75rem 1rem;
+                background: var(--color-bg-card-light, #242b45);
+                border-radius: var(--radius-md, 12px);
+                border: 1px solid var(--color-border-light, #1f2640);
+            }
+
+            .skeleton-avatar {
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+            }
+
+            .skeleton-text {
+                height: 12px;
+                border-radius: 6px;
+            }
+
+            .skeleton-text-lg {
+                height: 16px;
+                border-radius: 8px;
+            }
+
+            .skeleton-info {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .leaderboard-skeleton {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .leaderboard-skeleton[hidden] {
+                display: none;
+            }
+
             /* Achievements */
             .achievements-summary {
                 text-align: center;
@@ -731,7 +819,18 @@ export class StatsModal extends BaseModal {
                     <h2 data-i18n="stats.globalLeaderboard">Global Leaderboard</h2>
                     <p class="global-subtitle" data-i18n="stats.globalSubtitle">Top scores from players worldwide</p>
 
+                    <!-- User Rank Display -->
+                    <div id="user-rank-display" class="user-rank-display" hidden>
+                        <span class="user-rank-label" data-i18n="stats.yourRank">Your Rank</span>
+                        <span id="user-rank-value" class="user-rank-value">#-</span>
+                    </div>
+
                     <div class="global-filters">
+                        <select id="global-filter-time" class="global-filter-select">
+                            <option value="all" data-i18n="stats.allTime">All Time</option>
+                            <option value="week" data-i18n="stats.thisWeek">This Week</option>
+                            <option value="month" data-i18n="stats.thisMonth">This Month</option>
+                        </select>
                         <select id="global-filter-mode" class="global-filter-select">
                             <option value="all" data-i18n="stats.allModes">All Modes</option>
                             <option value="classic" data-i18n="settings.classic">Classic</option>
@@ -748,8 +847,34 @@ export class StatsModal extends BaseModal {
                     <div id="global-leaderboard-list" class="leaderboard-list global-leaderboard-list">
                         <!-- Global leaderboard entries will be inserted here -->
                     </div>
+                    <div id="global-leaderboard-skeleton" class="leaderboard-skeleton">
+                        <div class="skeleton-entry">
+                            <div class="skeleton skeleton-avatar"></div>
+                            <div class="skeleton-info">
+                                <div class="skeleton skeleton-text-lg" style="width: 60%;"></div>
+                                <div class="skeleton skeleton-text" style="width: 40%;"></div>
+                            </div>
+                            <div class="skeleton skeleton-text-lg" style="width: 50px;"></div>
+                        </div>
+                        <div class="skeleton-entry">
+                            <div class="skeleton skeleton-avatar"></div>
+                            <div class="skeleton-info">
+                                <div class="skeleton skeleton-text-lg" style="width: 70%;"></div>
+                                <div class="skeleton skeleton-text" style="width: 35%;"></div>
+                            </div>
+                            <div class="skeleton skeleton-text-lg" style="width: 50px;"></div>
+                        </div>
+                        <div class="skeleton-entry">
+                            <div class="skeleton skeleton-avatar"></div>
+                            <div class="skeleton-info">
+                                <div class="skeleton skeleton-text-lg" style="width: 50%;"></div>
+                                <div class="skeleton skeleton-text" style="width: 45%;"></div>
+                            </div>
+                            <div class="skeleton skeleton-text-lg" style="width: 50px;"></div>
+                        </div>
+                    </div>
                     <p id="global-leaderboard-empty" class="empty-state" hidden data-i18n="stats.noGlobalScores">No global scores yet. Be the first!</p>
-                    <p id="global-leaderboard-loading" class="empty-state" data-i18n="stats.loading">Loading...</p>
+                    <p id="global-leaderboard-loading" hidden></p>
                     <p id="global-leaderboard-guest" class="empty-state guest-notice" hidden data-i18n="stats.guestNotice">Sign in to see your rank and submit scores to the global leaderboard!</p>
                 </div>
 
@@ -883,12 +1008,14 @@ export class StatsModal extends BaseModal {
         // Global leaderboard filters
         const globalModeFilter = this.shadowRoot.getElementById('global-filter-mode');
         const globalDifficultyFilter = this.shadowRoot.getElementById('global-filter-difficulty');
+        const globalTimeFilter = this.shadowRoot.getElementById('global-filter-time');
 
         const emitGlobalFilterChange = () => {
             this.dispatchEvent(new CustomEvent('global-filter-change', {
                 detail: {
                     gameMode: globalModeFilter.value,
-                    difficulty: globalDifficultyFilter.value
+                    difficulty: globalDifficultyFilter.value,
+                    timeRange: globalTimeFilter.value
                 },
                 bubbles: true
             }));
@@ -896,6 +1023,7 @@ export class StatsModal extends BaseModal {
 
         globalModeFilter.addEventListener('change', emitGlobalFilterChange);
         globalDifficultyFilter.addEventListener('change', emitGlobalFilterChange);
+        globalTimeFilter.addEventListener('change', emitGlobalFilterChange);
     }
 
     /**
@@ -993,6 +1121,10 @@ export class StatsModal extends BaseModal {
         return this.shadowRoot.getElementById('global-leaderboard-loading');
     }
 
+    get globalLeaderboardSkeleton() {
+        return this.shadowRoot.getElementById('global-leaderboard-skeleton');
+    }
+
     get globalLeaderboardGuest() {
         return this.shadowRoot.getElementById('global-leaderboard-guest');
     }
@@ -1003,6 +1135,18 @@ export class StatsModal extends BaseModal {
 
     get globalFilterDifficulty() {
         return this.shadowRoot.getElementById('global-filter-difficulty');
+    }
+
+    get globalFilterTime() {
+        return this.shadowRoot.getElementById('global-filter-time');
+    }
+
+    get userRankDisplay() {
+        return this.shadowRoot.getElementById('user-rank-display');
+    }
+
+    get userRankValue() {
+        return this.shadowRoot.getElementById('user-rank-value');
     }
 
     /**

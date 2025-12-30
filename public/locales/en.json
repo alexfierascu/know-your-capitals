@@ -108,6 +108,9 @@
   },
   "stats": {
     "thisWeek": "This Week",
+    "thisMonth": "This Month",
+    "allTime": "All Time",
+    "yourRank": "Your Rank",
     "lifetimeStats": "Lifetime Stats",
     "quizzesPlayed": "Quizzes Played",
     "bestStreak": "Best Streak",
@@ -225,7 +228,8 @@
     "challenge": "Can you beat my score?",
     "speedChallenge": "Can you answer more questions in 60 seconds?",
     "scoreMessage": "I scored {{score}}/{{total}} ({{percent}}%) on the European Capitals Quiz!",
-    "results": "Results"
+    "results": "Results",
+    "tryIt": "Try it"
   },
   "auth": {
     "welcome": "Sign in to track your progress",
@@ -235,6 +239,7 @@
     "signIn": "Sign In",
     "signUp": "Sign Up",
     "signOut": "Sign Out",
+    "exitGuestMode": "Exit Guest Mode",
     "resetProgress": "Reset Progress",
     "deleteAccount": "Delete Account",
     "createAccount": "Create Account",
@@ -304,7 +309,8 @@
     "gotIt": "Got it",
     "iosStep1": "Tap the share button",
     "iosStep2": "Select \"Add to Home Screen\"",
-    "offline": "You're offline",
-    "offlineDesc": "Some features may be limited"
+    "offline": "Offline",
+    "offlineDesc": "Some features may be limited",
+    "syncing": "Syncing..."
   }
 }

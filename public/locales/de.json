@@ -108,6 +108,9 @@
   },
   "stats": {
     "thisWeek": "Diese Woche",
+    "thisMonth": "Diesen Monat",
+    "allTime": "Gesamt",
+    "yourRank": "Dein Rang",
     "lifetimeStats": "Gesamtstatistik",
     "quizzesPlayed": "Gespielte Quiz",
     "bestStreak": "Beste Serie",
@@ -225,7 +228,8 @@
     "challenge": "Kannst du meine Punktzahl schlagen?",
     "speedChallenge": "Kannst du mehr Fragen in 60 Sekunden beantworten?",
     "scoreMessage": "Ich habe {{score}}/{{total}} ({{percent}}%) beim Europäische Hauptstädte Quiz erreicht!",
-    "results": "Ergebnisse"
+    "results": "Ergebnisse",
+    "tryIt": "Probier es aus"
   },
   "auth": {
     "welcome": "Anmelden, um deinen Fortschritt zu speichern",
@@ -235,6 +239,7 @@
     "signIn": "Anmelden",
     "signUp": "Registrieren",
     "signOut": "Abmelden",
+    "exitGuestMode": "Gastmodus beenden",
     "resetProgress": "Fortschritt zurücksetzen",
     "deleteAccount": "Konto löschen",
     "createAccount": "Konto erstellen",
@@ -268,7 +273,8 @@
     "gotIt": "Verstanden",
     "iosStep1": "Tippe auf die Teilen-Taste",
     "iosStep2": "Wähle \"Zum Home-Bildschirm\"",
-    "offline": "Du bist offline",
-    "offlineDesc": "Einige Funktionen sind eingeschränkt"
+    "offline": "Offline",
+    "offlineDesc": "Einige Funktionen sind eingeschränkt",
+    "syncing": "Synchronisiere..."
   }
 }

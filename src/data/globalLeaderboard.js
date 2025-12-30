@@ -71,8 +71,23 @@ export async function submitToGlobalLeaderboard(scoreData) {
 }
 
 /**
+ * Get timestamp for time range filtering
+ */
+function getTimeRangeTimestamp(timeRange) {
+    if (!timeRange || timeRange === 'all') return null;
+
+    const now = new Date();
+    if (timeRange === 'week') {
+        return new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+    } else if (timeRange === 'month') {
+        return new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+    }
+    return null;
+}
+
+/**
  * Fetch global leaderboard entries
- * @param {Object} filters - Optional filters { difficulty, region, gameMode }
+ * @param {Object} filters - Optional filters { difficulty, region, gameMode, timeRange }
  * @param {number} limit - Max entries to fetch (default 50)
  */
 export async function fetchGlobalLeaderboard(filters = {}, limit = 50) {
@@ -85,7 +100,7 @@ export async function fetchGlobalLeaderboard(filters = {}, limit = 50) {
     }
 
     try {
-        const { query, orderBy, limit: limitFn, getDocs, where } = await getFirestoreModule();
+        const { query, orderBy, limit: limitFn, getDocs, where, Timestamp } = await getFirestoreModule();
         const collectionRef = await getLeaderboardCollection();
 
         // Build query with filters
@@ -99,6 +114,12 @@ export async function fetchGlobalLeaderboard(filters = {}, limit = 50) {
         }
         if (filters.gameMode && filters.gameMode !== 'all') {
             constraints.push(where('gameMode', '==', filters.gameMode));
+        }
+
+        // Time range filter
+        const timeRangeDate = getTimeRangeTimestamp(filters.timeRange);
+        if (timeRangeDate) {
+            constraints.push(where('timestamp', '>=', Timestamp.fromDate(timeRangeDate)));
         }
 
         // Always order by percentage descending, then by timestamp

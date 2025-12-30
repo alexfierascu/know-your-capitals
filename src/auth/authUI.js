@@ -844,6 +844,13 @@ async function handleAuthStateChange(user) {
             elements.deleteAccountBtn.style.display = 'none';
             elements.userDropdown.querySelector('.user-dropdown-divider').style.display = 'none';
 
+            // Change logout button text for guests
+            const logoutBtnText = elements.logoutBtn.querySelector('span');
+            if (logoutBtnText) {
+                logoutBtnText.textContent = 'Exit Guest Mode';
+                logoutBtnText.setAttribute('data-i18n', 'auth.exitGuestMode');
+            }
+
             if (elements.statsBtn) {
                 elements.statsBtn.hidden = false;
             }
@@ -949,6 +956,13 @@ async function updateUserProfile() {
     elements.resetProgressBtn.style.display = '';
     elements.deleteAccountBtn.style.display = '';
     elements.userDropdown.querySelector('.user-dropdown-divider').style.display = '';
+
+    // Reset logout button text for regular users
+    const logoutBtnText = elements.logoutBtn.querySelector('span');
+    if (logoutBtnText) {
+        logoutBtnText.textContent = 'Sign Out';
+        logoutBtnText.setAttribute('data-i18n', 'auth.signOut');
+    }
 
     // Update dropdown email
     if (userInfo.email) {

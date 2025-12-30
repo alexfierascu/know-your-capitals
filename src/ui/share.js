@@ -6,6 +6,70 @@ import { state } from '../data/state.js';
 import { elements } from './elements.js';
 import { t } from '../utils/i18n.js';
 
+/**
+ * Generate a challenge link with current quiz settings
+ */
+export function generateChallengeLink() {
+    const baseUrl = window.location.origin + window.location.pathname;
+    const params = new URLSearchParams();
+
+    // Add challenge marker
+    params.set('challenge', '1');
+
+    // Add game mode
+    params.set('mode', state.gameMode);
+
+    // Add difficulty
+    params.set('difficulty', state.difficulty);
+
+    // For classic mode, add additional settings
+    if (state.gameMode === 'classic') {
+        params.set('region', state.selectedRegion);
+        params.set('questions', state.totalQuestions.toString());
+        params.set('timer', state.timerSetting.toString());
+    }
+
+    return `${baseUrl}?${params.toString()}`;
+}
+
+/**
+ * Parse challenge link parameters and return settings
+ */
+export function parseChallengeParams() {
+    const params = new URLSearchParams(window.location.search);
+
+    if (!params.get('challenge')) {
+        return null;
+    }
+
+    const settings = {
+        gameMode: params.get('mode') || 'classic',
+        difficulty: params.get('difficulty') || 'medium',
+        region: params.get('region') || 'all',
+        questions: parseInt(params.get('questions')) || 10,
+        timer: parseInt(params.get('timer')) || 0
+    };
+
+    // Validate values
+    if (!['classic', 'speedrun'].includes(settings.gameMode)) {
+        settings.gameMode = 'classic';
+    }
+    if (!['easy', 'medium', 'hard'].includes(settings.difficulty)) {
+        settings.difficulty = 'medium';
+    }
+
+    return settings;
+}
+
+/**
+ * Clear challenge params from URL without reload
+ */
+export function clearChallengeParams() {
+    const url = new URL(window.location.href);
+    url.search = '';
+    window.history.replaceState({}, document.title, url.pathname);
+}
+
 export function getRegionName(regionId) {
     const regionKeys = {
         'all': 'regions.all',
@@ -33,6 +97,7 @@ export function shareResults() {
         ? Math.round((state.score / questionsAnswered) * 100)
         : 0;
     const difficultyText = t(`difficulty.${state.difficulty}`);
+    const challengeLink = generateChallengeLink();
 
     let shareText;
     if (state.gameMode === 'speedrun') {
@@ -41,7 +106,8 @@ export function shareResults() {
             `⏱️ ${t('share.mode')}: ${t('share.60secondChallenge')}\n` +
             `🎯 ${t('share.difficultyLabel')}: ${difficultyText}\n` +
             `👤 ${t('share.player')}: ${state.playerName}\n\n` +
-            `${t('share.speedChallenge')} 🏆`;
+            `${t('share.speedChallenge')} 🏆\n\n` +
+            `${t('share.tryIt')}: ${challengeLink}`;
     } else {
         const regionName = getRegionName(state.selectedRegion);
         shareText = `🌍 ${t('share.title')}\n\n` +
@@ -49,13 +115,15 @@ export function shareResults() {
             `🎯 ${t('share.difficultyLabel')}: ${difficultyText}\n` +
             `🗺️ ${t('share.regionLabel')}: ${regionName}\n` +
             `👤 ${t('share.player')}: ${state.playerName}\n\n` +
-            `${t('share.challenge')} 🏆`;
+            `${t('share.challenge')} 🏆\n\n` +
+            `${t('share.tryIt')}: ${challengeLink}`;
     }
 
     if (navigator.share) {
         navigator.share({
             title: t('share.title'),
-            text: shareText
+            text: shareText,
+            url: challengeLink
         }).catch(() => {
             copyToClipboard(shareText);
         });

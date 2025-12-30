@@ -108,6 +108,9 @@
   },
   "stats": {
     "thisWeek": "Esta Semana",
+    "thisMonth": "Este Mes",
+    "allTime": "Todos los Tiempos",
+    "yourRank": "Tu Posición",
     "lifetimeStats": "Estadisticas Totales",
     "quizzesPlayed": "Cuestionarios Jugados",
     "bestStreak": "Mejor Racha",
@@ -225,7 +228,8 @@
     "challenge": "Puedes superar mi puntuacion?",
     "speedChallenge": "Puedes responder mas preguntas en 60 segundos?",
     "scoreMessage": "Obtuve {{score}}/{{total}} ({{percent}}%) en el Quiz de Capitales Europeas!",
-    "results": "Resultados"
+    "results": "Resultados",
+    "tryIt": "Pruébalo"
   },
   "auth": {
     "welcome": "Inicia sesión para guardar tu progreso",
@@ -235,6 +239,7 @@
     "signIn": "Iniciar sesión",
     "signUp": "Registrarse",
     "signOut": "Cerrar sesión",
+    "exitGuestMode": "Salir del modo invitado",
     "resetProgress": "Restablecer progreso",
     "deleteAccount": "Eliminar cuenta",
     "createAccount": "Crear cuenta",
@@ -268,7 +273,8 @@
     "gotIt": "Entendido",
     "iosStep1": "Toca el botón compartir",
     "iosStep2": "Selecciona \"Añadir a pantalla de inicio\"",
-    "offline": "Estás sin conexión",
-    "offlineDesc": "Algunas funciones pueden estar limitadas"
+    "offline": "Sin conexión",
+    "offlineDesc": "Algunas funciones pueden estar limitadas",
+    "syncing": "Sincronizando..."
   }
 }

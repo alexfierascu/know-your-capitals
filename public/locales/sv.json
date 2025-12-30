@@ -108,6 +108,9 @@
   },
   "stats": {
     "thisWeek": "Denna Vecka",
+    "thisMonth": "Denna Månad",
+    "allTime": "Hela Tiden",
+    "yourRank": "Din Placering",
     "lifetimeStats": "Total Statistik",
     "quizzesPlayed": "Spelade Quiz",
     "bestStreak": "Bästa Sviten",
@@ -225,7 +228,8 @@
     "challenge": "Kan du slå min poäng?",
     "speedChallenge": "Kan du svara på fler frågor på 60 sekunder?",
     "scoreMessage": "Jag fick {{score}}/{{total}} ({{percent}}%) på Europeiska Huvudstäder Quiz!",
-    "results": "Resultat"
+    "results": "Resultat",
+    "tryIt": "Prova"
   },
   "auth": {
     "welcome": "Logga in för att spåra dina framsteg",
@@ -235,6 +239,7 @@
     "signIn": "Logga in",
     "signUp": "Registrera",
     "signOut": "Logga ut",
+    "exitGuestMode": "Avsluta gästläge",
     "resetProgress": "Återställ framsteg",
     "deleteAccount": "Radera konto",
     "createAccount": "Skapa konto",
@@ -268,7 +273,8 @@
     "gotIt": "Uppfattat",
     "iosStep1": "Tryck på delningsknappen",
     "iosStep2": "Välj \"Lägg till på hemskärmen\"",
-    "offline": "Du är offline",
-    "offlineDesc": "Vissa funktioner kan vara begränsade"
+    "offline": "Offline",
+    "offlineDesc": "Vissa funktioner kan vara begränsade",
+    "syncing": "Synkar..."
   }
 }

@@ -108,6 +108,9 @@
   },
   "stats": {
     "thisWeek": "Deze Week",
+    "thisMonth": "Deze Maand",
+    "allTime": "Altijd",
+    "yourRank": "Jouw Rang",
     "lifetimeStats": "Totale Statistieken",
     "quizzesPlayed": "Quizzen Gespeeld",
     "bestStreak": "Beste Reeks",
@@ -225,7 +228,8 @@
     "challenge": "Kun je mijn score verslaan?",
     "speedChallenge": "Kun je meer vragen beantwoorden in 60 seconden?",
     "scoreMessage": "Ik scoorde {{score}}/{{total}} ({{percent}}%) op de Europese Hoofdsteden Quiz!",
-    "results": "Resultaten"
+    "results": "Resultaten",
+    "tryIt": "Probeer het"
   },
   "auth": {
     "welcome": "Log in om je voortgang bij te houden",
@@ -235,6 +239,7 @@
     "signIn": "Inloggen",
     "signUp": "Registreren",
     "signOut": "Uitloggen",
+    "exitGuestMode": "Gastmodus verlaten",
     "resetProgress": "Voortgang resetten",
     "deleteAccount": "Account verwijderen",
     "createAccount": "Account aanmaken",
@@ -268,7 +273,8 @@
     "gotIt": "Begrepen",
     "iosStep1": "Tik op de deelknop",
     "iosStep2": "Selecteer \"Zet op beginscherm\"",
-    "offline": "Je bent offline",
-    "offlineDesc": "Sommige functies kunnen beperkt zijn"
+    "offline": "Offline",
+    "offlineDesc": "Sommige functies kunnen beperkt zijn",
+    "syncing": "Synchroniseren..."
   }
 }

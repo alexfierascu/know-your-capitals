@@ -92,6 +92,26 @@
 
 <!-- Top Controls -->
 <div class="top-controls">
+    <!-- Offline/Sync Indicator -->
+    <div id="sync-indicator" class="sync-indicator" hidden>
+        <span class="sync-indicator-icon">
+            <svg class="icon-offline" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <line x1="1" y1="1" x2="23" y2="23"/>
+                <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/>
+                <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/>
+                <path d="M10.71 5.05A16 16 0 0 1 22.58 9"/>
+                <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/>
+                <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+                <line x1="12" y1="20" x2="12.01" y2="20"/>
+            </svg>
+            <svg class="icon-syncing" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M21 12a9 9 0 1 1-9-9"/>
+                <polyline points="21 3 21 9 15 9"/>
+            </svg>
+        </span>
+        <span id="sync-indicator-text" class="sync-indicator-text" data-i18n="pwa.offline">Offline</span>
+    </div>
+
     <!-- Stats Button (only visible when logged in) -->
     <button id="stats-btn" class="stats-btn" aria-label="View stats, achievements and leaderboard" title="Stats & Achievements" hidden>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">

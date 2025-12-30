@@ -11,7 +11,7 @@ import { t } from '../utils/i18n.js';
 import { renderLeaderboard } from './leaderboard.js';
 import { getRegionName } from './share.js';
 import { getCountryMasteryLevel } from './progress.js';
-import { fetchGlobalLeaderboard } from '../data/globalLeaderboard.js';
+import { fetchGlobalLeaderboard, getUserGlobalRank } from '../data/globalLeaderboard.js';
 import { getCurrentUser, isGuest } from '../auth/auth.js';
 import { escapeHtml } from '../utils/utils.js';
 
@@ -284,14 +284,17 @@ export async function renderGlobalLeaderboard(filters = {}) {
     const modal = elements.statsModal;
     const list = modal.globalLeaderboardList;
     const emptyState = modal.globalLeaderboardEmpty;
-    const loadingState = modal.globalLeaderboardLoading;
+    const skeleton = modal.globalLeaderboardSkeleton;
     const guestNotice = modal.globalLeaderboardGuest;
+    const userRankDisplay = modal.userRankDisplay;
+    const userRankValue = modal.userRankValue;
 
-    // Clear previous entries
+    // Clear previous entries and show skeleton
     list.innerHTML = '';
     emptyState.hidden = true;
     guestNotice.hidden = true;
-    loadingState.hidden = false;
+    skeleton.hidden = false;
+    userRankDisplay.hidden = true;
 
     const user = getCurrentUser();
     const isGuestUser = !user || user.isAnonymous;
@@ -302,9 +305,19 @@ export async function renderGlobalLeaderboard(filters = {}) {
     }
 
     try {
-        const entries = await fetchGlobalLeaderboard(filters, 25);
+        // Fetch entries and user rank in parallel
+        const [entries, userRankData] = await Promise.all([
+            fetchGlobalLeaderboard(filters, 25),
+            isGuestUser ? Promise.resolve(null) : getUserGlobalRank(filters)
+        ]);
 
-        loadingState.hidden = true;
+        skeleton.hidden = true;
+
+        // Show user rank if available
+        if (userRankData && userRankData.rank) {
+            userRankDisplay.hidden = false;
+            userRankValue.textContent = `#${userRankData.rank}`;
+        }
 
         if (entries.length === 0) {
             emptyState.hidden = false;
@@ -344,7 +357,7 @@ export async function renderGlobalLeaderboard(filters = {}) {
         });
     } catch (error) {
         console.error('[Stats] Error rendering global leaderboard:', error);
-        loadingState.hidden = true;
+        skeleton.hidden = true;
         emptyState.hidden = false;
     }
 }

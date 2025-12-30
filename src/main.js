@@ -20,7 +20,7 @@ import {
 } from './quiz/quiz.js';
 import { useLetterHint, useEliminateHint } from './quiz/hints.js';
 import { toggleReview } from './quiz/review.js';
-import { shareResults, shareResultsAsImage } from './ui/share.js';
+import { shareResults, shareResultsAsImage, parseChallengeParams, clearChallengeParams } from './ui/share.js';
 import { openStatsModal, setupModalListeners } from './ui/stats.js';
 import { initAuth } from './auth/auth.js';
 import { initAuthElements, setupAuthUI } from './auth/authUI.js';
@@ -28,6 +28,7 @@ import { initDataSync, markInitialized } from './data/dataSync.js';
 import { initAnalytics, setAnalyticsConsent, hasAnalyticsConsent } from './utils/analytics.js';
 import { startOnboarding, shouldShowOnboarding } from './ui/onboarding.js';
 import { initPWAInstall } from './utils/pwa.js';
+import { initSyncIndicator } from './utils/syncIndicator.js';
 
 // Import Web Components (auto-registers custom elements)
 import './ui/components/index.js';
@@ -166,19 +167,57 @@ function setupLegalModals() {
  * Setup offline indicator
  */
 function setupOfflineIndicator() {
-    const indicator = document.getElementById('offline-indicator');
-    if (!indicator) return;
+    // Initialize the sync indicator module
+    initSyncIndicator();
+}
 
-    const updateOnlineStatus = () => {
-        indicator.hidden = navigator.onLine;
-    };
+/**
+ * Apply challenge settings from URL parameters
+ */
+function applyChallengeSettings() {
+    const challengeSettings = parseChallengeParams();
+    if (!challengeSettings) return;
 
-    // Initial check
-    updateOnlineStatus();
+    console.log('[Challenge] Applying settings:', challengeSettings);
 
-    // Listen for changes
-    window.addEventListener('online', updateOnlineStatus);
-    window.addEventListener('offline', updateOnlineStatus);
+    // Apply game mode
+    const gameModeRadio = document.querySelector(`input[name="game-mode"][value="${challengeSettings.gameMode}"]`);
+    if (gameModeRadio) {
+        gameModeRadio.checked = true;
+        gameModeRadio.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+
+    // Apply difficulty
+    if (elements.difficultySelect) {
+        elements.difficultySelect.value = challengeSettings.difficulty;
+        updateDifficultyHint();
+    }
+
+    // For classic mode, apply additional settings
+    if (challengeSettings.gameMode === 'classic') {
+        // Apply region
+        if (elements.regionSelect) {
+            elements.regionSelect.value = challengeSettings.region;
+            updateFilteredCountries();
+        }
+
+        // Apply timer
+        if (elements.timerSelect) {
+            elements.timerSelect.value = challengeSettings.timer.toString();
+        }
+
+        // Apply question count (must be after updateFilteredCountries)
+        if (elements.questionCountSelect) {
+            const options = Array.from(elements.questionCountSelect.options);
+            const hasOption = options.some(opt => parseInt(opt.value) === challengeSettings.questions);
+            if (hasOption) {
+                elements.questionCountSelect.value = challengeSettings.questions.toString();
+            }
+        }
+    }
+
+    // Clear the URL parameters to prevent re-applying on refresh
+    clearChallengeParams();
 }
 
 /**
@@ -268,6 +307,9 @@ async function initApp() {
     populateRegionSelect();
     updateFilteredCountries();
     updateDifficultyHint();
+
+    // Apply challenge settings if present in URL
+    applyChallengeSettings();
 
     // Setup event listeners
     setupEventListeners();

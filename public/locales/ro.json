@@ -108,6 +108,9 @@
   },
   "stats": {
     "thisWeek": "Săptămâna Aceasta",
+    "thisMonth": "Luna Aceasta",
+    "allTime": "Tot Timpul",
+    "yourRank": "Poziția Ta",
     "lifetimeStats": "Statistici Totale",
     "quizzesPlayed": "Quiz-uri Jucate",
     "bestStreak": "Cea Mai Bună Serie",
@@ -225,7 +228,8 @@
     "challenge": "Poți să-mi depășești scorul?",
     "speedChallenge": "Poți răspunde la mai multe întrebări în 60 de secunde?",
     "scoreMessage": "Am obținut {{score}}/{{total}} ({{percent}}%) la Quiz-ul Capitalele Europei!",
-    "results": "Rezultate"
+    "results": "Rezultate",
+    "tryIt": "Încearcă"
   },
   "auth": {
     "welcome": "Conectează-te pentru a-ți urmări progresul",
@@ -235,6 +239,7 @@
     "signIn": "Conectare",
     "signUp": "Înregistrare",
     "signOut": "Deconectare",
+    "exitGuestMode": "Ieși din modul oaspete",
     "resetProgress": "Resetează progresul",
     "deleteAccount": "Șterge contul",
     "createAccount": "Creează cont",
@@ -268,7 +273,8 @@
     "gotIt": "Am înțeles",
     "iosStep1": "Apasă pe butonul de partajare",
     "iosStep2": "Selectează \"Adaugă pe ecranul principal\"",
-    "offline": "Ești offline",
-    "offlineDesc": "Unele funcții pot fi limitate"
+    "offline": "Offline",
+    "offlineDesc": "Unele funcții pot fi limitate",
+    "syncing": "Sincronizare..."
   }
 }
