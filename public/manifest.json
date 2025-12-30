@@ -2,7 +2,7 @@
   "name": "European Capitals Quiz",
   "short_name": "Capitals Quiz",
   "description": "Test your knowledge of European capital cities",
-  "start_url": "/",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#0f1729",
   "theme_color": "#c9a227",
