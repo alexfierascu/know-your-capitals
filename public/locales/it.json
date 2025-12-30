@@ -254,8 +254,12 @@
   "pwa": {
     "installTitle": "Installa App",
     "installDesc": "Aggiungi alla schermata home",
+    "iosInstallDesc": "Tocca il pulsante condividi e seleziona \"Aggiungi a Home\"",
     "install": "Installa",
     "later": "Più tardi",
+    "gotIt": "Capito",
+    "iosStep1": "Tocca il pulsante condividi",
+    "iosStep2": "Seleziona \"Aggiungi a Home\"",
     "offline": "Sei offline",
     "offlineDesc": "Alcune funzionalità potrebbero essere limitate"
   }

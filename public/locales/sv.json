@@ -254,8 +254,12 @@
   "pwa": {
     "installTitle": "Installera App",
     "installDesc": "Lägg till på hemskärmen",
+    "iosInstallDesc": "Tryck på delningsknappen och välj \"Lägg till på hemskärmen\"",
     "install": "Installera",
     "later": "Senare",
+    "gotIt": "Uppfattat",
+    "iosStep1": "Tryck på delningsknappen",
+    "iosStep2": "Välj \"Lägg till på hemskärmen\"",
     "offline": "Du är offline",
     "offlineDesc": "Vissa funktioner kan vara begränsade"
   }

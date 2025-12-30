@@ -254,8 +254,12 @@
   "pwa": {
     "installTitle": "App Installeren",
     "installDesc": "Toevoegen aan startscherm",
+    "iosInstallDesc": "Tik op de deelknop en selecteer \"Zet op beginscherm\"",
     "install": "Installeren",
     "later": "Later",
+    "gotIt": "Begrepen",
+    "iosStep1": "Tik op de deelknop",
+    "iosStep2": "Selecteer \"Zet op beginscherm\"",
     "offline": "Je bent offline",
     "offlineDesc": "Sommige functies kunnen beperkt zijn"
   }

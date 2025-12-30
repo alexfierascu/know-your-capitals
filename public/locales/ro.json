@@ -254,8 +254,12 @@
   "pwa": {
     "installTitle": "Instalează Aplicația",
     "installDesc": "Adaugă pe ecranul principal",
+    "iosInstallDesc": "Apasă pe butonul de partajare și selectează \"Adaugă pe ecranul principal\"",
     "install": "Instalează",
     "later": "Mai târziu",
+    "gotIt": "Am înțeles",
+    "iosStep1": "Apasă pe butonul de partajare",
+    "iosStep2": "Selectează \"Adaugă pe ecranul principal\"",
     "offline": "Ești offline",
     "offlineDesc": "Unele funcții pot fi limitate"
   }

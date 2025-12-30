@@ -254,8 +254,12 @@
   "pwa": {
     "installTitle": "App installieren",
     "installDesc": "Zum Startbildschirm hinzufügen",
+    "iosInstallDesc": "Tippe auf die Teilen-Taste und wähle \"Zum Home-Bildschirm\"",
     "install": "Installieren",
     "later": "Später",
+    "gotIt": "Verstanden",
+    "iosStep1": "Tippe auf die Teilen-Taste",
+    "iosStep2": "Wähle \"Zum Home-Bildschirm\"",
     "offline": "Du bist offline",
     "offlineDesc": "Einige Funktionen sind eingeschränkt"
   }

@@ -290,8 +290,12 @@
   "pwa": {
     "installTitle": "Install App",
     "installDesc": "Add to home screen for quick access",
+    "iosInstallDesc": "Tap the share button and select \"Add to Home Screen\"",
     "install": "Install",
     "later": "Later",
+    "gotIt": "Got it",
+    "iosStep1": "Tap the share button",
+    "iosStep2": "Select \"Add to Home Screen\"",
     "offline": "You're offline",
     "offlineDesc": "Some features may be limited"
   }

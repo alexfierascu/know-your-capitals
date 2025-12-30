@@ -254,8 +254,12 @@
   "pwa": {
     "installTitle": "Zainstaluj Aplikację",
     "installDesc": "Dodaj do ekranu głównego",
+    "iosInstallDesc": "Dotknij przycisku udostępniania i wybierz \"Dodaj do ekranu głównego\"",
     "install": "Zainstaluj",
     "later": "Później",
+    "gotIt": "Rozumiem",
+    "iosStep1": "Dotknij przycisku udostępniania",
+    "iosStep2": "Wybierz \"Dodaj do ekranu głównego\"",
     "offline": "Jesteś offline",
     "offlineDesc": "Niektóre funkcje mogą być ograniczone"
   }

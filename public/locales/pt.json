@@ -254,8 +254,12 @@
   "pwa": {
     "installTitle": "Instalar App",
     "installDesc": "Adicionar à tela inicial",
+    "iosInstallDesc": "Toque no botão de compartilhar e selecione \"Adicionar à Tela de Início\"",
     "install": "Instalar",
     "later": "Mais tarde",
+    "gotIt": "Entendi",
+    "iosStep1": "Toque no botão de compartilhar",
+    "iosStep2": "Selecione \"Adicionar à Tela de Início\"",
     "offline": "Você está offline",
     "offlineDesc": "Algumas funcionalidades podem estar limitadas"
   }
