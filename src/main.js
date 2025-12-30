@@ -26,6 +26,7 @@ import { initAuth } from './auth/auth.js';
 import { initAuthElements, setupAuthUI } from './auth/authUI.js';
 import { initDataSync, markInitialized } from './data/dataSync.js';
 import { initAnalytics, setAnalyticsConsent, hasAnalyticsConsent } from './utils/analytics.js';
+import { startOnboarding, shouldShowOnboarding } from './ui/onboarding.js';
 
 // Import Web Components (auto-registers custom elements)
 import './ui/components/index.js';
@@ -281,6 +282,11 @@ async function initApp() {
 
     // Hide loading screen first for faster perceived load
     hideLoadingScreen();
+
+    // Start onboarding tutorial for first-time users (after a short delay)
+    if (shouldShowOnboarding()) {
+        setTimeout(startOnboarding, 500);
+    }
 
     // Defer Firebase initialization to after initial render
     // This allows the page to be interactive before loading Firebase (~500KB)
