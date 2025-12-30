@@ -1,12 +1,12 @@
 # European Capitals Quiz
 
-A trivia game testing your knowledge of European capital cities. Built as a Progressive Web App (PWA) with offline support and multi-language support.
+A trivia game testing your knowledge of European capital cities. Built as a Progressive Web App (PWA) with offline support, cloud sync, and multi-language support.
 
 ## Features
 
 ### Game Modes
 - **Classic Mode** - Answer a set number of questions with optional per-question timer
-- **Speed Run Mode** - Answer as many questions as possible in 60 seconds
+- **Speed Run Mode** - Answer as many questions as possible in 60 seconds (stops when all 45 questions are answered)
 
 ### Gameplay
 - 45 European countries and capitals
@@ -17,13 +17,21 @@ A trivia game testing your knowledge of European capital cities. Built as a Prog
 - Interactive map showing capital location after answering
 - Fun facts about each capital city
 
+### User Accounts & Cloud Sync
+- Sign in with Google, Email/Password, or play as Guest
+- Email verification for new accounts
+- Password reset functionality
+- Profile with customizable nickname
+- Cloud sync of progress and stats via Firebase
+- Data migration when switching from guest to authenticated account
+
 ### Progress Tracking
 - Streak counter with confetti animations
 - Country mastery system (tracks accuracy per country)
 - Lifetime statistics (quizzes played, accuracy, best streak, avg time)
 - Weekly progress summary with activity chart
 - Achievements system (16 unlockable achievements)
-- Local leaderboard
+- Leaderboard
 
 ### Customization
 - Dark/Light theme with system auto-detection
@@ -32,14 +40,17 @@ A trivia game testing your knowledge of European capital cities. Built as a Prog
 
 ### Internationalization
 - 10 supported languages: English, Spanish, French, German, Italian, Portuguese, Polish, Dutch, Romanian, Swedish
+- Fully translated UI including auth screens
 - Localized fun facts for each language
 - Auto-detects browser language
 
 ### Technical
 - Progressive Web App (installable)
 - Offline support via Service Worker
+- Firebase Authentication & Firestore
 - Built with Vite
 - Modular ES6 JavaScript architecture
+- Web Components for modals
 - Responsive design
 
 ## Getting Started
@@ -48,12 +59,21 @@ A trivia game testing your knowledge of European capital cities. Built as a Prog
 
 - Node.js 18+
 - npm
+- Firebase project (for authentication and cloud sync)
 
 ### Installation
 
 ```bash
 npm install
 ```
+
+### Firebase Setup
+
+1. Create a Firebase project at [console.firebase.google.com](https://console.firebase.google.com)
+2. Enable Authentication (Google and Email/Password providers)
+3. Create a Firestore database
+4. Enable App Check with reCAPTCHA v3
+5. Copy your Firebase config to `src/auth/firebase.js`
 
 ### Development
 
@@ -80,48 +100,68 @@ npm run preview
 
 ```
 european-capitals/
-├── index.html          # Main HTML structure
-├── styles.css          # All styles
-├── sw.js               # Service Worker for offline support
-├── manifest.json       # PWA manifest
-├── vite.config.js      # Vite configuration
-├── package.json        # Dependencies and scripts
-├── countries.json      # Country and region data
-├── cities.json         # Cities for answer options
-├── src/                # Application source code
-│   ├── main.js         # Entry point
-│   ├── quiz.js         # Core quiz logic
-│   ├── stats.js        # Statistics tracking
-│   ├── state.js        # Application state
-│   ├── elements.js     # DOM element references
-│   ├── i18n.js         # Internationalization setup
-│   ├── storage.js      # LocalStorage management
-│   ├── theme.js        # Dark/Light theme toggle
-│   ├── achievements.js # Achievement system
-│   ├── hints.js        # Hint logic
-│   ├── share.js        # Results sharing
-│   ├── timer.js        # Game timer
-│   ├── confetti.js     # Confetti animations
-│   ├── leaderboard.js  # Local leaderboard
-│   ├── review.js       # Quiz review
-│   ├── progress.js     # Progress tracking
-│   ├── map.js          # Interactive map
-│   ├── options.js      # Game options
-│   ├── constants.js    # Static constants
-│   └── utils.js        # Utility functions
-├── locales/            # Translation files
-│   ├── en.json         # English
-│   ├── es.json         # Spanish
-│   ├── fr.json         # French
-│   ├── de.json         # German
-│   ├── it.json         # Italian
-│   ├── pt.json         # Portuguese
-│   ├── pl.json         # Polish
-│   ├── nl.json         # Dutch
-│   ├── ro.json         # Romanian
-│   ├── sv.json         # Swedish
-│   └── fun-facts-*.json # Localized fun facts
-└── icons/              # PWA icons (72px - 512px)
+├── index.html              # Main HTML structure
+├── sw.js                   # Service Worker for offline support
+├── manifest.json           # PWA manifest
+├── vite.config.js          # Vite configuration
+├── package.json            # Dependencies and scripts
+├── countries.json          # Country and region data
+├── cities.json             # Cities for answer options
+├── public/
+│   ├── locales/            # Translation files
+│   │   ├── en.json, es.json, fr.json, de.json, it.json
+│   │   ├── pt.json, pl.json, nl.json, ro.json, sv.json
+│   │   └── fun-facts-*.json
+│   └── icons/              # PWA icons (72px - 512px)
+├── src/
+│   ├── main.js             # Entry point
+│   ├── auth/               # Authentication
+│   │   ├── auth.js         # Auth logic
+│   │   ├── authUI.js       # Auth UI handling
+│   │   └── firebase.js     # Firebase configuration
+│   ├── data/               # Data management
+│   │   ├── state.js        # Application state
+│   │   ├── storage.js      # LocalStorage management
+│   │   ├── dataSync.js     # Cloud sync logic
+│   │   └── userStats.js    # User statistics
+│   ├── quiz/               # Quiz logic
+│   │   ├── quiz.js         # Core quiz logic
+│   │   ├── timer.js        # Game timer
+│   │   ├── hints.js        # Hint system
+│   │   ├── options.js      # Answer options generation
+│   │   └── review.js       # Quiz review
+│   ├── ui/                 # User interface
+│   │   ├── elements.js     # DOM element references
+│   │   ├── stats.js        # Statistics display
+│   │   ├── achievements.js # Achievement system
+│   │   ├── leaderboard.js  # Leaderboard
+│   │   ├── progress.js     # Progress tracking
+│   │   ├── share.js        # Results sharing
+│   │   ├── map.js          # Interactive map
+│   │   ├── confetti.js     # Confetti animations
+│   │   └── components/     # Web Components
+│   │       ├── BaseModal.js
+│   │       ├── StatsModal.js
+│   │       ├── ProfileModal.js
+│   │       ├── DeleteAccountModal.js
+│   │       ├── ResetConfirmModal.js
+│   │       └── MigrationModal.js
+│   ├── utils/              # Utilities
+│   │   ├── i18n.js         # Internationalization
+│   │   ├── theme.js        # Theme toggle
+│   │   ├── constants.js    # Static constants
+│   │   ├── utils.js        # Utility functions
+│   │   └── imageUtils.js   # Image utilities
+│   └── styles/             # CSS modules
+│       ├── main.css        # Imports all modules
+│       ├── base.css        # Variables and reset
+│       ├── layout.css      # Layout and containers
+│       ├── components.css  # Buttons, inputs, etc.
+│       ├── quiz.css        # Quiz screen styles
+│       ├── results.css     # Results screen styles
+│       ├── modals.css      # Modal styles
+│       ├── stats.css       # Stats display styles
+│       └── auth.css        # Authentication styles
 ```
 
 ## Data Files
@@ -179,7 +219,3 @@ european-capitals/
 ## License
 
 MIT
-
-## Future Plans
-
-See [MULTIPLAYER_ARCHITECTURE.md](./MULTIPLAYER_ARCHITECTURE.md) for planned multiplayer features.
