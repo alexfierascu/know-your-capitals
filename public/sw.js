@@ -3,14 +3,14 @@
  * Enables offline functionality and caching
  */
 
-const CACHE_NAME = 'euro-capitals-quiz-v7';
-// Note: In production, run `npm run build` and update these paths to the bundled output
+const CACHE_NAME = 'euro-capitals-quiz-v8';
+// Only cache static assets - JS/CSS are hashed by Vite and cached via network-first strategy
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
-    './styles.css',
     './countries.json',
     './cities.json',
+    './manifest.json',
     './locales/en.json',
     './locales/es.json',
     './locales/fr.json',
@@ -30,8 +30,7 @@ const ASSETS_TO_CACHE = [
     './locales/fun-facts-pl.json',
     './locales/fun-facts-nl.json',
     './locales/fun-facts-ro.json',
-    './locales/fun-facts-sv.json',
-    './manifest.json'
+    './locales/fun-facts-sv.json'
 ];
 
 // Install event - cache assets
@@ -111,7 +110,7 @@ self.addEventListener('fetch', (event) => {
                     .catch(() => {
                         // Return offline page for navigation requests
                         if (event.request.mode === 'navigate') {
-                            return caches.match('/index.html');
+                            return caches.match('./index.html');
                         }
                         return null;
                     });

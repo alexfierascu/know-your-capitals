@@ -20,8 +20,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 // Initialize App Check (protects backend from abuse)
+// Temporarily disabled - enable after configuring reCAPTCHA for production domain
+// To enable: add alexfierascu.github.io to reCAPTCHA v3 allowed domains at
+// https://www.google.com/recaptcha/admin and uncomment this block
+/*
 if (import.meta.env.VITE_RECAPTCHA_SITE_KEY) {
-    // In development, enable debug token - check console for the token
     if (import.meta.env.DEV) {
         self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
     }
@@ -31,6 +34,7 @@ if (import.meta.env.VITE_RECAPTCHA_SITE_KEY) {
         isTokenAutoRefreshEnabled: true
     });
 }
+*/
 
 export const auth = getAuth(app);
 export const db = getFirestore(app);
